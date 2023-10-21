@@ -43,7 +43,7 @@ article {
   border: 1px solid black;
 }
 
-.start-button {
+.start-btn {
   margin-top: 20px;
   background: lightgray;
   padding: 0.5rem 1rem;
@@ -55,7 +55,12 @@ article {
   transition: all 0.5s;
 }
 
-.start-button:hover {
+/* .start-btn:hover {
   background-color: cyan;
   color: white;
+} */
+
+.active {
+  color: gray;
+  background-color: whitesmoke;
 }

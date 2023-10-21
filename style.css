@@ -1,0 +1,44 @@
+:root {
+}
+
+* {
+  margin: 0;
+  padding: 0;
+  text-align: center;
+}
+
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+}
+
+article {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+.scores-container {
+  display: flex;
+  margin-bottom: 2rem;
+}
+
+.score {
+  margin-right: 50px;
+}
+.high-score {
+  margin-left: 50px;
+}
+
+.box-container {
+  display: flex;
+  justify-content: center;
+}
+
+.box {
+  width: 100px;
+  height: 100px;
+  background-color: #3498db;
+  border: 1px solid black;
+}

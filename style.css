@@ -39,6 +39,23 @@ article {
 .box {
   width: 100px;
   height: 100px;
-  background-color: #3498db;
+  background-color: #f1f1f1;
   border: 1px solid black;
+}
+
+.start-button {
+  margin-top: 20px;
+  background: lightgray;
+  padding: 0.5rem 1rem;
+  font-size: 1.5rem;
+  border: 2px solid var(--clr-black);
+  cursor: pointer;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.2);
+  border-radius: 0.25rem;
+  transition: all 0.5s;
+}
+
+.start-button:hover {
+  background-color: cyan;
+  color: white;
 }

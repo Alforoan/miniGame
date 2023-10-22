@@ -1,8 +1,9 @@
 const boxes = document.querySelectorAll(".box-container");
 const startBtn = document.querySelector(".start-btn");
 let sequence = [];
+let playerSequence = [];
 let level = 10;
-let gameRunning = false;
+let sequenceRunning = false;
 
 startBtn.addEventListener("click", function () {
   this.disabled = true;
@@ -12,6 +13,22 @@ startBtn.addEventListener("click", function () {
 startBtn.addEventListener("click", function () {
   generateSequence();
   playSequence();
+});
+
+boxes.forEach((box) => {
+  box.addEventListener("click", function (e) {
+    let clickedBox = e.target;
+    if (!sequenceRunning) {
+      playerSequence.push(parseInt(clickedBox.classList[1]));
+      console.log(playerSequence);
+    }
+
+    // if (e.target.classList.contains(sequence[0].toString())) {
+    //   console.log("correct");
+    // } else {
+    //   console.log("incorrect");
+    // }
+  });
 });
 
 function generateSequence() {
@@ -30,47 +47,23 @@ function generateSequence() {
       }
     }
   }
-  console.log(sequence);
 }
 
-generateSequence();
-
 function playSequence() {
+  sequenceRunning = true;
   let i = 0;
-  function coloNextBox() {
+  function colorNextBox() {
     if (i < sequence.length) {
       const box = document.getElementById(`box-${sequence[i]}`);
       box.style.backgroundColor = "blue";
       setTimeout(() => {
         box.style.backgroundColor = "#f1f1f1";
         i++;
-        coloNextBox();
+        colorNextBox();
       }, 1000);
+    } else {
+      sequenceRunning = false;
     }
   }
-  coloNextBox();
+  colorNextBox();
 }
-
-// function colorBox() {
-//   for (let i = 0; i < sequence.length; i++) {
-//     box.style.backgroundColor = "blue";
-//     setTimeout(() => {
-//       box.style.backgroundColor = "#f1f1f1";
-//     }, 1000);
-//   }
-// }
-
-// boxes.forEach((box) => {
-//     box.addEventListener("click", function (e) {
-//       const clickedBox = e.target;
-//       while (box.disabled) {
-//         let randomNumber = Math.floor(Math.random() * 5);
-//         if (clickedBox.classList.contains(`box-${randomNumber}`)) {
-//           console.log("correct");
-//         } else {
-//           console.log("incorrect");
-//           startBtn.disabled = false;
-//         }
-//       }
-//     });
-//   });

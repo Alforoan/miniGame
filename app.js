@@ -2,34 +2,47 @@ const boxes = document.querySelectorAll(".box-container");
 const startBtn = document.querySelector(".start-btn");
 let sequence = [];
 let playerSequence = [];
-let level = 10;
+let level = 1;
 let sequenceRunning = false;
 
 startBtn.addEventListener("click", function () {
   this.disabled = true;
   this.style.cursor = "auto";
-});
-
-startBtn.addEventListener("click", function () {
-  generateSequence();
-  playSequence();
+  startGame();
 });
 
 boxes.forEach((box) => {
   box.addEventListener("click", function (e) {
-    let clickedBox = e.target;
-    if (!sequenceRunning) {
-      playerSequence.push(parseInt(clickedBox.classList[1]));
-      console.log(playerSequence);
-    }
+    if (!sequenceRunning && startBtn.disabled === true) {
+      let boxNumber = parseInt(e.target.getAttribute("data-id"));
 
-    // if (e.target.classList.contains(sequence[0].toString())) {
-    //   console.log("correct");
-    // } else {
-    //   console.log("incorrect");
-    // }
+      let popped = sequence.shift();
+
+      if (popped !== boxNumber) {
+        gameOver();
+        return;
+      }
+
+      if (sequence.length === playerSequence.length) {
+        level++;
+        generateSequence();
+        playSequence();
+      }
+    }
   });
 });
+
+function startGame() {
+  playerSequence = [];
+  generateSequence();
+  playSequence();
+}
+
+function gameOver() {
+  level = 1;
+  startBtn.disabled = false;
+  console.log("you suck try again");
+}
 
 function generateSequence() {
   sequence = [];

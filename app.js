@@ -15,7 +15,7 @@ boxes.forEach((box) => {
   box.addEventListener("click", function (e) {
     if (!sequenceRunning && startBtn.disabled === true) {
       let boxNumber = parseInt(e.target.getAttribute("data-id"));
-
+      colorUserInputBox(boxNumber);
       let popped = sequence.shift();
 
       if (popped !== boxNumber) {
@@ -24,13 +24,28 @@ boxes.forEach((box) => {
       }
 
       if (sequence.length === playerSequence.length) {
-        level++;
-        generateSequence();
-        playSequence();
+        playNextLevel();
       }
     }
   });
 });
+function colorUserInputBox(boxNumber) {
+  const box = document.querySelector(`[data-id="${boxNumber}"]`);
+  box.style.backgroundColor = "yellow";
+  setTimeout(() => {
+    box.style.backgroundColor = "#f1f1f1";
+  }, 100);
+}
+function playNextLevel() {
+  level++;
+  if (level === 6) {
+    console.log("you have beaten the game!");
+    gameOver();
+    return;
+  }
+  generateSequence();
+  playSequence();
+}
 
 function startGame() {
   playerSequence = [];
@@ -41,7 +56,6 @@ function startGame() {
 function gameOver() {
   level = 1;
   startBtn.disabled = false;
-  console.log("you suck try again");
 }
 
 function generateSequence() {

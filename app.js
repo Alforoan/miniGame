@@ -1,8 +1,9 @@
-const randomNumber = Math.floor(Math.random() * 5);
-const box = document.getElementById(`box-${randomNumber}`);
+const box = document.getElementById(`box-1`);
 const boxes = document.querySelectorAll(".box-container");
 const startBtn = document.querySelector(".start-btn");
-let boxesArray = [];
+let sequence = [];
+let level = 1;
+let gameRunning = false;
 
 startBtn.addEventListener("click", function () {
   this.disabled = true;
@@ -11,24 +12,35 @@ startBtn.addEventListener("click", function () {
 
 startBtn.addEventListener("click", function () {
   startGame();
-
-  boxes.forEach((box) => {
-    box.addEventListener("click", function (e) {
-      if (e.target.classList.contains(`box-${randomNumber}`)) {
-        console.log("correct");
-      } else {
-        startBtn.disabled = false;
-      }
-    });
-  });
 });
 
-function startGame() {
-  if (startBtn.disabled) {
-    box.style.background = "blue";
+function generateSequence() {
+  sequence = [];
+  for (let i = 0; i < level; i++) {
+    sequence.push(Math.floor(Math.random() * 5));
   }
-  setTimeout(() => {
-    box.style.background = "#f1f1f1";
-  }, 1000);
-  boxesArray.push(randomNumber);
 }
+
+// function colorBox() {
+//   for (let i = 0; i < sequence.length; i++) {
+//     box.style.backgroundColor = "blue";
+//     setTimeout(() => {
+//       box.style.backgroundColor = "#f1f1f1";
+//     }, 1000);
+//   }
+// }
+
+// boxes.forEach((box) => {
+//     box.addEventListener("click", function (e) {
+//       const clickedBox = e.target;
+//       while (box.disabled) {
+//         let randomNumber = Math.floor(Math.random() * 5);
+//         if (clickedBox.classList.contains(`box-${randomNumber}`)) {
+//           console.log("correct");
+//         } else {
+//           console.log("incorrect");
+//           startBtn.disabled = false;
+//         }
+//       }
+//     });
+//   });

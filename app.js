@@ -5,10 +5,15 @@ const highScoreText = document.querySelector(".high-score");
 let sequence = [];
 let level = 1;
 let sequenceRunning = false;
-let score = 0;
-let highScore = 0;
+let currentHighScore = 0;
+let maxHighScore = 0;
 
 highScoreText.textContent = `High Score: ${level - 1}`;
+
+if (localStorage.getItem("highScore") !== null) {
+  maxHighScore = parseInt(localStorage.getItem("highScore"));
+  highScoreText.textContent = `High Score: ${maxHighScore}`;
+}
 
 startBtn.addEventListener("click", function () {
   this.disabled = true;
@@ -26,12 +31,22 @@ boxes.forEach((box) => {
 
       if (popped !== boxNumber) {
         gameOver();
-        scoreText.textContent = `Score: ${level}`;
+        scoreText.textContent = `Score: ${level - 1}`;
+
         return;
       }
 
       if (sequence.length === 0) {
         scoreText.textContent = `Score: ${level}`;
+        currentHighScore = level;
+        if (currentHighScore > maxHighScore) {
+          maxHighScore = currentHighScore;
+          highScoreText.textContent = `High Score: ${maxHighScore}`;
+
+          localStorage.setItem("highScore", maxHighScore.toString());
+          console.log("level passed");
+        }
+
         playNextLevel();
       }
     }
@@ -46,11 +61,7 @@ function colorUserInputBox(boxNumber) {
 }
 function playNextLevel() {
   level++;
-  if (level === 6) {
-    console.log("you have beaten the game!");
-    gameOver();
-    return;
-  }
+
   generateSequence();
   setTimeout(() => {
     playSequence();

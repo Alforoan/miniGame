@@ -1,25 +1,22 @@
 let wordCount = 500;
 const url = `https://random-word-api.vercel.app/api?words=${wordCount}`;
-const wordsArray = [];
+let wordsArray = [];
+const startBtn = document.querySelector(".start-btn");
 
-fetch(url)
-  .then((data) => data.json())
-  .then((data) => {
-    const filteredData = data.filter((word) => {
-      return word.length < 7;
+startBtn.addEventListener("click", function () {
+  fetch(url)
+    .then((data) => data.json())
+    .then((data) => {
+      const filteredData = data.filter((word) => {
+        return word.length < 7;
+      });
+      return filteredData;
+    })
+    .then((filteredData) => {
+      wordsArray = filteredData.slice(0, 10);
+      wordsArraySpan.textContent = wordsArray.join(" ");
+    })
+    .catch((error) => {
+      console.error("Error:", error);
     });
-    return filteredData;
-  })
-  .then((filteredData) => {
-    wordsArrayDiv.textContent = filteredData.join(" ");
-    //console.log(filteredData);
-  })
-  .catch((error) => {
-    console.error("Error:", error);
-  });
-
-const wordsArrayDiv = document.querySelector(".words-array");
-const input = document.querySelector(".input");
-input.addEventListener("input", function () {
-  console.log(this.value);
 });

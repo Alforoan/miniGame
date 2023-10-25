@@ -5,7 +5,8 @@ const wordsArraySpan = document.querySelector(".words-array");
 const startBtn = document.querySelector(".start-btn");
 const input = document.querySelector(".input");
 
-startBtn.addEventListener("click", () => loadWords(20));
+startBtn.addEventListener("click", loadWords(20));
+input.addEventListener("input", startGame);
 
 async function loadWords(numberOfWords) {
   inputArray = [];
@@ -20,7 +21,6 @@ async function loadWords(numberOfWords) {
       return filteredData.slice(0, numberOfWords);
     });
 
-  //wordsArraySpan.textContent = randomWords.join(" ");
   randomWords
     .join(" ")
     .split("")
@@ -33,22 +33,28 @@ async function loadWords(numberOfWords) {
   input.value = "";
 }
 
-//below is the second best
-input.addEventListener("input", function () {
+function startGame() {
   let randomWordsArray = wordsArraySpan.textContent;
   let characters = wordsArraySpan.querySelectorAll("span");
   let typedChar = input.value.split("");
   let mistakes = 0;
 
   for (let i = 0; i < characters.length; i++) {
+    if (i === typedChar.length) {
+      characters[i].classList.add("current-letter-highlight");
+    } else {
+      characters[i].classList.remove("current-letter-highlight");
+    }
     if (i < typedChar.length && typedChar[i] === randomWordsArray[i]) {
       characters[i].classList.add("highlight");
     } else if (i < typedChar.length && typedChar[i] !== randomWordsArray[i]) {
       characters[i].classList.add("mistake");
       mistakes++;
-      console.log(mistakes);
     } else {
       characters[i].classList.remove("highlight");
     }
   }
-});
+}
+
+//if the words match, put the matching word in the hilightedwords array,
+//innerhtml would be the hilightedwords array + remaining of randomwordsarray

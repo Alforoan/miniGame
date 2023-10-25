@@ -7,3 +7,20 @@
   font-style: italic;
   font-weight: bolder;
 }
+
+.current-letter-highlight {
+  display: inline-block;
+  padding: 1px;
+  animation: flicker 0.55s infinite alternate;
+}
+
+@keyframes flicker {
+  from {
+    background-color: lightgray;
+    opacity: 1;
+  }
+
+  to {
+    opacity: 1;
+  }
+}

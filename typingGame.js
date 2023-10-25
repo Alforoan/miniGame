@@ -31,6 +31,8 @@ async function loadWords(numberOfWords) {
     });
 
   input.value = "";
+  let characters = wordsArraySpan.querySelectorAll("span");
+  characters[0].classList.add("current-letter-highlight");
 }
 
 function startGame() {
@@ -38,7 +40,7 @@ function startGame() {
   let characters = wordsArraySpan.querySelectorAll("span");
   let typedChar = input.value.split("");
   let mistakes = 0;
-
+  characters[0].classList.remove("current-letter-highlight");
   for (let i = 0; i < characters.length; i++) {
     if (i === typedChar.length) {
       characters[i].classList.add("current-letter-highlight");
@@ -55,6 +57,3 @@ function startGame() {
     }
   }
 }
-
-//if the words match, put the matching word in the hilightedwords array,
-//innerhtml would be the hilightedwords array + remaining of randomwordsarray

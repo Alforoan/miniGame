@@ -9,8 +9,6 @@
 }
 
 .current-letter-highlight {
-  display: inline-block;
-  padding: 1px;
   animation: flicker 0.55s infinite alternate;
 }
 

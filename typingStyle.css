@@ -1,3 +1,7 @@
+* {
+  transition: all 0.7s ease;
+}
+
 .highlight {
   color: red;
 }
@@ -6,6 +10,9 @@
   color: purple;
   font-style: italic;
   font-weight: bolder;
+}
+.reset-btn {
+  cursor: pointer;
 }
 
 .current-letter-highlight {
@@ -21,4 +28,7 @@
   to {
     opacity: 1;
   }
+}
+.rotate {
+  transform: rotate(-180deg);
 }

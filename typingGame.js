@@ -2,10 +2,15 @@ let wordCount = 500;
 let wordsArray = [];
 const url = `https://random-word-api.vercel.app/api?words=${wordCount}`;
 const wordsArraySpan = document.querySelector(".words-array");
-const startBtn = document.querySelector(".start-btn");
+const resetBtn = document.querySelector(".reset-btn");
 const input = document.querySelector(".input");
+const refreshBtn = document.querySelector(".fa-refresh");
 
-startBtn.addEventListener("click", loadWords(20));
+loadWords(20);
+resetBtn.addEventListener("click", () => loadWords(20));
+resetBtn.addEventListener("click", () => {
+  refreshBtn.classList.toggle("rotate");
+});
 input.addEventListener("input", startGame);
 
 async function loadWords(numberOfWords) {

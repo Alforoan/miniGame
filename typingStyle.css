@@ -1,0 +1,9 @@
+.highlight {
+  color: red;
+}
+
+.mistake {
+  color: purple;
+  font-style: italic;
+  font-weight: bolder;
+}

@@ -30,7 +30,7 @@ async function loadWords(numberOfWords) {
       wordsArraySpan.appendChild(charSpan);
     });
 
-  //input.value = "";
+  input.value = "";
 }
 
 //below is the second best
@@ -38,10 +38,15 @@ input.addEventListener("input", function () {
   let randomWordsArray = wordsArraySpan.textContent;
   let characters = wordsArraySpan.querySelectorAll("span");
   let typedChar = input.value.split("");
+  let mistakes = 0;
 
   for (let i = 0; i < characters.length; i++) {
     if (i < typedChar.length && typedChar[i] === randomWordsArray[i]) {
       characters[i].classList.add("highlight");
+    } else if (i < typedChar.length && typedChar[i] !== randomWordsArray[i]) {
+      characters[i].classList.add("mistake");
+      mistakes++;
+      console.log(mistakes);
     } else {
       characters[i].classList.remove("highlight");
     }

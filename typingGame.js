@@ -65,15 +65,18 @@ input.addEventListener("keydown", function (e) {
     e.preventDefault();
     if (
       input.value.split("")[game.j - 1] ===
-        randWordsArray[game.i][game.j - 1] &&
+        randWordsArray[game.i][game.j - 1] ||
       input.value.length === randWordsArray[game.i].length - 1
     ) {
       game.i++;
       input.value = "";
       game.j = 0;
-    } else {
-      input.value = input.value;
     }
+  }
+});
+input.addEventListener("keydown", function (e) {
+  if (e.key === "Backspace" && game.j > 0) {
+    game.j--;
   }
 });
 
@@ -87,26 +90,25 @@ function startGame() {
 
   characters[0].classList.remove("current-letter-highlight");
 
-  // if (typedChar.join("") === randWordsArray[game.i]) {
-  //   words[game.i].classList.add("word-highlight");
-  //   input.value = "";
-
-  //   game.i++;
-
+  if (typedChar.length === randWordsArray[game.i].length) {
+    input.value = "";
+    game.i++;
+    game.j = 0;
+  }
+  // if (randWordsArray[game.i][game.j] === " " && typedChar[game.j] !== " ") {
   //   game.j = 0;
-  // } else
-  // if (typedChar.join("").length === randWordsArray[game.i].length) {
-  //   input.value = "";
-  //   words[game.i].classList.add("mistake");
-  //   game.i++;
   // }
-  console.log(randWordsArray[game.i][game.j]);
+  console.log("game.j", game.j);
 
   if (typedChar[game.j] === randWordsArray[game.i][game.j]) {
     currentWord[game.j].classList.add("highlight");
     game.j++;
   } else if (typedChar[game.j] !== randWordsArray[game.i][game.j]) {
     currentWord[game.j].classList.add("mistake");
+
     game.j++;
+  }
+  if (typedChar.length < game.j) {
+    game.j--;
   }
 }

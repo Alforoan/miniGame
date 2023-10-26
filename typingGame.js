@@ -7,8 +7,9 @@ const input = document.querySelector(".input");
 const refreshBtn = document.querySelector(".fa-refresh");
 let randWordsArray = [];
 
-loadWords(20);
+loadWords(50);
 resetBtn.addEventListener("click", () => loadWords(20));
+
 resetBtn.addEventListener("click", () => {
   refreshBtn.classList.toggle("rotate");
 });
@@ -56,9 +57,25 @@ const game = {
   j: 0,
 };
 
+input.addEventListener("keydown", function (e) {
+  if (e.key === " ") {
+    e.preventDefault();
+    if (
+      input.value.split("")[game.j - 1] ===
+        randWordsArray[game.i][game.j - 1] &&
+      input.value.length === randWordsArray[game.i].length - 1
+    ) {
+      game.i++;
+      input.value = "";
+      game.j = 0;
+    } else {
+      input.value = input.value;
+    }
+  }
+});
+let currentLetterIndex = 0;
 let gameArray = "";
 function startGame() {
-  let randomWordsArray = wordsArraySpan.textContent;
   let characters = wordsArraySpan.querySelectorAll(".letter-span");
   let words = wordsArraySpan.querySelectorAll(".word-span");
   let typedChar = input.value.split("");
@@ -68,20 +85,19 @@ function startGame() {
 
   characters[0].classList.remove("current-letter-highlight");
 
-  if (typedChar.join("") === randWordsArray[game.i]) {
-    words[game.i].classList.add("word-highlight");
+  // if (typedChar.join("") === randWordsArray[game.i]) {
+  //   words[game.i].classList.add("word-highlight");
+  //   input.value = "";
+
+  //   game.i++;
+
+  //   game.j = 0;
+  // } else
+  if (typedChar.join("").length === randWordsArray[game.i].length) {
     input.value = "";
-    for (let i = 0; i < randWordsArray[game.i].length; i++) {
-      gameArray += randWordsArray[game.i][i];
-    }
-
-    game.i++;
-
-    game.j = 0;
+    words[game.i].classList.add("mistake");
   }
-  console.log("game.j", game.j);
-  console.log(randomWordsArray[game.j]);
-  console.log(randomWordsArray[game.j + 1]);
+  console.log(randWordsArray[game.i][game.j]);
 
   if (typedChar[game.j] === randWordsArray[game.i][game.j]) {
     currentWord[game.j].classList.add("highlight");

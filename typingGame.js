@@ -12,6 +12,9 @@ resetBtn.addEventListener("click", () => loadWords(20));
 
 resetBtn.addEventListener("click", () => {
   refreshBtn.classList.toggle("rotate");
+  game.mistakes = 0;
+  game.i = 0;
+  game.j = 0;
 });
 input.addEventListener("input", startGame);
 
@@ -73,8 +76,7 @@ input.addEventListener("keydown", function (e) {
     }
   }
 });
-let currentLetterIndex = 0;
-let gameArray = "";
+
 function startGame() {
   let characters = wordsArraySpan.querySelectorAll(".letter-span");
   let words = wordsArraySpan.querySelectorAll(".word-span");

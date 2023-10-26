@@ -1,5 +1,12 @@
 * {
-  transition: all 0.7s ease;
+}
+body {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Vertically center content */
+  height: 100vh; /* Set the body to fill the viewport height */
+  margin: 0; /* Remove default margin */
+  text-align: center;
 }
 
 .highlight {
@@ -15,6 +22,20 @@
   cursor: pointer;
 }
 
+.text-article {
+  width: 500px;
+  height: 200px;
+  overflow: hidden;
+}
+.text-article .word-span {
+  display: inline-block;
+  margin-right: 10px;
+}
+.letter-span {
+}
+.text-article div {
+  font-size: 1.5rem;
+}
 .current-letter-highlight {
   animation: flicker 0.55s infinite alternate;
 }

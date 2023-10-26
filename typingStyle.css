@@ -13,6 +13,10 @@ body {
   color: red;
 }
 
+.word-highlight {
+  color: green;
+}
+
 .mistake {
   color: purple;
   font-style: italic;

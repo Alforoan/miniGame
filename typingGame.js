@@ -95,14 +95,18 @@ function startGame() {
 
   //   game.j = 0;
   // } else
-  if (typedChar.join("").length === randWordsArray[game.i].length) {
-    input.value = "";
-    words[game.i].classList.add("mistake");
-  }
+  // if (typedChar.join("").length === randWordsArray[game.i].length) {
+  //   input.value = "";
+  //   words[game.i].classList.add("mistake");
+  //   game.i++;
+  // }
   console.log(randWordsArray[game.i][game.j]);
 
   if (typedChar[game.j] === randWordsArray[game.i][game.j]) {
     currentWord[game.j].classList.add("highlight");
+    game.j++;
+  } else if (typedChar[game.j] !== randWordsArray[game.i][game.j]) {
+    currentWord[game.j].classList.add("mistake");
     game.j++;
   }
 }

@@ -86,9 +86,6 @@ function startGame() {
   let typedChar = input.value.split("");
   let currentWord = words[game.i].querySelectorAll(".letter-span");
 
-  characters[0].classList.remove("current-letter-highlight");
-  characters[0].classList.remove("current-letter-highlight");
-
   //removing words if i type a certain number correctly
   // if (game.i % 4 === 0 && game.i !== 0) {
   //   if (wordsArraySpan && randWordsArray) {
@@ -101,7 +98,13 @@ function startGame() {
   //     // console.log("randwordsarray[game.i]", randWordsArray[game.i]);
   //   }
   // }
-
+  for (let j = 0; j < randWordsArray[game.i].length; j++) {
+    if (j === typedChar.length) {
+      currentWord[j].classList.add("current-letter-highlight");
+    } else {
+      currentWord[j].classList.remove("current-letter-highlight");
+    }
+  }
   if (typedChar[game.j] === randWordsArray[game.i][game.j]) {
     currentWord[game.j].classList.add("highlight");
     game.j++;

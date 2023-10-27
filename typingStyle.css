@@ -3,22 +3,20 @@
 body {
   display: flex;
   justify-content: center;
-  align-items: center; /* Vertically center content */
-  height: 100vh; /* Set the body to fill the viewport height */
-  margin: 0; /* Remove default margin */
+  align-items: center;
+  height: 100vh;
+  margin: 0;
   text-align: center;
+  flex-direction: column;
+  background-color: rgb(17, 17, 17);
 }
 
 .highlight {
-  color: red;
-}
-
-.word-highlight {
-  color: green;
+  color: rgb(103, 255, 98);
 }
 
 .mistake {
-  color: purple;
+  color: red;
   font-style: italic;
   font-weight: bolder;
 }
@@ -27,24 +25,71 @@ body {
 }
 
 .text-article {
-  width: 500px;
-  height: 200px;
+  width: 600px;
+  height: 150px;
   overflow: hidden;
+  background-color: rgb(25, 25, 25);
+  padding-top: 20px;
+  padding-bottom: 20px;
 }
 .text-article .word-span {
   display: inline-block;
-  margin-right: 10px;
 }
-.letter-span {
-}
+
 .text-article div {
   font-size: 1.5rem;
 }
+.form-btn-container {
+  width: 100%;
+  margin-top: 30px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
 .current-letter-highlight {
-  animation: flicker 0.55s infinite alternate;
+  background-color: lightgray;
+  animation: flicker 0.45s infinite alternate;
+}
+.input {
+  width: 300px;
+  height: 30px;
+  background-color: rgb(25, 25, 25);
+  border-radius: 0.1rem;
+  color: white;
+  font-size: 1.5rem;
+  font-family: "Encode Sans Expanded", sans-serif;
+  padding-bottom: 10px;
+  padding-left: 5px;
+}
+.wpm-container,
+.time-container,
+.reset-btn {
+  flex: 1;
+  margin-left: 10px;
+  color: white;
+  background-color: rgb(25, 25, 25);
+  width: 100px;
+  height: 30px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  font-family: "Encode Sans Expanded", sans-serif;
+}
+.words-array {
+  color: white;
+  font-family: "Encode Sans Expanded", sans-serif;
 }
 
-@keyframes flicker {
+.reset-btn {
+  border: none;
+  background: none;
+}
+.reset-btn:hover {
+  transition: all 0.3s;
+  background: rgb(45, 158, 251);
+}
+
+/* @keyframes flicker {
   from {
     background-color: lightgray;
     opacity: 1;
@@ -53,7 +98,7 @@ body {
   to {
     opacity: 1;
   }
-}
+} */
 .rotate {
   transform: rotate(-180deg);
 }

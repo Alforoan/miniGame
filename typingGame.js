@@ -55,6 +55,7 @@ async function loadWords(numberOfWords) {
 }
 
 const game = {
+  correct: 0,
   mistakes: 0,
   i: 0,
   j: 0,
@@ -123,6 +124,8 @@ function startGame() {
 
   //applying/removing highlight and applying/removing mistake
   if (typedChar[game.j] === randWordsArray[game.i][game.j]) {
+    game.correct++;
+
     currentWord[game.j].classList.add("highlight");
     game.j++;
   } else if (randWordsArray[game.i][game.j] === " ") {
@@ -131,7 +134,7 @@ function startGame() {
     game.i++;
   } else if (typedChar[game.j] !== randWordsArray[game.i][game.j]) {
     game.mistakes++;
-    console.log(game.mistakes);
+
     currentWord[game.j].classList.add("mistake");
     game.j++;
   }

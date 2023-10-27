@@ -81,6 +81,7 @@ input.addEventListener("keydown", function (e) {
 input.addEventListener("keydown", function (e) {
   if (e.key === "Backspace" && game.j > 0) {
     game.j--;
+    game.mistakes--;
   }
 });
 
@@ -101,6 +102,8 @@ function startGame() {
   //     // console.log("randwordsarray[game.i]", randWordsArray[game.i]);
   //   }
   // }
+
+  //applies highlight
   for (let j = 0; j < randWordsArray[game.i].length; j++) {
     if (j === typedChar.length) {
       currentWord[j].classList.add("current-letter-highlight");
@@ -108,6 +111,8 @@ function startGame() {
       currentWord[j].classList.remove("current-letter-highlight");
     }
   }
+
+  //removes all highlight to current word if input box is empty
   if (typedChar.length === 0) {
     game.j = 0;
     for (let i = 0; i < currentWord.length; i++) {
@@ -115,6 +120,8 @@ function startGame() {
       currentWord[i].classList.remove("mistake");
     }
   }
+
+  //applying/removing highlight and applying/removing mistake
   if (typedChar[game.j] === randWordsArray[game.i][game.j]) {
     currentWord[game.j].classList.add("highlight");
     game.j++;
@@ -123,6 +130,8 @@ function startGame() {
     game.j = 0;
     game.i++;
   } else if (typedChar[game.j] !== randWordsArray[game.i][game.j]) {
+    game.mistakes++;
+    console.log(game.mistakes);
     currentWord[game.j].classList.add("mistake");
     game.j++;
   }

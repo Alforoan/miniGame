@@ -65,15 +65,20 @@ input.addEventListener("keydown", function (e) {
     e.preventDefault();
     if (
       input.value.split("")[game.j - 1] ===
-        randWordsArray[game.i][game.j - 1] ||
-      input.value.length === randWordsArray[game.i].length - 1
+        randWordsArray[game.i][game.j - 1] &&
+      input.value.length > 0
+      // || input.value.length === randWordsArray[game.i].length - 1
     ) {
       game.i++;
+      console.log(game.i);
       input.value = "";
       game.j = 0;
+    } else {
+      game.i = game.i;
     }
   }
 });
+
 input.addEventListener("keydown", function (e) {
   if (e.key === "Backspace" && game.j > 0) {
     game.j--;
@@ -105,10 +110,13 @@ function startGame() {
       currentWord[j].classList.remove("current-letter-highlight");
     }
   }
+
+  // if (typedChar.length === randWordsArray[game.i] && e.key === " ") {
+  //   console.log("spacebar pressed");
+  // }
   if (typedChar[game.j] === randWordsArray[game.i][game.j]) {
     currentWord[game.j].classList.add("highlight");
     game.j++;
-    console.log("first game. j", game.j);
   } else if (randWordsArray[game.i][game.j] === " ") {
     input.value = "";
     game.j = 0;

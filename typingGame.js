@@ -5,6 +5,7 @@ const wordsArraySpan = document.querySelector(".words-array");
 const resetBtn = document.querySelector(".reset-btn");
 const input = document.querySelector(".input");
 const refreshBtn = document.querySelector(".fa-refresh");
+const timeContainer = document.querySelector(".time-container");
 let randWordsArray = [];
 
 loadWords(50);
@@ -143,4 +144,27 @@ function startGame() {
     currentWord[game.j].classList.remove("highlight");
     currentWord[game.j].classList.remove("mistake");
   }
+}
+
+function startTimer(time) {
+  const startTime = Date.now();
+  const updateInterval = 1000;
+
+  const updateElapsedTime = () => {
+    const delta = Date.now() - startTime;
+
+    const remainingSeconds = time - Math.floor(delta / 1000);
+
+    const nonNegativeSeconds = Math.max(0, remainingSeconds);
+
+    const minutes = Math.floor(nonNegativeSeconds / 60);
+    const seconds = nonNegativeSeconds % 60;
+
+    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedSeconds = String(seconds).padStart(2, "0");
+
+    timeContainer.textContent = `${formattedMinutes}:${formattedSeconds}`;
+  };
+
+  setInterval(updateElapsedTime, updateInterval);
 }

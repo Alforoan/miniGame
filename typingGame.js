@@ -8,7 +8,7 @@ const refreshBtn = document.querySelector(".fa-refresh");
 let randWordsArray = [];
 
 loadWords(50);
-resetBtn.addEventListener("click", () => loadWords(20));
+resetBtn.addEventListener("click", () => loadWords(50));
 
 resetBtn.addEventListener("click", () => {
   refreshBtn.classList.toggle("rotate");
@@ -87,26 +87,40 @@ function startGame() {
   let currentWord = words[game.i].querySelectorAll(".letter-span");
 
   characters[0].classList.remove("current-letter-highlight");
-
   characters[0].classList.remove("current-letter-highlight");
 
-  if (typedChar.length === randWordsArray[game.i].length) {
-    input.value = "";
-    game.i++;
-    game.j = 0;
-  }
-  // if (randWordsArray[game.i][game.j] === " " && typedChar[game.j] !== " ") {
-  //   game.j = 0;
+  //removing words if i type a certain number correctly
+  // if (game.i % 4 === 0 && game.i !== 0) {
+  //   if (wordsArraySpan && randWordsArray) {
+  //     let newArray = randWordsArray
+  //       .slice(game.i, randWordsArray.length)
+  //       .join(" ");
+  //     wordsArraySpan.textContent = newArray;
+  //     game.i = 0;
+  //     // console.log("game.i", game.i);
+  //     // console.log("randwordsarray[game.i]", randWordsArray[game.i]);
+  //   }
   // }
-  console.log("game.j", game.j);
 
   if (typedChar[game.j] === randWordsArray[game.i][game.j]) {
     currentWord[game.j].classList.add("highlight");
     game.j++;
+    console.log("first game. j", game.j);
+  } else if (randWordsArray[game.i][game.j] === " ") {
+    input.value = "";
+    game.j = 0;
+    game.i++;
   } else if (typedChar[game.j] !== randWordsArray[game.i][game.j]) {
     currentWord[game.j].classList.add("mistake");
-
     game.j++;
+    // if (typedChar[game.j] !== " " && randWordsArray[game.i][game.j] === " ") {
+    // } else {
+    //   currentWord[game.j].classList.add("mistake");
+
+    //   if (!(typedChar.length < game.j)) {
+    //     game.j++;
+    //   }
+    // }
   }
   if (typedChar.length < game.j) {
     game.j--;

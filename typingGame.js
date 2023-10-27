@@ -7,17 +7,35 @@ const input = document.querySelector(".input");
 const refreshBtn = document.querySelector(".fa-refresh");
 const timeContainer = document.querySelector(".time-container");
 let randWordsArray = [];
+let timeInterval;
+let timeIntervalArray = [];
+let timerStarted = false;
 
 loadWords(50);
 resetBtn.addEventListener("click", () => loadWords(50));
 
 resetBtn.addEventListener("click", () => {
   refreshBtn.classList.toggle("rotate");
+  input.disabled = false;
+  timeContainer.textContent = "0:10";
+  for (let i = 0; i < timeIntervalArray.length; i++) {
+    clearInterval(timeIntervalArray[i]);
+  }
+  timerStarted = false;
+  console.log("time text content", timeContainer.textContent);
   game.mistakes = 0;
   game.i = 0;
   game.j = 0;
 });
 input.addEventListener("input", startGame);
+input.addEventListener("input", () => {
+  if (!timerStarted) {
+    setTimeout(() => {
+      startTimer(5);
+      timerStarted = true;
+    }, 100);
+  }
+});
 
 async function loadWords(numberOfWords) {
   wordsArraySpan.innerHTML = "";
@@ -160,11 +178,16 @@ function startTimer(time) {
     const minutes = Math.floor(nonNegativeSeconds / 60);
     const seconds = nonNegativeSeconds % 60;
 
-    const formattedMinutes = String(minutes).padStart(2, "0");
+    const formattedMinutes = String(Math.min(999, minutes)).padStart(1, "0");
     const formattedSeconds = String(seconds).padStart(2, "0");
 
     timeContainer.textContent = `${formattedMinutes}:${formattedSeconds}`;
+    if (timeContainer.textContent === "0:00") {
+      input.disabled = true;
+    }
   };
 
-  setInterval(updateElapsedTime, updateInterval);
+  timeInterval = setInterval(updateElapsedTime, updateInterval);
+  timeIntervalArray.push(timeInterval);
+  return timeInterval;
 }

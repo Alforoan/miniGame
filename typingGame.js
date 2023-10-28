@@ -14,7 +14,7 @@ let currentWordQuery;
 let currentLetterQuery;
 
 resetBtn.addEventListener("click", () => {
-  loadWords(50);
+  loadWords(2);
   refreshBtn.classList.add("rotate");
 
   setTimeout(() => {
@@ -42,7 +42,7 @@ input.addEventListener("input", () => {
   }
 });
 
-loadWords(50);
+loadWords(20);
 async function loadWords(numberOfWords) {
   wordsArraySpan.innerHTML = "";
   const randomWords = await fetch(url)
@@ -95,6 +95,13 @@ const game = {
 input.addEventListener("keydown", function (e) {
   if (e.key === " ") {
     e.preventDefault();
+    let currentWordSpans = wordsArraySpan.querySelectorAll(".word-span");
+    //if you complete all the words
+    if (game.i === randWordsArray.length - 1) {
+      input.disabled = true;
+
+      clearInterval(timeInterval);
+    }
     if (
       input.value.length > 0 &&
       input.value.length + 1 === randWordsArray[game.i].length &&
@@ -102,11 +109,11 @@ input.addEventListener("keydown", function (e) {
     ) {
       input.value = "";
 
-      let currentWordSpans = wordsArraySpan.querySelectorAll(".word-span");
+      currentWordSpans = wordsArraySpan.querySelectorAll(".word-span");
       let currentWordLetterSpans =
         currentWordSpans[game.i].querySelectorAll(".letter-span");
       let nextWordLetterSpans =
-        currentWordSpans[game.i + 1].querySelectorAll(".letter-span");
+        currentWordSpans[game.i + 1]?.querySelectorAll(".letter-span");
       currentWordLetterSpans[game.j].classList.remove(
         "current-letter-highlight"
       );

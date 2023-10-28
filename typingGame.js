@@ -86,6 +86,7 @@ async function loadWords(numberOfWords) {
 }
 
 const game = {
+  counter: 0,
   correct: 0,
   mistakes: 0,
   i: 0,
@@ -96,11 +97,17 @@ input.addEventListener("keydown", function (e) {
   if (e.key === " ") {
     e.preventDefault();
     let currentWordSpans = wordsArraySpan.querySelectorAll(".word-span");
+    if (input.value + " " === randWordsArray[game.i]) {
+      game.counter++;
+      console.log("game.counter ", game.counter);
+    }
     //if you complete all the words
     if (game.i === randWordsArray.length - 1) {
       input.disabled = true;
 
-      clearInterval(timeInterval);
+      for (let i = 0; i < timeIntervalArray.length; i++) {
+        clearInterval(timeIntervalArray[i]);
+      }
     }
     if (
       input.value.length > 0 &&
@@ -109,6 +116,26 @@ input.addEventListener("keydown", function (e) {
     ) {
       input.value = "";
 
+      currentWordSpans = wordsArraySpan.querySelectorAll(".word-span");
+      let currentWordLetterSpans =
+        currentWordSpans[game.i].querySelectorAll(".letter-span");
+      let nextWordLetterSpans =
+        currentWordSpans[game.i + 1]?.querySelectorAll(".letter-span");
+      currentWordLetterSpans[game.j].classList.remove(
+        "current-letter-highlight"
+      );
+
+      game.i++;
+
+      game.j = 0;
+      console.log("game.i", game.i);
+      nextWordLetterSpans[game.j].classList.add("current-letter-highlight");
+    } else if (
+      input.value.length > 0 &&
+      input.value.length + 1 === randWordsArray[game.i].length &&
+      randWordsArray[game.i][game.j - 1] !== input.value[game.j - 1]
+    ) {
+      input.value = "";
       currentWordSpans = wordsArraySpan.querySelectorAll(".word-span");
       let currentWordLetterSpans =
         currentWordSpans[game.i].querySelectorAll(".letter-span");
@@ -139,7 +166,7 @@ function startGame() {
   let typedChar = input.value.split("");
 
   let currentWord = words[game.i].querySelectorAll(".letter-span");
-
+  let nextWord = words[game.i + 1]?.querySelectorAll(".letter-span");
   //applies current letter highlight
 
   for (let j = 0; j < randWordsArray[game.i].length; j++) {
@@ -159,22 +186,23 @@ function startGame() {
     }
   }
 
-  if (typedChar.length + 1 > randWordsArray[game.i].length) {
-    game.i++;
-    game.j = 0;
-    input.value = "";
-  }
-
   //applying/removing highlight and applying/removing mistake
   if (typedChar[game.j] === randWordsArray[game.i][game.j]) {
     game.correct++;
     currentWord[game.j].classList.add("highlight");
     game.j++;
   } else if (typedChar[game.j] !== randWordsArray[game.i][game.j]) {
-    game.mistakes++;
+    if (randWordsArray[game.i][game.j] === " ") {
+      game.j = 0;
+      game.i++;
+      input.value = "";
+      nextWord[game.j].classList.add("current-letter-highlight");
+    } else {
+      game.mistakes++;
 
-    currentWord[game.j].classList.add("mistake");
-    game.j++;
+      currentWord[game.j].classList.add("mistake");
+      game.j++;
+    }
   }
   if (typedChar.length < game.j) {
     game.j--;

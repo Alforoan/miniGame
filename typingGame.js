@@ -1,4 +1,4 @@
-let wordCount = 500;
+let wordCount = 300;
 let wordsArray = [];
 const url = `https://random-word-api.vercel.app/api?words=${wordCount}`;
 const wordsArraySpan = document.querySelector(".words-array");
@@ -11,6 +11,9 @@ const currentWpm = document.querySelector(".wpm-number");
 const correctNumber = document.querySelector(".correct-number");
 const incorrectNumber = document.querySelector(".incorrect-number");
 const accuracyNumber = document.querySelector(".accuracy-number");
+const btn = document.querySelectorAll(".btn");
+const textContainer = document.querySelector(".text-article");
+
 let randWordsArray = [];
 let timeInterval;
 let timeIntervalArray = [];
@@ -22,7 +25,13 @@ let startTime;
 let endTime;
 
 resetBtn.addEventListener("click", () => {
-  loadWords(2);
+  let loadWordCount;
+  btn.forEach((btn) => {
+    if (btn.classList.contains("isActive")) {
+      loadWordCount = parseInt(btn.textContent);
+    }
+  });
+  loadWords(loadWordCount);
   refreshBtn.classList.add("rotate");
 
   setTimeout(() => {
@@ -40,6 +49,27 @@ resetBtn.addEventListener("click", () => {
   game.i = 0;
   game.j = 0;
 });
+
+btn.forEach((eachBtn) => {
+  eachBtn.addEventListener("click", (e) => {
+    const clickedBtn = e.target;
+    if (clickedBtn.textContent == 20) {
+      textContainer.style.height = "130px";
+    } else if (clickedBtn.textContent == 30) {
+      textContainer.style.height = "210px";
+    } else {
+      textContainer.style.height = "80px";
+    }
+    clickedBtn.classList.add("isActive");
+    loadWords(parseInt(clickedBtn.textContent));
+    btn.forEach((btn) => {
+      if (btn !== clickedBtn) {
+        btn.classList.remove("isActive");
+      }
+    });
+  });
+});
+
 input.addEventListener("input", startGame);
 input.addEventListener("input", () => {
   if (!timerStarted) {
@@ -57,7 +87,7 @@ async function loadWords(numberOfWords) {
     .then((data) => data.json())
     .then((data) => {
       const filteredData = data.filter((word) => {
-        return word.length < 7;
+        return word.length < 6;
       });
       return filteredData.slice(0, numberOfWords);
     });

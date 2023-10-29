@@ -102,10 +102,12 @@ input.addEventListener("keydown", function (e) {
     let currentWordSpans = wordsArraySpan.querySelectorAll(".word-span");
     if (input.value + " " === randWordsArray[game.i]) {
       game.counter++;
-      console.log("game.counter ", game.counter);
     }
     //if you complete all the words
-    if (game.i === randWordsArray.length - 1) {
+    if (
+      game.i === randWordsArray.length - 1 &&
+      input.value.length === randWordsArray[game.i].length - 1
+    ) {
       input.disabled = true;
 
       for (let i = 0; i < timeIntervalArray.length; i++) {

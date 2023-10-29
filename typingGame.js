@@ -12,6 +12,9 @@ let timeIntervalArray = [];
 let timerStarted = false;
 let currentWordQuery;
 let currentLetterQuery;
+let maxTime = 60;
+let startTime;
+let endTime;
 
 resetBtn.addEventListener("click", () => {
   loadWords(2);
@@ -22,7 +25,7 @@ resetBtn.addEventListener("click", () => {
   }, 500);
 
   input.disabled = false;
-  timeContainer.textContent = "0:10";
+  timeContainer.textContent = "1:00";
   for (let i = 0; i < timeIntervalArray.length; i++) {
     clearInterval(timeIntervalArray[i]);
   }
@@ -36,9 +39,9 @@ input.addEventListener("input", startGame);
 input.addEventListener("input", () => {
   if (!timerStarted) {
     setTimeout(() => {
-      startTimer(100);
+      startTimer(60);
       timerStarted = true;
-    }, 100);
+    }, 50);
   }
 });
 
@@ -160,13 +163,21 @@ input.addEventListener("keydown", function (e) {
     game.mistakes--;
   }
 });
-
+//`${parseInt(timeLeft.slice(2, 4))}`
 function startGame() {
   let words = wordsArraySpan.querySelectorAll(".word-span");
   let typedChar = input.value.split("");
-
   let currentWord = words[game.i].querySelectorAll(".letter-span");
   let nextWord = words[game.i + 1]?.querySelectorAll(".letter-span");
+  let timeContainer = document.querySelector(".time-container");
+  let timeLeft = timeContainer.textContent;
+  let remainingTimeInSeconds =
+    parseInt(timeLeft.split(":")[0]) * 60 + parseInt(timeLeft.split(":")[1]);
+  let wpm = Math.round(
+    game.counter / ((maxTime - remainingTimeInSeconds) / 60)
+  );
+  let wpmContent = document.querySelector(".wpm-number");
+  wpmContent.textContent = wpm;
   //applies current letter highlight
 
   for (let j = 0; j < randWordsArray[game.i].length; j++) {

@@ -45,7 +45,7 @@ input.addEventListener("input", () => {
   }
 });
 
-loadWords(20);
+loadWords(10);
 async function loadWords(numberOfWords) {
   wordsArraySpan.innerHTML = "";
   const randomWords = await fetch(url)
@@ -165,7 +165,7 @@ input.addEventListener("keydown", function (e) {
     game.mistakes--;
   }
 });
-//`${parseInt(timeLeft.slice(2, 4))}`
+
 function startGame() {
   let words = wordsArraySpan.querySelectorAll(".word-span");
   let typedChar = input.value.split("");
@@ -173,13 +173,16 @@ function startGame() {
   let nextWord = words[game.i + 1]?.querySelectorAll(".letter-span");
   let timeContainer = document.querySelector(".time-container");
   let timeLeft = timeContainer.textContent;
-  let remainingTimeInSeconds =
-    parseInt(timeLeft.split(":")[0]) * 60 + parseInt(timeLeft.split(":")[1]);
+  let remainingTimeInSeconds = parseInt(timeLeft.slice(2, 4));
   let wpm = Math.round(
     game.counter / ((maxTime - remainingTimeInSeconds) / 60)
   );
   let wpmContent = document.querySelector(".wpm-number");
-  wpmContent.textContent = wpm;
+  if (wpm !== Infinity || wpm !== NaN) {
+    wpmContent.textContent = wpm;
+  } else {
+    wpmContent.textContent = 0;
+  }
   //applies current letter highlight
 
   for (let j = 0; j < randWordsArray[game.i].length; j++) {

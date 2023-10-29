@@ -5,22 +5,50 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>TypeRacer</title>
     <link rel="stylesheet" href="typingStyle.css" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Encode+Sans+Expanded:wght@700&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <article class="text-article">
-      <h1 class="get-set">Get Set</h1>
-      <div>
-        <div class="words-array"></div>
-      </div>
-    </article>
-    <article>
-      <form action="">
-        <input type="text" class="input" placeholder="Type in here" />
-      </form>
-      <button class="reset-btn">
-        <i class="fa fa-refresh" aria-hidden="true"></i>
-      </button>
-    </article>
+    <div>
+      <article class="text-article">
+        <div>
+          <div class="words-array"></div>
+        </div>
+      </article>
+      <article class="form-btn-container">
+        <form action="">
+          <input type="text" class="input" />
+        </form>
+
+        <div class="wpm-container">
+          <span class="wpm-number">0</span> <span class="wpm">WPM</span>
+        </div>
+        <div class="time-container">1:00</div>
+        <button class="reset-btn">
+          <i class="fa fa-refresh" aria-hidden="true"></i>
+        </button>
+      </article>
+      <article class="info-container">
+        <div class="stat-container">
+          <div class="wpm-record-container">
+            <div class="wpm-record">Record WPM</div>
+            <div class="wpm-record-number"></div>
+          </div>
+          <div class="correct">Correct</div>
+          <div class="mistakes">Mistakes</div>
+          <div class="accuracy">Accuracy</div>
+        </div>
+        <div class="toggle-container">
+          <div class="word-count">Word Count</div>
+          <div class="show-wpm">Show WPM</div>
+          <div class="show-time">Show Time</div>
+        </div>
+      </article>
+    </div>
     <script src="typingGame.js"></script>
     <script
       src="https://kit.fontawesome.com/95b6c5c61f.js"

@@ -36,7 +36,7 @@ resetBtn.addEventListener("click", () => {
   });
   loadWords(loadWordCount);
   refreshBtn.classList.add("rotate");
-
+  currentWpm.textContent = 0;
   setTimeout(() => {
     refreshBtn.classList.remove("rotate");
   }, 500);
@@ -48,6 +48,7 @@ resetBtn.addEventListener("click", () => {
   }
   timerStarted = false;
 
+  game.counter = 0;
   game.mistakes = 0;
   game.i = 0;
   game.j = 0;
@@ -272,6 +273,26 @@ function startGame() {
     wpmContent.textContent = wpm;
   } else {
     wpmContent.textContent = 0;
+  }
+
+  //if user doesn't press spacebar for last word
+  if (
+    game.i === randWordsArray.length - 1 &&
+    typedChar.length - 1 === randWordsArray[game.i].length - 1
+  ) {
+    input.disabled = true;
+
+    for (let i = 0; i < timeIntervalArray.length; i++) {
+      clearInterval(timeIntervalArray[i]);
+    }
+    if (parseInt(currentWpm.textContent) > recordWpm) {
+      localStorage.setItem("wpm", parseInt(currentWpm.textContent));
+      recordWpmNumber.textContent = currentWpm.textContent;
+    }
+    correctNumber.textContent = game.correct;
+    incorrectNumber.textContent = game.mistakes;
+    let accuracyPercent = (game.correct / (game.correct + game.mistakes)) * 100;
+    accuracyNumber.textContent = `${Math.round(accuracyPercent)}%`;
   }
 
   //applies current letter highlight

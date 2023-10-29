@@ -13,6 +13,9 @@ const incorrectNumber = document.querySelector(".incorrect-number");
 const accuracyNumber = document.querySelector(".accuracy-number");
 const btn = document.querySelectorAll(".btn");
 const textContainer = document.querySelector(".text-article");
+const wpmBtns = document.querySelectorAll(".wpmBtns");
+const timeBtns = document.querySelectorAll(".timeBtns");
+const wpmContainer = document.querySelector(".wpm-container");
 
 let randWordsArray = [];
 let timeInterval;
@@ -67,6 +70,42 @@ btn.forEach((eachBtn) => {
         btn.classList.remove("isActive");
       }
     });
+  });
+});
+
+wpmBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    if (e.target === btn) {
+      e.target.classList.add("isActive");
+      if (e.target.textContent === "Hide") {
+        wpmContainer.style.visibility = "hidden";
+      } else {
+        wpmContainer.style.visibility = "visible";
+      }
+      wpmBtns.forEach((btn) => {
+        if (btn !== e.target) {
+          btn.classList.remove("isActive");
+        }
+      });
+    }
+  });
+});
+
+timeBtns.forEach((btn) => {
+  btn.addEventListener("click", (e) => {
+    if (e.target === btn) {
+      e.target.classList.add("isActive");
+      if (e.target.textContent === "Hide") {
+        timeContainer.style.visibility = "hidden";
+      } else {
+        timeContainer.style.visibility = "visible";
+      }
+      timeBtns.forEach((btn) => {
+        if (btn !== e.target) {
+          btn.classList.remove("isActive");
+        }
+      });
+    }
   });
 });
 

@@ -163,7 +163,9 @@ body {
 .wpm-record-number,
 .correct-number,
 .incorrect-number,
-.accuracy-number {
+.accuracy-number,
+.show,
+.hide {
   color: white;
   font-family: "Encode Sans Expanded", sans-serif;
   padding-bottom: 0.5rem;
@@ -175,11 +177,21 @@ body {
 .correct-container,
 .incorrect-container,
 .accuracy-container,
-.word-count-container {
+.word-count-container,
+.show-wpm-container,
+.show-timer-container,
+.show-hide-container {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
+
+.word-count-container,
+.show-timer-container,
+.show-hide-container {
+  margin-bottom: 0.5rem;
+}
+
 .ten-words,
 .thirty-words,
 .sixty-words {
@@ -191,11 +203,9 @@ body {
   border: none;
   cursor: pointer;
   border-radius: 0.3rem;
-
   width: 60px;
   height: 30px;
   font-family: "Encode Sans Expanded", sans-serif;
-  margin-bottom: 0.5rem;
 }
 
 .word-count-options-container button:hover {
@@ -205,5 +215,31 @@ body {
 }
 
 .word-count-options-container .isActive {
+  background-color: rgb(42, 42, 42);
+}
+
+.show,
+.hide {
+  background: transparent;
+  border: none;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  cursor: pointer;
+  border-radius: 0.3rem;
+  margin-top: 0.4rem;
+  margin-right: 0.25rem;
+  width: 80px;
+  height: 30px;
+  padding-bottom: 0px;
+}
+
+.show:hover,
+.hide:hover {
+  background-color: rgb(45, 158, 251);
+  color: rgb(143, 143, 143);
+  transition: all 0.3s;
+}
+
+.show-hide-container .isActive {
   background-color: rgb(42, 42, 42);
 }

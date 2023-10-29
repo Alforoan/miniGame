@@ -6,6 +6,11 @@ const resetBtn = document.querySelector(".reset-btn");
 const input = document.querySelector(".input");
 const refreshBtn = document.querySelector(".fa-refresh");
 const timeContainer = document.querySelector(".time-container");
+const recordWpmNumber = document.querySelector(".wpm-record-number");
+const currentWpm = document.querySelector(".wpm-number");
+const correctNumber = document.querySelector(".correct-number");
+const incorrectNumber = document.querySelector(".incorrect-number");
+const accuracyNumber = document.querySelector(".accuracy-number");
 let randWordsArray = [];
 let timeInterval;
 let timeIntervalArray = [];
@@ -96,6 +101,12 @@ const game = {
   j: 0,
 };
 
+//localstorage for wpm
+let recordWpm = parseInt(localStorage.getItem("wpm"));
+if (localStorage.getItem("wpm") !== null) {
+  recordWpmNumber.textContent = recordWpm;
+}
+
 input.addEventListener("keydown", function (e) {
   if (e.key === " ") {
     e.preventDefault();
@@ -113,6 +124,15 @@ input.addEventListener("keydown", function (e) {
       for (let i = 0; i < timeIntervalArray.length; i++) {
         clearInterval(timeIntervalArray[i]);
       }
+      if (parseInt(currentWpm.textContent) > recordWpm) {
+        localStorage.setItem("wpm", parseInt(currentWpm.textContent));
+        recordWpmNumber.textContent = currentWpm.textContent;
+      }
+      correctNumber.textContent = game.correct;
+      incorrectNumber.textContent = game.mistakes;
+      let accuracyPercent =
+        (game.correct / (game.correct + game.mistakes)) * 100;
+      accuracyNumber.textContent = `${Math.round(accuracyPercent)}%`;
     }
     if (
       input.value.length > 0 &&
@@ -174,6 +194,7 @@ function startGame() {
   let timeContainer = document.querySelector(".time-container");
   let timeLeft = timeContainer.textContent;
   let remainingTimeInSeconds = parseInt(timeLeft.slice(2, 4));
+
   let wpm = Math.round(
     game.counter / ((maxTime - remainingTimeInSeconds) / 60)
   );
@@ -183,6 +204,7 @@ function startGame() {
   } else {
     wpmContent.textContent = 0;
   }
+
   //applies current letter highlight
 
   for (let j = 0; j < randWordsArray[game.i].length; j++) {

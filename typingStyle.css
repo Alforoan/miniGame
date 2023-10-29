@@ -157,12 +157,24 @@ body {
 
 .wpm-record,
 .correct,
-.mistakes,
+.incorrect,
 .accuracy,
 .word-count,
 .show-wpm,
-.show-time {
+.show-time,
+.wpm-record-number,
+.correct-number,
+.incorrect-number,
+.accuracy-number {
   color: white;
   font-family: "Encode Sans Expanded", sans-serif;
   padding-bottom: 0.5rem;
+}
+
+.wpm-record-container,
+.correct-container,
+.incorrect-container,
+.accuracy-container {
+  display: flex;
+  justify-content: space-between;
 }

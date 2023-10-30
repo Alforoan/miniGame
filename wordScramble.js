@@ -2,6 +2,8 @@ const firstRowContainer = document.querySelector(".first-row-container");
 const lettersCotainer = document.querySelector(".letters-container");
 const enterBtn = document.querySelector(".enter");
 const input = document.querySelector(".input");
+const shuffleBtn = document.querySelector(".shuffle-btn");
+let lettersUsedArray = [];
 let letterBtns;
 
 let fiveLetterWordsArray = [];
@@ -23,11 +25,11 @@ async function fetchthreeLetterWordsData() {
         wordsList[num2].toUpperCase(),
         wordsList[num3].toUpperCase()
       );
-      let threeLetterWordsLettersArray = showLettersUsed(threeLetterWordsArray);
-      console.log(threeLetterWordsLettersArray);
-      if (threeLetterWordsLettersArray.length <= 7) {
+      let lettersUsed = showLettersUsed(threeLetterWordsArray);
+      lettersUsedArray = [...lettersUsed];
+      if (lettersUsed.length <= 7) {
         addThreeLetterWords();
-        addLettersUsed(threeLetterWordsLettersArray);
+        addLettersUsed(lettersUsed);
       } else {
         fetchthreeLetterWordsData();
       }
@@ -170,6 +172,18 @@ function checkAnswer() {
   }
 }
 
+function shuffleArray(arr) {
+  for (let i = arr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [arr[i], arr[j]] = [arr[j], arr[i]];
+  }
+}
+shuffleBtn.addEventListener("click", function () {
+  console.log(lettersUsedArray);
+  shuffleArray(lettersUsedArray);
+  lettersCotainer.innerHTML = "";
+  addLettersUsed(lettersUsedArray);
+});
 enterBtn.addEventListener("click", function () {
   if (checkAnswer) {
     input.value = "";

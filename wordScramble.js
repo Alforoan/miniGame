@@ -3,6 +3,8 @@ const lettersCotainer = document.querySelector(".letters-container");
 const enterBtn = document.querySelector(".enter");
 const input = document.querySelector(".input");
 const shuffleBtn = document.querySelector(".shuffle-btn");
+let hiddenWord;
+let allThreeLetterWords = [];
 let lettersUsedArray = [];
 let letterBtns;
 
@@ -17,6 +19,8 @@ async function fetchthreeLetterWordsData() {
     .then((data) => {
       let wordsList = data.split("\n");
       wordsList = wordsList.map((word) => word.replace(/\r/g, ""));
+      allThreeLetterWords = [...wordsList];
+
       let num1 = randomNumberGenerator(wordsList);
       let num2 = randomNumberGenerator(wordsList);
       let num3 = randomNumberGenerator(wordsList);
@@ -25,10 +29,13 @@ async function fetchthreeLetterWordsData() {
         wordsList[num2].toUpperCase(),
         wordsList[num3].toUpperCase()
       );
+
       let lettersUsed = showLettersUsed(threeLetterWordsArray);
       lettersUsedArray = [...lettersUsed];
       if (lettersUsed.length <= 7) {
         addThreeLetterWords();
+        hiddenWord = document.querySelectorAll(".hidden");
+
         addLettersUsed(lettersUsed);
       } else {
         fetchthreeLetterWordsData();
@@ -81,6 +88,7 @@ function addThreeLetterWords() {
   for (let i = 0; i < threeLetterWordsArray.length; i++) {
     const wordDiv = document.createElement("div");
     const word = threeLetterWordsArray[i];
+    wordDiv.classList.add("hidden");
     for (let j = 0; j < word.length; j++) {
       const char = word[j];
       const charSpan = document.createElement("span");
@@ -164,6 +172,12 @@ function checkAnswer() {
     const word = threeLetterWordsArray[i];
 
     if (input.value === word) {
+      hiddenWord.forEach((element) => {
+        if (element.textContent === word) {
+          element.classList.remove("hidden");
+        }
+      });
+
       return true;
     }
   }

@@ -1,4 +1,5 @@
 const firstRowContainer = document.querySelector(".first-row-container");
+const lettersCotainer = document.querySelector(".letters-container");
 const test = document.querySelector(".test");
 
 let fiveLetterWordsArray = [];
@@ -24,6 +25,7 @@ async function fetchthreeLetterWordsData() {
       console.log(threeLetterWordsLettersArray);
       if (threeLetterWordsLettersArray.length <= 7) {
         addThreeLetterWords();
+        addLettersUsed(threeLetterWordsLettersArray);
       } else {
         fetchthreeLetterWordsData();
       }
@@ -82,6 +84,17 @@ function addThreeLetterWords() {
       wordDiv.appendChild(charSpan);
     }
     firstRowContainer.appendChild(wordDiv);
+  }
+}
+
+function addLettersUsed(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    const letterButton = document.createElement("button");
+
+    const char = arr[i];
+    letterButton.innerHTML = char;
+
+    lettersCotainer.appendChild(letterButton);
   }
 }
 

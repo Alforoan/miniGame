@@ -193,10 +193,13 @@ function shuffleArray(arr) {
   }
 }
 shuffleBtn.addEventListener("click", function () {
-  console.log(lettersUsedArray);
   shuffleArray(lettersUsedArray);
   lettersCotainer.innerHTML = "";
   addLettersUsed(lettersUsedArray);
+  input.value = "";
+  letterBtns.forEach((btn) => {
+    btn.classList.remove("pressed");
+  });
 });
 enterBtn.addEventListener("click", function () {
   if (checkAnswer) {
@@ -208,10 +211,30 @@ enterBtn.addEventListener("click", function () {
 });
 input.addEventListener("input", function () {
   this.value = this.value.toUpperCase();
+
+  letterBtns.forEach((btn) => {
+    const btnLetter = btn.textContent;
+    if (lettersUsedArray.includes(btnLetter)) {
+      if (this.value.includes(btnLetter)) {
+        btn.classList.add("pressed");
+      } else {
+        btn.classList.remove("pressed");
+      }
+    }
+  });
 });
 input.addEventListener("keydown", function (e) {
   if (e.key === "Enter" && checkAnswer()) {
     console.log("true");
+    this.value = "";
+    letterBtns.forEach((btn) => {
+      btn.classList.remove("pressed");
+    });
+  } else if (e.key === "Enter" && !checkAnswer()) {
+    console.log("False");
+    letterBtns.forEach((btn) => {
+      btn.classList.remove("pressed");
+    });
     this.value = "";
   }
 });

@@ -5,8 +5,11 @@
   background-color: gray;
 }
 
-.hidden {
+.hidden,
+.hidden-span {
   visibility: hidden;
+  opacity: 0;
+  transition: opacity 2s;
 }
 
 .word {

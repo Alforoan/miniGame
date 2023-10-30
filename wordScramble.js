@@ -1,6 +1,7 @@
 const firstRowContainer = document.querySelector(".first-row-container");
 const lettersCotainer = document.querySelector(".letters-container");
-const test = document.querySelector(".test");
+const enterBtn = document.querySelector(".enter");
+const input = document.querySelector(".input");
 
 let fiveLetterWordsArray = [];
 let threeLetterWordsArray = [];
@@ -121,4 +122,27 @@ function showLettersUsed() {
   return lettersArray;
 }
 
-test.addEventListener("click", () => showLettersUsed());
+function checkAnswer() {
+  let isMatching = false;
+  for (let i = 0; i < threeLetterWordsArray.length; i++) {
+    const word = threeLetterWordsArray[i];
+
+    if (input.value === word) {
+      return true;
+    }
+  }
+  if (!isMatching) {
+    return false;
+  }
+}
+
+enterBtn.addEventListener("click", () => checkAnswer());
+input.addEventListener("input", function () {
+  this.value = this.value.toUpperCase();
+});
+input.addEventListener("keydown", function (e) {
+  if (e.key === "Enter" && checkAnswer()) {
+    console.log("true");
+    this.value = "";
+  }
+});

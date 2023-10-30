@@ -2,6 +2,7 @@ const firstRowContainer = document.querySelector(".first-row-container");
 const lettersCotainer = document.querySelector(".letters-container");
 const enterBtn = document.querySelector(".enter");
 const input = document.querySelector(".input");
+let letterBtns;
 
 let fiveLetterWordsArray = [];
 let threeLetterWordsArray = [];
@@ -97,12 +98,37 @@ function addLettersUsed(arr) {
 
     lettersCotainer.appendChild(letterButton);
   }
-  const letterBtns = document.querySelectorAll(".letter-btn");
+
+  letterBtns = document.querySelectorAll(".letter-btn");
 
   letterBtns.forEach((btn) => {
     btn.addEventListener("click", function (e) {
-      input.value += e.target.textContent;
-      e.target.disabled = true;
+      let inputText = input.value;
+      let btnLetter = e.target.textContent;
+
+      if (
+        !inputText.includes(btnLetter) &&
+        !e.target.classList.contains("pressed")
+      ) {
+        input.value += e.target.textContent;
+      } else {
+        let lettersArray = inputText.split("");
+        for (let i = 0; i < lettersArray.length; i++) {
+          if (btnLetter === lettersArray[i]) {
+            lettersArray.splice(i, 1);
+            input.value = lettersArray.join("");
+          }
+        }
+      }
+
+      e.target.classList.toggle("pressed");
+    });
+  });
+  enterBtn.addEventListener("click", () => {
+    letterBtns.forEach((btn) => {
+      if (btn.classList.contains("pressed")) {
+        btn.classList.remove("pressed");
+      }
     });
   });
 }
@@ -144,7 +170,14 @@ function checkAnswer() {
   }
 }
 
-enterBtn.addEventListener("click", () => checkAnswer());
+enterBtn.addEventListener("click", function () {
+  if (checkAnswer) {
+    input.value = "";
+    return true;
+  } else {
+    input.value = "";
+  }
+});
 input.addEventListener("input", function () {
   this.value = this.value.toUpperCase();
 });
@@ -154,13 +187,3 @@ input.addEventListener("keydown", function (e) {
     this.value = "";
   }
 });
-
-// window.addEventListener("DOMContentLoaded", function () {
-//   const letterBtns = document.querySelectorAll(".letter-btn");
-
-//   letterBtns.forEach((btn) => {
-//     btn.addEventListener("click", function () {
-//       console.log("hi");
-//     });
-//   });
-// });

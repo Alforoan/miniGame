@@ -91,12 +91,20 @@ function addThreeLetterWords() {
 function addLettersUsed(arr) {
   for (let i = 0; i < arr.length; i++) {
     const letterButton = document.createElement("button");
-
+    letterButton.classList.add("letter-btn");
     const char = arr[i];
     letterButton.innerHTML = char;
 
     lettersCotainer.appendChild(letterButton);
   }
+  const letterBtns = document.querySelectorAll(".letter-btn");
+
+  letterBtns.forEach((btn) => {
+    btn.addEventListener("click", function (e) {
+      input.value += e.target.textContent;
+      e.target.disabled = true;
+    });
+  });
 }
 
 function randomNumberGenerator(arr) {
@@ -146,3 +154,13 @@ input.addEventListener("keydown", function (e) {
     this.value = "";
   }
 });
+
+// window.addEventListener("DOMContentLoaded", function () {
+//   const letterBtns = document.querySelectorAll(".letter-btn");
+
+//   letterBtns.forEach((btn) => {
+//     btn.addEventListener("click", function () {
+//       console.log("hi");
+//     });
+//   });
+// });

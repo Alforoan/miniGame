@@ -1,2 +1,47 @@
 .first-row-container {
 }
+
+.pressed {
+  background-color: gray;
+}
+
+.hidden {
+  visibility: hidden;
+}
+
+.word {
+}
+
+.progress-bar {
+  position: relative;
+  width: 30%;
+  height: 20px;
+  background-color: #ccc;
+}
+
+.progress {
+  width: 0;
+  height: 100%;
+  background-color: #007bff;
+  transition: width 0.2s;
+}
+
+.marker {
+  position: absolute;
+  top: 0;
+  height: 100%;
+  width: 2px;
+  background-color: #000;
+}
+
+.marker-25 {
+  left: 25%;
+}
+
+.marker-50 {
+  left: 50%;
+}
+
+.marker-75 {
+  left: 75%;
+}

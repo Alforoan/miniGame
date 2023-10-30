@@ -3,6 +3,7 @@ const lettersCotainer = document.querySelector(".letters-container");
 const enterBtn = document.querySelector(".enter");
 const input = document.querySelector(".input");
 const shuffleBtn = document.querySelector(".shuffle-btn");
+const progressBtn = document.querySelector(".progress-btn");
 let hiddenWord;
 let allThreeLetterWords = [];
 let lettersUsedArray = [];
@@ -224,17 +225,51 @@ input.addEventListener("input", function () {
   });
 });
 input.addEventListener("keydown", function (e) {
-  if (e.key === "Enter" && checkAnswer()) {
-    console.log("true");
-    this.value = "";
-    letterBtns.forEach((btn) => {
-      btn.classList.remove("pressed");
-    });
-  } else if (e.key === "Enter" && !checkAnswer()) {
-    console.log("False");
-    letterBtns.forEach((btn) => {
-      btn.classList.remove("pressed");
-    });
-    this.value = "";
+  if (e.key === "Enter") {
+    if (checkAnswer()) {
+      this.value = "";
+      letterBtns.forEach((btn) => {
+        btn.classList.remove("pressed");
+      });
+    } else if (!checkAnswer() && allThreeLetterWords.includes(this.value)) {
+      console.log("+1");
+      letterBtns.forEach((btn) => {
+        btn.classList.remove("pressed");
+      });
+      //add progress bar thing
+
+      this.value = "";
+    } else {
+      letterBtns.forEach((btn) => {
+        btn.classList.remove("pressed");
+      });
+      this.value = "";
+    }
   }
 });
+
+progressBtn.addEventListener("click", () => fillMore());
+function fillProgressBar() {
+  const progressBar = document.querySelector(".progress");
+  progressBar.style.width = "25%";
+}
+function fillMore() {
+  let progressBar = document.querySelector(".progress");
+  if (progressBar.style.width === "25%") {
+    progressBar.style.width = "50%";
+  } else if (progressBar.style.width === "50%") {
+    progressBar.style.width = "75%";
+  } else if (progressBar.style.width === "75%") {
+    progressBar.style.width = "100%";
+    setTimeout(() => {
+      progressBar.style.transition = "none";
+    }, 260);
+
+    setTimeout(() => {
+      progressBar.style.width = "0";
+    }, 500);
+  } else {
+    progressBar.style.transition = "all 0.3s";
+    progressBar.style.width = "25%";
+  }
+}

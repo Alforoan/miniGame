@@ -200,13 +200,26 @@ function checkAnswer() {
     }
   }
 
-  if (remainingLetterCount === 0) {
-    alert("Good job");
-  }
   if (!isMatching) {
     return false;
   }
 }
+
+function checkEndOfLevel() {
+  if (threeLetterWordsArray.join("") === "") {
+    return true;
+  }
+  return false;
+}
+
+const checkLevel = document.querySelector(".check-level");
+checkLevel.addEventListener("click", function () {
+  if (checkEndOfLevel()) {
+    console.log("level ended");
+  } else {
+    console.log("not yet");
+  }
+});
 
 function shuffleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {

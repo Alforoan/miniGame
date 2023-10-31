@@ -419,6 +419,9 @@ input.addEventListener("input", function () {
   });
 });
 input.addEventListener("keydown", function (e) {
+  if (e.key === " ") {
+    e.preventDefault();
+  }
   if (e.key === "Enter") {
     if (checkAnswer() || checkFourWords()) {
       this.value = "";

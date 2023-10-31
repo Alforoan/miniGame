@@ -9,6 +9,8 @@ const shuffleBtn = document.querySelector(".shuffle-btn");
 const progressBtn = document.querySelector(".progress-btn");
 let level = 1;
 let progressPercent;
+let hiddenFourLetterWord;
+let hiddenFourLetterWordLetter;
 let hiddenWord;
 let hiddenLetter;
 let allThreeLetterWords = [];
@@ -81,13 +83,43 @@ async function fetchFourLetterWordsData() {
         lettersUsedArray,
         allFourLetterWords
       );
+      let firstIndex = allFourLetterWords.indexOf(fourLetterWordFirst);
+      allFourLetterWords.splice(firstIndex, 1);
       let fourLetterWordSecond = findWordWithLettersArray(
         lettersUsedArray,
         allFourLetterWords
       );
-      fourLetterWordsArray.push(fourLetterWordFirst, fourLetterWordSecond);
-      addFourLetterWords(fourLetterWordsArray);
-      console.log(fourLetterWordsArray);
+      let secondIndex = allFourLetterWords.indexOf(fourLetterWordSecond);
+      allFourLetterWords.splice(secondIndex, 1);
+      let fourLetterWordThird = findWordWithLettersArray(
+        lettersUsedArray,
+        allFourLetterWords
+      );
+      let thirdIndex = allFourLetterWords.indexOf(fourLetterWordFirst);
+      allFourLetterWords.splice(thirdIndex, 1);
+      let fourLetterWordFourth = findWordWithLettersArray(
+        lettersUsedArray,
+        allFourLetterWords
+      );
+
+      if (level === 2) {
+        fourLetterWordsArray.push(fourLetterWordFirst, fourLetterWordSecond);
+        addFourLetterWords(fourLetterWordsArray);
+        hiddenFourLetterWord = document.querySelectorAll(".hidden-four");
+        hiddenFourLetterWordLetter =
+          document.querySelectorAll(".hidden-four-span");
+      } else if (level >= 3) {
+        fourLetterWordsArray.push(
+          fourLetterWordFirst,
+          fourLetterWordSecond,
+          fourLetterWordThird,
+          fourLetterWordFourth
+        );
+        addFourLetterWords(fourLetterWordsArray);
+        hiddenFourLetterWord = document.querySelectorAll(".hidden-four");
+        hiddenFourLetterWordLetter =
+          document.querySelectorAll(".hidden-four-span");
+      }
     });
 }
 
@@ -123,12 +155,12 @@ function addFourLetterWords(arr) {
   for (let i = 0; i < arr.length; i++) {
     const wordDiv = document.createElement("div");
     const word = arr[i];
-    wordDiv.classList.add("hidden");
+    wordDiv.classList.add("hidden-four");
     for (let j = 0; j < word.length; j++) {
       const char = word[j];
       const charSpan = document.createElement("span");
       charSpan.innerHTML = char;
-      charSpan.classList.add("hidden-span");
+      charSpan.classList.add("hidden-four-span");
       wordDiv.appendChild(charSpan);
     }
     fourLetterWordsContainer.appendChild(wordDiv);
@@ -239,6 +271,56 @@ function checkAnswer() {
   }
 }
 
+function checkFourWords() {
+  let isMatching = false;
+  for (let i = 0; i < fourLetterWordsArray.length; i++) {
+    const word = fourLetterWordsArray[i];
+
+    if (input.value === word) {
+      console.log("matched");
+      fourLetterWordsArray[i] = "";
+      hiddenFourLetterWord.forEach((element) => {
+        if (element.textContent === word) {
+          progressPercent = fillMore();
+          element.style.opacity = "1";
+          element.classList.remove("hidden-four");
+          let hiddenLetterSpans = element.querySelectorAll(".hidden-four-span");
+          hiddenLetterSpans.forEach((span) => {
+            span.style.transition = "all 2s";
+            span.classList.remove("hidden-four-span");
+          });
+        }
+      });
+      if (progressPercent === 100) {
+        let randomNum = randomNumberGenerator(3);
+
+        hiddenFourLetterWord.forEach((element) => {
+          if (element.classList.contains("hidden-four")) {
+            element.classList.remove("hidden-four");
+            let hiddenLetterSpans =
+              element.querySelectorAll(".hidden-four-span");
+            hiddenLetterSpans[randomNum].style.transition = "all 2s";
+            hiddenLetterSpans[randomNum].classList.remove("hidden-four-span");
+            randomNum = randomNumberGenerator(2);
+          }
+        });
+      }
+      return true;
+    } else if (
+      allFourLetterWords.includes(input.value) &&
+      input.value !== word
+    ) {
+      let index = allFourLetterWords.indexOf(word);
+      allFourLetterWords.splice(index, 1);
+      fillMore();
+    }
+  }
+
+  if (!isMatching) {
+    return false;
+  }
+}
+
 function checkEndOfLevel() {
   if (threeLetterWordsArray.join("") === "") {
     return true;
@@ -253,6 +335,13 @@ checkLevel.addEventListener("click", function () {
     if (level === 2) {
       firstRowContainer.innerHTML = "";
       lettersCotainer.innerHTML = "";
+      fetchthreeLetterWordsData();
+      fetchFourLetterWordsData();
+    } else if (level >= 3) {
+      firstRowContainer.innerHTML = "";
+      lettersCotainer.innerHTML = "";
+      fourLetterWordsContainer.innerHTML = "";
+      fourLetterWordsArray.length = 0;
       fetchthreeLetterWordsData();
       fetchFourLetterWordsData();
     }
@@ -302,6 +391,11 @@ shuffleBtn.addEventListener("click", function () {
   });
 });
 enterBtn.addEventListener("click", function () {
+  if (checkFourWords) {
+    console.log("correctly typed");
+  } else {
+    console.log("incorrectly typed");
+  }
   if (checkAnswer) {
     input.value = "";
     return true;
@@ -326,7 +420,7 @@ input.addEventListener("input", function () {
 });
 input.addEventListener("keydown", function (e) {
   if (e.key === "Enter") {
-    if (checkAnswer()) {
+    if (checkAnswer() || checkFourWords()) {
       this.value = "";
       letterBtns.forEach((btn) => {
         btn.classList.remove("pressed");
@@ -336,7 +430,6 @@ input.addEventListener("keydown", function (e) {
       letterBtns.forEach((btn) => {
         btn.classList.remove("pressed");
       });
-      //add progress bar thing
 
       this.value = "";
     } else {

@@ -6,7 +6,9 @@
 }
 
 .hidden,
-.hidden-span {
+.hidden-span,
+.hidden-four,
+.hidden-four-span {
   visibility: hidden;
   opacity: 0;
   transition: opacity 2s;
@@ -47,4 +49,9 @@
 
 .marker-75 {
   left: 75%;
+}
+
+.word-scramble-container {
+  display: flex;
+  align-items: center;
 }

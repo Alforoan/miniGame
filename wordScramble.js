@@ -1,18 +1,24 @@
 const firstRowContainer = document.querySelector(".first-row-container");
+const fourLetterWordsContainer = document.querySelector(
+  ".four-letter-words-container"
+);
 const lettersCotainer = document.querySelector(".letters-container");
 const enterBtn = document.querySelector(".enter");
 const input = document.querySelector(".input");
 const shuffleBtn = document.querySelector(".shuffle-btn");
 const progressBtn = document.querySelector(".progress-btn");
+let level = 1;
 let progressPercent;
 let hiddenWord;
 let hiddenLetter;
 let allThreeLetterWords = [];
+let allFourLetterWords = [];
 let lettersUsedArray = [];
 let letterBtns;
 let generatedWords;
 let fiveLetterWordsArray = [];
 let threeLetterWordsArray = [];
+let fourLetterWordsArray = [];
 let wordsList;
 
 async function fetchthreeLetterWordsData() {
@@ -65,15 +71,25 @@ async function fetchFourLetterWordsData() {
       return response.text();
     })
     .then((data) => {
-      fourLetterWordsList = data.split("\n");
-      fourLetterWordsList = fourLetterWordsList.map((word) =>
+      allFourLetterWords = data.split("\n");
+      allFourLetterWords = allFourLetterWords.map((word) =>
         word.replace(/\r/g, "")
       );
-      console.log(fourLetterWordsList);
+      console.log({ lettersUsedArray });
+
+      let fourLetterWordFirst = findWordWithLettersArray(
+        lettersUsedArray,
+        allFourLetterWords
+      );
+      let fourLetterWordSecond = findWordWithLettersArray(
+        lettersUsedArray,
+        allFourLetterWords
+      );
+      fourLetterWordsArray.push(fourLetterWordFirst, fourLetterWordSecond);
+      addFourLetterWords(fourLetterWordsArray);
+      console.log(fourLetterWordsArray);
     });
 }
-
-fetchFourLetterWordsData();
 
 function generateThreeWordsArray(wordsArray) {
   let attempts = 0;
@@ -85,20 +101,6 @@ function generateThreeWordsArray(wordsArray) {
     attempts++;
   }
   return newArr;
-}
-
-function addFiveLetterWords() {
-  for (let i = 0; i < fiveLetterWordsArray.length; i++) {
-    const wordDiv = document.createElement("div");
-    const word = fiveLetterWordsArray[i];
-    for (let j = 0; j < word.length; j++) {
-      const char = word[j];
-      const charSpan = document.createElement("span");
-      charSpan.innerHTML = char;
-      wordDiv.appendChild(charSpan);
-    }
-    firstRowContainer.appendChild(wordDiv);
-  }
 }
 
 function addThreeLetterWords(arr) {
@@ -114,6 +116,22 @@ function addThreeLetterWords(arr) {
       wordDiv.appendChild(charSpan);
     }
     firstRowContainer.appendChild(wordDiv);
+  }
+}
+
+function addFourLetterWords(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    const wordDiv = document.createElement("div");
+    const word = arr[i];
+    wordDiv.classList.add("hidden");
+    for (let j = 0; j < word.length; j++) {
+      const char = word[j];
+      const charSpan = document.createElement("span");
+      charSpan.innerHTML = char;
+      charSpan.classList.add("hidden-span");
+      wordDiv.appendChild(charSpan);
+    }
+    fourLetterWordsContainer.appendChild(wordDiv);
   }
 }
 
@@ -231,11 +249,41 @@ function checkEndOfLevel() {
 const checkLevel = document.querySelector(".check-level");
 checkLevel.addEventListener("click", function () {
   if (checkEndOfLevel()) {
-    console.log("level ended");
+    level++;
+    if (level === 2) {
+      firstRowContainer.innerHTML = "";
+      lettersCotainer.innerHTML = "";
+      fetchthreeLetterWordsData();
+      fetchFourLetterWordsData();
+    }
   } else {
     console.log("not yet");
   }
 });
+
+function findWordWithLettersArray(lettersArr, wordsArr) {
+  const lettersSet = new Set(lettersArr);
+
+  for (let i = wordsArr.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [wordsArr[i], wordsArr[j]] = [wordsArr[j], wordsArr[i]];
+  }
+
+  for (let i = 0; i < wordsArr.length; i++) {
+    const word = wordsArr[i].toUpperCase();
+    let hasAllLetters = true;
+    for (let j = 0; j < word.length; j++) {
+      if (!lettersSet.has(word[j])) {
+        hasAllLetters = false;
+        break;
+      }
+    }
+    if (hasAllLetters) {
+      return word;
+    }
+  }
+  return null;
+}
 
 function shuffleArray(arr) {
   for (let i = arr.length - 1; i > 0; i--) {

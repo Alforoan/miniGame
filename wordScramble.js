@@ -59,6 +59,22 @@ async function fetchthreeLetterWordsData() {
 }
 fetchthreeLetterWordsData();
 
+async function fetchFourLetterWordsData() {
+  fetch("./fourLetterWords.txt")
+    .then((response) => {
+      return response.text();
+    })
+    .then((data) => {
+      fourLetterWordsList = data.split("\n");
+      fourLetterWordsList = fourLetterWordsList.map((word) =>
+        word.replace(/\r/g, "")
+      );
+      console.log(fourLetterWordsList);
+    });
+}
+
+fetchFourLetterWordsData();
+
 function generateThreeWordsArray(wordsArray) {
   let attempts = 0;
   let newArr = [];

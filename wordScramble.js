@@ -22,28 +22,35 @@ async function fetchthreeLetterWordsData() {
     .then((data) => {
       let wordsList = data.split("\n");
       wordsList = wordsList.map((word) => word.replace(/\r/g, ""));
-      allThreeLetterWords = [...wordsList];
+      //allThreeLetterWords = [...wordsList];
+      let generatedWords = generateThreeWordsArray(wordsList);
+      threeLetterWordsArray = [...generatedWords];
+      let lettersUsed = showLettersUsed(generatedWords);
 
-      let num1 = randomNumberGenerator(wordsList);
-      let num2 = randomNumberGenerator(wordsList);
-      let num3 = randomNumberGenerator(wordsList);
-      threeLetterWordsArray.push(
-        wordsList[num1].toUpperCase(),
-        wordsList[num2].toUpperCase(),
-        wordsList[num3].toUpperCase()
-      );
-
-      let lettersUsed = showLettersUsed(threeLetterWordsArray);
-      lettersUsedArray = [...lettersUsed];
+      //console.log("letters used before if block", lettersUsed);
       if (lettersUsed.length <= 7) {
-        addThreeLetterWords();
+        addLettersUsed(lettersUsed);
+
+        addThreeLetterWords(generatedWords);
         hiddenWord = document.querySelectorAll(".hidden");
         hiddenLetter = document.querySelectorAll(".hidden-span");
-
-        addLettersUsed(lettersUsed);
       } else {
-        fetchthreeLetterWordsData();
+        while (lettersUsed.length > 7) {
+          let generatedWords = generateThreeWordsArray(wordsList);
+          lettersUsed = showLettersUsed(generatedWords);
+          threeLetterWordsArray = [...generatedWords];
+          if (lettersUsed.length <= 7) {
+            addLettersUsed(lettersUsed);
+            addThreeLetterWords(generatedWords);
+            hiddenWord = document.querySelectorAll(".hidden");
+            hiddenLetter = document.querySelectorAll(".hidden-span");
+
+            break;
+          }
+        }
       }
+
+      lettersUsedArray = [...lettersUsed];
     })
     .catch((error) => {
       console.error("Error fetching data:", error);
@@ -51,27 +58,16 @@ async function fetchthreeLetterWordsData() {
 }
 fetchthreeLetterWordsData();
 
-async function fetchFiveLetterWordsData() {
-  fetch("./fiveLetterWords.txt")
-    .then((response) => {
-      return response.text();
-    })
-    .then((data) => {
-      let wordsList = data.split("\n");
-      wordsList = wordsList.map((word) => word.replace(/\r/g, ""));
-      let num1 = randomNumberGenerator(wordsList);
-      let num2 = randomNumberGenerator(wordsList);
-      let num3 = randomNumberGenerator(wordsList);
-      fiveLetterWordsArray.push(
-        wordsList[num1].toUpperCase(),
-        wordsList[num2].toUpperCase(),
-        wordsList[num3].toUpperCase()
-      );
-      console.log(fiveLetterWordsArray);
-    })
-    .catch((error) => {
-      console.error("Error fetching data:", error);
-    });
+function generateThreeWordsArray(wordsArray) {
+  let attempts = 0;
+  let newArr = [];
+  while (newArr.length < 3 && attempts < wordsArray.length) {
+    let randomIndex = randomNumberGenerator(wordsArray.length);
+
+    newArr.push(wordsArray[randomIndex].toUpperCase());
+    attempts++;
+  }
+  return newArr;
 }
 
 function addFiveLetterWords() {
@@ -88,10 +84,10 @@ function addFiveLetterWords() {
   }
 }
 
-function addThreeLetterWords() {
-  for (let i = 0; i < threeLetterWordsArray.length; i++) {
+function addThreeLetterWords(arr) {
+  for (let i = 0; i < arr.length; i++) {
     const wordDiv = document.createElement("div");
-    const word = threeLetterWordsArray[i];
+    const word = arr[i];
     wordDiv.classList.add("hidden");
     for (let j = 0; j < word.length; j++) {
       const char = word[j];
@@ -105,6 +101,7 @@ function addThreeLetterWords() {
 }
 
 function addLettersUsed(arr) {
+  arr = arr.join("");
   for (let i = 0; i < arr.length; i++) {
     const letterButton = document.createElement("button");
     letterButton.classList.add("letter-btn");
@@ -148,27 +145,15 @@ function addLettersUsed(arr) {
   });
 }
 
-function randomNumberGenerator(arr) {
-  let randomNumber = Math.floor(Math.random() * arr.length);
+function randomNumberGenerator(num) {
+  let randomNumber = Math.floor(Math.random() * num);
   return randomNumber;
 }
 
-function showLettersUsed() {
-  const lettersArray = [];
-  for (let i = 0; i < threeLetterWordsArray.length; i++) {
-    const word = threeLetterWordsArray[i];
-    for (let j = 0; j < word.length; j++) {
-      const char = word[j];
-      if (!lettersArray.includes(char)) {
-        lettersArray.push(char);
-        if (lettersArray.length > 6) {
-          return lettersArray;
-        }
-      }
-    }
-  }
-
-  return lettersArray;
+function showLettersUsed(arr) {
+  const combinedWord = arr.join("");
+  const letterSet = new Set(combinedWord);
+  return [...letterSet];
 }
 
 function checkAnswer() {
@@ -191,7 +176,7 @@ function checkAnswer() {
         }
       });
       if (progressPercent === 100) {
-        let randomNum = randomNumberGenerator(word);
+        let randomNum = randomNumberGenerator(3);
         console.log({ randomNum });
         hiddenWord.forEach((element) => {
           if (element.classList.contains("hidden")) {
@@ -274,7 +259,7 @@ input.addEventListener("keydown", function (e) {
 progressBtn.addEventListener("click", () => {
   let progress = fillMore();
   if (progress === 100) {
-    let randomNum = randomNumberGenerator(threeLetterWordsArray[0]);
+    let randomNum = randomNumberGenerator(3);
     console.log({ randomNum });
     hiddenWord.forEach((element) => {
       if (!element.classList.contains("hidden")) {

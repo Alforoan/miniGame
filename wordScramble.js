@@ -7,7 +7,13 @@ const enterBtn = document.querySelector(".enter");
 const input = document.querySelector(".input");
 const shuffleBtn = document.querySelector(".shuffle-btn");
 const progressBtn = document.querySelector(".progress-btn");
+const levelText = document.querySelector(".level");
+const scoreText = document.querySelector(".score");
+const highscoreText = document.querySelector(".highscore");
+
 let level = 1;
+let score = 0;
+let highscore = 0;
 let progressPercent;
 let hiddenFourLetterWord;
 let hiddenFourLetterWordLetter;
@@ -22,6 +28,15 @@ let fiveLetterWordsArray = [];
 let threeLetterWordsArray = [];
 let fourLetterWordsArray = [];
 let wordsList;
+levelText.textContent = `Level: ${level}`;
+scoreText.textContent = `Score: ${score}`;
+
+highscore = localStorage.getItem("highscore");
+if (highscore) {
+  highscoreText.textContent = `High Score: ${highscore}`;
+} else {
+  highscoreText.textContent = `High Score: 0`;
+}
 
 async function fetchthreeLetterWordsData() {
   fetch("./threeLetterWords.txt")
@@ -229,6 +244,13 @@ function checkAnswer() {
     const word = threeLetterWordsArray[i];
 
     if (input.value === word) {
+      score += 100;
+      scoreText.textContent = `Score: ${score}`;
+      if (score > highscore) {
+        highscore = score;
+        localStorage.setItem("highscore", score);
+        highscoreText.textContent = `High Score: ${highscore}`;
+      }
       threeLetterWordsArray[i] = "";
       hiddenWord.forEach((element) => {
         if (element.textContent === word) {
@@ -277,7 +299,13 @@ function checkFourWords() {
     const word = fourLetterWordsArray[i];
 
     if (input.value === word) {
-      console.log("matched");
+      score += 200;
+      scoreText.textContent = `Score: ${score}`;
+      if (score > highscore) {
+        highscore = score;
+        localStorage.setItem("highscore", score);
+        highscoreText.textContent = `High Score: ${highscore}`;
+      }
       fourLetterWordsArray[i] = "";
       hiddenFourLetterWord.forEach((element) => {
         if (element.textContent === word) {
@@ -332,6 +360,7 @@ const checkLevel = document.querySelector(".check-level");
 checkLevel.addEventListener("click", function () {
   if (checkEndOfLevel()) {
     level++;
+    levelText.textContent = `Level: ${level}`;
     if (level === 2) {
       firstRowContainer.innerHTML = "";
       lettersCotainer.innerHTML = "";

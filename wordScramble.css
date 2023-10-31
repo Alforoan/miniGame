@@ -55,3 +55,12 @@
   display: flex;
   align-items: center;
 }
+
+.stats-container {
+  display: flex;
+}
+
+.score,
+.level {
+  margin-right: 1rem;
+}

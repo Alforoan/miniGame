@@ -10,9 +10,10 @@ let hiddenLetter;
 let allThreeLetterWords = [];
 let lettersUsedArray = [];
 let letterBtns;
-
+let generatedWords;
 let fiveLetterWordsArray = [];
 let threeLetterWordsArray = [];
+let wordsList;
 
 async function fetchthreeLetterWordsData() {
   fetch("./threeLetterWords.txt")
@@ -20,10 +21,10 @@ async function fetchthreeLetterWordsData() {
       return response.text();
     })
     .then((data) => {
-      let wordsList = data.split("\n");
+      wordsList = data.split("\n");
       wordsList = wordsList.map((word) => word.replace(/\r/g, ""));
-      //allThreeLetterWords = [...wordsList];
-      let generatedWords = generateThreeWordsArray(wordsList);
+      allThreeLetterWords = [...wordsList];
+      generatedWords = generateThreeWordsArray(wordsList);
       threeLetterWordsArray = [...generatedWords];
       let lettersUsed = showLettersUsed(generatedWords);
 
@@ -36,7 +37,7 @@ async function fetchthreeLetterWordsData() {
         hiddenLetter = document.querySelectorAll(".hidden-span");
       } else {
         while (lettersUsed.length > 7) {
-          let generatedWords = generateThreeWordsArray(wordsList);
+          generatedWords = generateThreeWordsArray(wordsList);
           lettersUsed = showLettersUsed(generatedWords);
           threeLetterWordsArray = [...generatedWords];
           if (lettersUsed.length <= 7) {
@@ -162,10 +163,10 @@ function checkAnswer() {
     const word = threeLetterWordsArray[i];
 
     if (input.value === word) {
-      progressPercent = fillMore();
-
+      threeLetterWordsArray[i] = "";
       hiddenWord.forEach((element) => {
         if (element.textContent === word) {
+          progressPercent = fillMore();
           element.style.opacity = "1";
           element.classList.remove("hidden");
           let hiddenLetterSpans = element.querySelectorAll(".hidden-span");
@@ -177,18 +178,30 @@ function checkAnswer() {
       });
       if (progressPercent === 100) {
         let randomNum = randomNumberGenerator(3);
-        console.log({ randomNum });
+
         hiddenWord.forEach((element) => {
           if (element.classList.contains("hidden")) {
             element.classList.remove("hidden");
             let hiddenLetterSpans = element.querySelectorAll(".hidden-span");
             hiddenLetterSpans[randomNum].style.transition = "all 2s";
             hiddenLetterSpans[randomNum].classList.remove("hidden-span");
+            randomNum = randomNumberGenerator(3);
           }
         });
       }
       return true;
+    } else if (
+      allThreeLetterWords.includes(input.value) &&
+      input.value !== word
+    ) {
+      let index = wordsList.indexOf(word);
+      wordsList.splice(index, 1);
+      fillMore();
     }
+  }
+
+  if (remainingLetterCount === 0) {
+    alert("Good job");
   }
   if (!isMatching) {
     return false;
@@ -201,6 +214,7 @@ function shuffleArray(arr) {
     [arr[i], arr[j]] = [arr[j], arr[i]];
   }
 }
+
 shuffleBtn.addEventListener("click", function () {
   shuffleArray(lettersUsedArray);
   lettersCotainer.innerHTML = "";
@@ -218,6 +232,7 @@ enterBtn.addEventListener("click", function () {
     input.value = "";
   }
 });
+
 input.addEventListener("input", function () {
   this.value = this.value.toUpperCase();
 
@@ -288,7 +303,7 @@ function fillMore() {
     }, 500);
   } else {
     progressBar.style.transition = "all 0.3s";
-    progressBar.style.width = "0%";
+    progressBar.style.width = "50%";
   }
   return progressPercentage;
 }

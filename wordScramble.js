@@ -286,6 +286,22 @@ function showLettersUsed(arr) {
   return [...letterSet];
 }
 
+function checkLettersUsed(lettersArr, word) {
+  const combinedWord = lettersArr.join("");
+  const letterSet = new Set(combinedWord);
+  let hasAllLetters = true;
+  for (let i = 0; i < word.length; i++) {
+    const char = word[i];
+    if (!letterSet.has(char)) {
+      hasAllLetters = false;
+    }
+  }
+  if (hasAllLetters) {
+    return true;
+  }
+  return false;
+}
+
 function checkWordInArr(arr) {
   if (arr.includes(input.value.toLowerCase())) {
     return true;
@@ -661,7 +677,10 @@ input.addEventListener("keydown", function (e) {
         letterBtns.forEach((btn) => {
           btn.classList.remove("pressed");
         });
-      } else if (checkWordInArr(allThreeLetterWords)) {
+      } else if (
+        checkWordInArr(allThreeLetterWords) &&
+        checkLettersUsed(lettersUsedArray, input.value)
+      ) {
         this.value = "";
         letterBtns.forEach((btn) => {
           btn.classList.remove("pressed");
@@ -680,14 +699,18 @@ input.addEventListener("keydown", function (e) {
         });
         this.value = "";
       } else if (
-        checkWordInArr(allThreeLetterWords) ||
-        checkWordInArr(allFourLetterWords)
+        (checkWordInArr(allThreeLetterWords) &&
+          checkLettersUsed(lettersUsedArray, input.value)) ||
+        (checkWordInArr(allFourLetterWords) &&
+          checkLettersUsed(lettersUsedArray, input.value))
       ) {
         this.value = "";
         letterBtns.forEach((btn) => {
           btn.classList.remove("pressed");
         });
         fillMore();
+      } else {
+        input.value = "";
       }
     }
   }

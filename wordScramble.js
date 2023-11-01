@@ -318,7 +318,7 @@ function checkAnswer() {
       });
       if (progressPercent === 100) {
         let randomNum = randomNumberGenerator(3);
-
+        console.log({ randomNum });
         hiddenWord.forEach((element) => {
           if (element.classList.contains("hidden")) {
             element.classList.remove("hidden");
@@ -510,6 +510,30 @@ function fillMore() {
   } else if (progressBar.style.width === "50%") {
     progressBar.style.width = "100%";
     progressPercentage = 100;
+
+    let randomNum;
+    hiddenWord.forEach((element) => {
+      randomNum = randomNumberGenerator(3);
+      if (element.classList.contains("hidden")) {
+        element.classList.remove("hidden");
+        let hiddenLetterSpans = element.querySelectorAll(".hidden-span");
+        hiddenLetterSpans[randomNum].style.transition = "all 2s";
+        hiddenLetterSpans[randomNum].classList.remove("hidden-span");
+        randomNum = randomNumberGenerator(3);
+      }
+    });
+    if (level >= 2) {
+      hiddenFourLetterWord.forEach((element) => {
+        if (element.classList.contains("hidden-four")) {
+          element.classList.remove("hidden-four");
+          let hiddenLetterSpans = element.querySelectorAll(".hidden-four-span");
+          hiddenLetterSpans[randomNum].style.transition = "all 2s";
+          hiddenLetterSpans[randomNum].classList.remove("hidden-four-span");
+          randomNum = randomNumberGenerator(3);
+        }
+      });
+    }
+
     setTimeout(() => {
       progressBar.style.transition = "none";
     }, 260);
@@ -610,6 +634,11 @@ input.addEventListener("keydown", function (e) {
           btn.classList.remove("pressed");
         });
         fillMore();
+      } else {
+        this.value = "";
+        letterBtns.forEach((btn) => {
+          btn.classList.remove("pressed");
+        });
       }
     } else if (level >= 2) {
       if (checkAnswer() || checkFourWords()) {
@@ -617,13 +646,16 @@ input.addEventListener("keydown", function (e) {
           btn.classList.remove("pressed");
         });
         this.value = "";
+      } else if (
+        checkWordInArr(allThreeLetterWords) ||
+        checkWordInArr(allFourLetterWords)
+      ) {
+        this.value = "";
+        letterBtns.forEach((btn) => {
+          btn.classList.remove("pressed");
+        });
+        fillMore();
       }
-    } else if (checkWordInArr(allFourLetterWords)) {
-      this.value = "";
-      letterBtns.forEach((btn) => {
-        btn.classList.remove("pressed");
-      });
-      fillMore();
     }
   }
 });

@@ -6,11 +6,12 @@ const lettersCotainer = document.querySelector(".letters-container");
 const enterBtn = document.querySelector(".enter");
 const input = document.querySelector(".input");
 const shuffleBtn = document.querySelector(".shuffle-btn");
-const progressBtn = document.querySelector(".progress-btn");
+const ultimate = document.querySelector(".ultimate-btn");
 const levelText = document.querySelector(".level");
 const scoreText = document.querySelector(".score");
 const highscoreText = document.querySelector(".highscore");
-let progressCount = 0;
+const checkLevel = document.querySelector(".check-level");
+let progressCount = 10;
 let level = 1;
 let score = 0;
 let highscore = 0;
@@ -58,6 +59,28 @@ async function fetchthreeLetterWordsData() {
         addThreeLetterWords(generatedWords);
         hiddenWord = document.querySelectorAll(".hidden");
         hiddenLetter = document.querySelectorAll(".hidden-span");
+        // ultimate.addEventListener("click", () => {
+        //   if (progressCount >= 5) {
+        //     hiddenWord.forEach((word) => {
+        //       word.classList.remove("hidden");
+        //       let hiddenLetterSpans = word.querySelectorAll(".hidden-span");
+        //       hiddenLetterSpans.forEach((span) => {
+        //         span.style.transition = "all 2s";
+        //         span.classList.remove("hidden-span");
+        //       });
+        //     });
+        //     hiddenFourLetterWord.forEach((word) => {
+        //       word.classList.remove("hidden-four");
+        //       let hiddenLetterSpans =
+        //         word.querySelectorAll(".hidden-four-span");
+        //       hiddenLetterSpans.forEach((span) => {
+        //         span.style.transition = "all 2s";
+        //         span.classList.remove("hidden-four-span");
+        //       });
+        //     });
+        //     progressCount = progressCount - 5;
+        //   }
+        // });
       } else {
         while (lettersUsed.length > 7) {
           generatedWords = generateThreeWordsArray(wordsList);
@@ -99,7 +122,7 @@ async function fetchFourLetterWordsData() {
           allFourLetterWords
         );
         let firstIndex = allFourLetterWords.indexOf(
-          fourLetterWordFirst.toLowerCase()
+          fourLetterWordFirst?.toLowerCase()
         );
 
         allFourLetterWords.splice(firstIndex, 1);
@@ -108,7 +131,7 @@ async function fetchFourLetterWordsData() {
           allFourLetterWords
         );
         let secondIndex = allFourLetterWords.indexOf(
-          fourLetterWordSecond.toLowerCase()
+          fourLetterWordSecond?.toLowerCase()
         );
         allFourLetterWords.splice(secondIndex, 1);
 
@@ -166,6 +189,16 @@ async function fetchFourLetterWordsData() {
         hiddenFourLetterWord = document.querySelectorAll(".hidden-four");
         hiddenFourLetterWordLetter =
           document.querySelectorAll(".hidden-four-span");
+        ultimate.addEventListener("click", () => {
+          if (progressCount >= 5) {
+            hiddenWord.forEach((word) => {
+              word.classList.remove("hidden");
+            });
+            hiddenFourLetterWord.forEach((word) => {
+              word.classList.remove("hidden-four");
+            });
+          }
+        });
       }
     });
 }
@@ -308,6 +341,16 @@ function checkAnswer() {
             randomNum = randomNumberGenerator(3);
           }
         });
+        hiddenFourLetterWord.forEach((element) => {
+          if (element.classList.contains("hidden-four")) {
+            element.classList.remove("hidden-four");
+            let hiddenLetterSpans =
+              element.querySelectorAll(".hidden-four-span");
+            hiddenLetterSpans[randomNum].style.transition = "all 2s";
+            hiddenLetterSpans[randomNum].classList.remove("hidden-four-span");
+            randomNum = randomNumberGenerator(3);
+          }
+        });
       }
       return true;
     } else if (
@@ -394,7 +437,6 @@ function checkEndOfLevel() {
   return false;
 }
 
-const checkLevel = document.querySelector(".check-level");
 checkLevel.addEventListener("click", function () {
   //   if (checkEndOfLevel()) {
   //     level++;
@@ -457,6 +499,63 @@ function shuffleArray(arr) {
   }
 }
 
+function useUltimate() {
+  let hasHidden = true;
+
+  hiddenWord.forEach((word) => {
+    if (!word.classList.contains("hidden")) {
+      hasHidden = false;
+      return;
+    }
+  });
+
+  if (progressCount >= 5 && hasHidden) {
+    hiddenWord.forEach((word) => {
+      if (!word.classList.contains("hidden")) {
+        console.log("all shown");
+        return;
+      }
+      word.classList.remove("hidden");
+      let hiddenLetterSpans = word.querySelectorAll(".hidden-span");
+      hiddenLetterSpans.forEach((span) => {
+        span.style.transition = "all 2s";
+        span.classList.remove("hidden-span");
+      });
+    });
+    hiddenFourLetterWord.forEach((word) => {
+      word.classList.remove("hidden-four");
+      let hiddenLetterSpans = word.querySelectorAll(".hidden-four-span");
+      hiddenLetterSpans.forEach((span) => {
+        span.style.transition = "all 2s";
+        span.classList.remove("hidden-four-span");
+      });
+    });
+    progressCount = progressCount - 5;
+  }
+}
+
+function fillMore() {
+  let progressBar = document.querySelector(".progress");
+  let progressPercentage;
+  if (progressBar.style.width === "0%" || progressBar.style.width === "") {
+    progressBar.style.width = "50%";
+  } else if (progressBar.style.width === "50%") {
+    progressBar.style.width = "100%";
+    progressPercentage = 100;
+    setTimeout(() => {
+      progressBar.style.transition = "none";
+    }, 260);
+
+    setTimeout(() => {
+      progressBar.style.width = "0";
+    }, 500);
+  } else {
+    progressBar.style.transition = "all 0.3s";
+    progressBar.style.width = "50%";
+  }
+  return progressPercentage;
+}
+
 shuffleBtn.addEventListener("click", function () {
   shuffleArray(lettersUsedArray);
   lettersCotainer.innerHTML = "";
@@ -466,6 +565,7 @@ shuffleBtn.addEventListener("click", function () {
     btn.classList.remove("pressed");
   });
 });
+
 enterBtn.addEventListener("click", function () {
   if (checkFourWords) {
     console.log("correctly typed");
@@ -479,6 +579,8 @@ enterBtn.addEventListener("click", function () {
     input.value = "";
   }
 });
+
+ultimate.addEventListener("click", () => useUltimate());
 
 input.addEventListener("input", function () {
   this.value = this.value.toUpperCase();
@@ -519,40 +621,3 @@ input.addEventListener("keydown", function (e) {
     }
   }
 });
-
-progressBtn.addEventListener("click", () => {
-  let progress = fillMore();
-  if (progress === 100) {
-    let randomNum = randomNumberGenerator(3);
-    console.log({ randomNum });
-    hiddenWord.forEach((element) => {
-      if (!element.classList.contains("hidden")) {
-        // hiddenLetter[randomNum].classList.remove("hidden-span");
-        console.log(hiddenLetter);
-        console.log(hiddenLetter[randomNum]);
-      }
-    });
-  }
-});
-
-function fillMore() {
-  let progressBar = document.querySelector(".progress");
-  let progressPercentage;
-  if (progressBar.style.width === "0%" || progressBar.style.width === "") {
-    progressBar.style.width = "50%";
-  } else if (progressBar.style.width === "50%") {
-    progressBar.style.width = "100%";
-    progressPercentage = 100;
-    setTimeout(() => {
-      progressBar.style.transition = "none";
-    }, 260);
-
-    setTimeout(() => {
-      progressBar.style.width = "0";
-    }, 500);
-  } else {
-    progressBar.style.transition = "all 0.3s";
-    progressBar.style.width = "50%";
-  }
-  return progressPercentage;
-}

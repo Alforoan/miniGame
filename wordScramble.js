@@ -10,7 +10,7 @@ const progressBtn = document.querySelector(".progress-btn");
 const levelText = document.querySelector(".level");
 const scoreText = document.querySelector(".score");
 const highscoreText = document.querySelector(".highscore");
-
+let progressCount = 0;
 let level = 1;
 let score = 0;
 let highscore = 0;
@@ -92,44 +92,76 @@ async function fetchFourLetterWordsData() {
       allFourLetterWords = allFourLetterWords.map((word) =>
         word.replace(/\r/g, "")
       );
-      console.log({ lettersUsedArray });
-
-      let fourLetterWordFirst = findWordWithLettersArray(
-        lettersUsedArray,
-        allFourLetterWords
-      );
-      let firstIndex = allFourLetterWords.indexOf(fourLetterWordFirst);
-      allFourLetterWords.splice(firstIndex, 1);
-      let fourLetterWordSecond = findWordWithLettersArray(
-        lettersUsedArray,
-        allFourLetterWords
-      );
-      let secondIndex = allFourLetterWords.indexOf(fourLetterWordSecond);
-      allFourLetterWords.splice(secondIndex, 1);
-      let fourLetterWordThird = findWordWithLettersArray(
-        lettersUsedArray,
-        allFourLetterWords
-      );
-      let thirdIndex = allFourLetterWords.indexOf(fourLetterWordFirst);
-      allFourLetterWords.splice(thirdIndex, 1);
-      let fourLetterWordFourth = findWordWithLettersArray(
-        lettersUsedArray,
-        allFourLetterWords
-      );
 
       if (level === 2) {
+        let fourLetterWordFirst = findWordWithLettersArray(
+          lettersUsedArray,
+          allFourLetterWords
+        );
+        let firstIndex = allFourLetterWords.indexOf(
+          fourLetterWordFirst.toLowerCase()
+        );
+
+        allFourLetterWords.splice(firstIndex, 1);
+        let fourLetterWordSecond = findWordWithLettersArray(
+          lettersUsedArray,
+          allFourLetterWords
+        );
+        let secondIndex = allFourLetterWords.indexOf(
+          fourLetterWordSecond.toLowerCase()
+        );
+        allFourLetterWords.splice(secondIndex, 1);
+
         fourLetterWordsArray.push(fourLetterWordFirst, fourLetterWordSecond);
         addFourLetterWords(fourLetterWordsArray);
         hiddenFourLetterWord = document.querySelectorAll(".hidden-four");
         hiddenFourLetterWordLetter =
           document.querySelectorAll(".hidden-four-span");
       } else if (level >= 3) {
+        let fourLetterWordFirst = findWordWithLettersArray(
+          lettersUsedArray,
+          allFourLetterWords
+        );
+        let firstIndex = allFourLetterWords.indexOf(
+          fourLetterWordFirst?.toLowerCase()
+        );
+        allFourLetterWords.splice(firstIndex, 1);
+
+        let fourLetterWordSecond = findWordWithLettersArray(
+          lettersUsedArray,
+          allFourLetterWords
+        );
+        let secondIndex = allFourLetterWords.indexOf(
+          fourLetterWordSecond?.toLowerCase()
+        );
+        allFourLetterWords.splice(secondIndex, 1);
+
+        let fourLetterWordThird = findWordWithLettersArray(
+          lettersUsedArray,
+          allFourLetterWords
+        );
+        let thirdIndex = allFourLetterWords.indexOf(
+          fourLetterWordThird?.toLowerCase()
+        );
+        allFourLetterWords.splice(thirdIndex, 1);
+
         fourLetterWordsArray.push(
           fourLetterWordFirst,
           fourLetterWordSecond,
-          fourLetterWordThird,
-          fourLetterWordFourth
+          fourLetterWordThird
         );
+        while (fourLetterWordsArray.includes(null)) {
+          firstRowContainer.innerHTML = "";
+          lettersCotainer.innerHTML = "";
+          fourLetterWordsContainer.innerHTML = "";
+          fourLetterWordsArray.length = 0;
+          fetchthreeLetterWordsData();
+          fetchFourLetterWordsData();
+          if (!fourLetterWordsArray.includes(null)) {
+            break;
+          }
+        }
+
         addFourLetterWords(fourLetterWordsArray);
         hiddenFourLetterWord = document.querySelectorAll(".hidden-four");
         hiddenFourLetterWordLetter =
@@ -323,13 +355,19 @@ function checkFourWords() {
         let randomNum = randomNumberGenerator(3);
 
         hiddenFourLetterWord.forEach((element) => {
+          let hasHidden = false;
           if (element.classList.contains("hidden-four")) {
+            hasHidden = true;
             element.classList.remove("hidden-four");
             let hiddenLetterSpans =
               element.querySelectorAll(".hidden-four-span");
             hiddenLetterSpans[randomNum].style.transition = "all 2s";
             hiddenLetterSpans[randomNum].classList.remove("hidden-four-span");
             randomNum = randomNumberGenerator(2);
+          }
+          if (!hasHidden) {
+            progressCount++;
+            console.log({ progressCount });
           }
         });
       }
@@ -358,25 +396,34 @@ function checkEndOfLevel() {
 
 const checkLevel = document.querySelector(".check-level");
 checkLevel.addEventListener("click", function () {
-  if (checkEndOfLevel()) {
-    level++;
-    levelText.textContent = `Level: ${level}`;
-    if (level === 2) {
-      firstRowContainer.innerHTML = "";
-      lettersCotainer.innerHTML = "";
-      fetchthreeLetterWordsData();
-      fetchFourLetterWordsData();
-    } else if (level >= 3) {
-      firstRowContainer.innerHTML = "";
-      lettersCotainer.innerHTML = "";
-      fourLetterWordsContainer.innerHTML = "";
-      fourLetterWordsArray.length = 0;
-      fetchthreeLetterWordsData();
-      fetchFourLetterWordsData();
-    }
-  } else {
-    console.log("not yet");
-  }
+  //   if (checkEndOfLevel()) {
+  //     level++;
+  //     levelText.textContent = `Level: ${level}`;
+  //     if (level === 2) {
+  //       firstRowContainer.innerHTML = "";
+  //       lettersCotainer.innerHTML = "";
+  //       fetchthreeLetterWordsData();
+  //       fetchFourLetterWordsData();
+  //     } else if (level >= 3) {
+  //       firstRowContainer.innerHTML = "";
+  //       lettersCotainer.innerHTML = "";
+  //       fourLetterWordsContainer.innerHTML = "";
+  //       fourLetterWordsArray.length = 0;
+  //       fetchthreeLetterWordsData();
+  //       fetchFourLetterWordsData();
+  //     }
+  //   } else {
+  //     console.log("not yet");
+  //   }
+  level++;
+
+  levelText.textContent = `Level: ${level}`;
+  firstRowContainer.innerHTML = "";
+  lettersCotainer.innerHTML = "";
+  fourLetterWordsContainer.innerHTML = "";
+  fourLetterWordsArray.length = 0;
+  fetchthreeLetterWordsData();
+  fetchFourLetterWordsData();
 });
 
 function findWordWithLettersArray(lettersArr, wordsArr) {

@@ -11,7 +11,7 @@ const levelText = document.querySelector(".level");
 const scoreText = document.querySelector(".score");
 const highscoreText = document.querySelector(".highscore");
 const checkLevel = document.querySelector(".check-level");
-let progressCount = 4;
+let progressCount = 20;
 let level = 1;
 let score = 0;
 let highscore = 0;
@@ -185,12 +185,16 @@ async function fetchFourLetterWordsData() {
 function generateThreeWordsArray(wordsArray) {
   let attempts = 0;
   let newArr = [];
+
   while (newArr.length < 3 && attempts < wordsArray.length) {
     let randomIndex = randomNumberGenerator(wordsArray.length);
 
     newArr.push(wordsArray[randomIndex].toUpperCase());
+    wordsArray.splice(randomIndex, 1);
+
     attempts++;
   }
+
   return newArr;
 }
 
@@ -465,26 +469,37 @@ function shuffleArray(arr) {
 }
 
 function useUltimate() {
-  let hasHidden = true;
+  let hasHiddenCount = 0;
 
   hiddenWord.forEach((word) => {
-    if (!word.classList.contains("hidden")) {
-      hasHidden = false;
-      return;
-    }
+    let hiddenLetterSpans = word.childNodes;
+
+    hiddenLetterSpans.forEach((child) => {
+      if (child.classList.contains("hidden-span")) {
+        hasHiddenCount++;
+      }
+    });
+  });
+  hiddenFourLetterWord.forEach((word) => {
+    let hiddenLetterSpans = word.childNodes;
+    hiddenLetterSpans.forEach((child) => {
+      if (child.classList.contains("hidden-four-span")) {
+        hasHiddenCount++;
+      }
+    });
   });
 
-  if (progressCount >= 5 && hasHidden) {
+  if (progressCount >= 5 && hasHiddenCount >= 1) {
     hiddenWord.forEach((word) => {
-      if (!word.classList.contains("hidden")) {
-        console.log("all shown");
-        return;
-      }
+      //   if (!word.classList.contains("hidden")) {
+      //     console.log("all shown");
+      //     return;
+      //   }
       word.classList.remove("hidden");
-      let hiddenLetterSpans = word.querySelectorAll(".hidden-span");
-      hiddenLetterSpans.forEach((span) => {
-        span.style.transition = "all 2s";
-        span.classList.remove("hidden-span");
+      let hiddenLetterSpans = word.childNodes;
+      hiddenLetterSpans.forEach((child) => {
+        child.style.transition = "all 2s";
+        child.classList.remove("hidden-span");
       });
     });
     hiddenFourLetterWord.forEach((word) => {
@@ -512,9 +527,11 @@ function fillMore() {
     progressPercentage = 100;
 
     let randomNum;
+    let hasHidden = false;
     hiddenWord.forEach((element) => {
       randomNum = randomNumberGenerator(3);
       if (element.classList.contains("hidden")) {
+        hasHidden = true;
         element.classList.remove("hidden");
         let hiddenLetterSpans = element.querySelectorAll(".hidden-span");
         hiddenLetterSpans[randomNum].style.transition = "all 2s";
@@ -522,6 +539,10 @@ function fillMore() {
         randomNum = randomNumberGenerator(3);
       }
     });
+    if (!hasHidden) {
+      progressCount++;
+      ultimate.textContent = `Ultimate: ${Math.floor(progressCount / 5)}`;
+    }
     if (level >= 2) {
       hiddenFourLetterWord.forEach((element) => {
         if (element.classList.contains("hidden-four")) {
@@ -581,22 +602,34 @@ enterBtn.addEventListener("click", function () {
 ultimate.addEventListener("click", () => useUltimate());
 
 checkLevel.addEventListener("click", function () {
+  //   if (checkEndOfLevel()) {
+  //     level++;
+  //     levelText.textContent = `Level: ${level}`;
+  //     if (level === 2) {
+  //       firstRowContainer.innerHTML = "";
+  //       lettersCotainer.innerHTML = "";
+  //       fetchthreeLetterWordsData();
+  //       fetchFourLetterWordsData();
+  //     } else if (level >= 3) {
+  //       firstRowContainer.innerHTML = "";
+  //       lettersCotainer.innerHTML = "";
+  //       fourLetterWordsContainer.innerHTML = "";
+  //       fourLetterWordsArray.length = 0;
+  //       fetchthreeLetterWordsData();
+  //       fetchFourLetterWordsData();
+  //     }
+  //   } else {
+  //     console.log("not yet");
+  //   }
   if (checkEndOfLevel()) {
     level++;
     levelText.textContent = `Level: ${level}`;
-    if (level === 2) {
-      firstRowContainer.innerHTML = "";
-      lettersCotainer.innerHTML = "";
-      fetchthreeLetterWordsData();
-      fetchFourLetterWordsData();
-    } else if (level >= 3) {
-      firstRowContainer.innerHTML = "";
-      lettersCotainer.innerHTML = "";
-      fourLetterWordsContainer.innerHTML = "";
-      fourLetterWordsArray.length = 0;
-      fetchthreeLetterWordsData();
-      fetchFourLetterWordsData();
-    }
+    firstRowContainer.innerHTML = "";
+    lettersCotainer.innerHTML = "";
+    fourLetterWordsContainer.innerHTML = "";
+    fourLetterWordsArray.length = 0;
+    fetchthreeLetterWordsData();
+    fetchFourLetterWordsData();
   } else {
     console.log("not yet");
   }

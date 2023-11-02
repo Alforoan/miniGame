@@ -4,12 +4,14 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="wordScramble.css" />
+    <link rel="stylesheet" href="arcade.ttf" />
     <title>Word Scramble</title>
   </head>
   <body>
     <audio id="level-up" src="sounds/level up.mp3"></audio>
     <audio id="word-found" src="sounds/wordFound.mp3"></audio>
     <audio id="reveal-word" src="sounds/revealWord.mp3"></audio>
+    <audio id="ultimate-sound" src="sounds/ultimateSound.mp3"></audio>
     <div class="stats-container">
       <h2 class="level"></h2>
       <h2 class="score"></h2>
@@ -34,7 +36,15 @@
     </div>
     <button class="ultimate-btn">Ultimate</button>
     <button class="check-level">next check-level</button>
-
+    <div class="hint-button-container">
+      <button class="hint-button">Hint (One time usage)</button>
+    </div>
+    <video
+      id="laugh-track"
+      controls
+      src="sounds/laughTrack.mp4"
+      type="video/mp4"
+    ></video>
     <script src="wordScramble.js"></script>
     <script
       src="https://kit.fontawesome.com/95b6c5c61f.js"

@@ -1,3 +1,12 @@
+body {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  height: 100vh;
+  margin: 0;
+}
+
 .first-row-container {
 }
 
@@ -22,6 +31,7 @@
   width: 30%;
   height: 20px;
   background-color: #ccc;
+  margin: 0 auto;
 }
 
 .progress {
@@ -58,9 +68,28 @@
 
 .stats-container {
   display: flex;
+  justify-content: center;
 }
 
 .score,
 .level {
   margin-right: 1rem;
+}
+
+#laugh-track {
+  display: none;
+  width: 200px;
+  height: 200px;
+}
+
+@font-face {
+  font-family: "Public Pixel";
+  src: url(arcade.ttf) format("truetype");
+
+  font-weight: lighter;
+  font-style: normal;
+}
+
+body {
+  font-family: "Public Pixel", Arial, sans-serif;
 }

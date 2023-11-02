@@ -16,6 +16,7 @@ const deleteBtn = document.querySelector(".fa-delete-left");
 const levelUp = document.getElementById("level-up");
 const wordFound = document.getElementById("word-found");
 const revealWord = document.getElementById("word-found");
+const ultimateSound = document.getElementById("ultimate-sound");
 let progressCount = 20;
 let level = 1;
 let score = 0;
@@ -40,6 +41,7 @@ ultimate.textContent = `Ultimate: ${Math.floor(progressCount / 5)}`;
 levelUp.volume = 0.25;
 wordFound.volume = 0.25;
 revealWord.volume = 0.25;
+ultimateSound.volume = 0.25;
 
 highscore = localStorage.getItem("highscore");
 if (highscore) {
@@ -515,6 +517,7 @@ function useUltimate() {
 
   if (progressCount >= 5 && hasHiddenCount >= 1) {
     hiddenWord.forEach((word) => {
+      ultimateSound.play();
       //   if (!word.classList.contains("hidden")) {
       //     console.log("all shown");
       //     return;

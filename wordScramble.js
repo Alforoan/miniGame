@@ -11,14 +11,15 @@ const levelText = document.querySelector(".level");
 const scoreText = document.querySelector(".score");
 const highscoreText = document.querySelector(".highscore");
 const checkLevel = document.querySelector(".check-level");
-const trashBtn = document.querySelector(".fa-trash");
-const deleteBtn = document.querySelector(".fa-delete-left");
+const trashBtn = document.querySelector(".trash-btn");
+const deleteBtn = document.querySelector(".delete-btn");
 const levelUp = document.getElementById("level-up");
 const wordFound = document.getElementById("word-found");
 const revealWord = document.getElementById("word-found");
 const ultimateSound = document.getElementById("ultimate-sound");
 const hintBtn = document.querySelector(".hint-button");
 const hintBtnContainer = document.querySelector(".hint-button-container");
+const hintBtnText = document.querySelector(".hint-button-text");
 const laughTrack = document.getElementById("laugh-track");
 
 let progressCount = 20;
@@ -679,9 +680,9 @@ hintBtnContainer.addEventListener("click", function (event) {
 
   if (target.classList.contains("no-btn")) {
     hintBtnContainer.innerHTML = "";
-    hintBtnContainer.innerHTML = `<button class="hint-button">Hint (One time usage)</button>`;
+    hintBtnContainer.innerHTML = `<button class="hint-button btn">Hint (One time usage)</button>`;
   } else if (target.classList.contains("yes-btn")) {
-    hintBtnContainer.innerHTML = "Well, too bad :)";
+    hintBtnContainer.innerHTML = `<h3 class="text">Well, too bad :)</h3>`;
     setTimeout(() => {
       laughTrack.style.display = "block";
       laughTrack.play();
@@ -693,8 +694,8 @@ hintBtnContainer.addEventListener("click", function (event) {
       hintBtnContainer.innerHTML = "";
     }, 2000);
   } else if (target.classList.contains("hint-button")) {
-    hintBtnContainer.innerHTML = `<div>
-    <h2>would you like a hint?</h2>
+    hintBtnContainer.innerHTML = `<div class="hint-btn-text">
+    <h2>Would you like a hint?</h2>
     <button class="yes-btn">Yes</button>
     <button class="no-btn">No</button>
   </div>`;

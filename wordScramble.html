@@ -28,43 +28,47 @@
     <audio id="word-found" src="sounds/wordFound.mp3"></audio>
     <audio id="reveal-word" src="sounds/revealWord.mp3"></audio>
     <audio id="ultimate-sound" src="sounds/ultimateSound.mp3"></audio>
+    <div class="hint-button-container">
+      <button class="hint-button btn">Hint (One time usage)</button>
+    </div>
+    <div class="hint-button-text"></div>
     <div class="stats-container">
       <h1 class="level"></h1>
       <h1 class="score"></h1>
       <h1 class="highscore"></h1>
     </div>
-    <div class="word-scramble-container">
-      <div class="first-row-container"></div>
-      <div class="four-letter-words-container"></div>
-    </div>
-    <div class="input-btns-container">
-      <button class="trash-btn">
-        <i class="fa-sharp fa-solid fa-trash"></i>
-      </button>
-      <input type="text" class="input" />
-      <button><i class="fa-solid fa-delete-left"></i></button>
-    </div>
-    <div class="letters-container"></div>
-    <div class="shuffle-enter-btn-container">
-      <button class="shuffle-btn btn">Shuffle</button>
-      <button class="enter btn">Enter</button>
-    </div>
-    <div class="progress-bar">
-      <div class="progress"></div>
-      <div class="marker marker-25"></div>
-      <div class="marker marker-50"></div>
-      <div class="marker marker-75"></div>
-    </div>
-    <div class="ultimate-next-container">
-      <button class="ultimate-btn btn">Ultimate</button>
-      <button class="check-level btn">next check-level</button>
-    </div>
-    <div class="hint-button-container">
-      <button class="hint-button btn">Hint (One time usage)</button>
-    </div>
+    <div class="bottom-half-container">
+      <div class="word-scramble-container">
+        <div class="first-row-container"></div>
+        <div class="four-letter-words-container"></div>
+      </div>
+      <div class="input-btns-container">
+        <button class="trash-btn">
+          <i class="fa-sharp fa-solid fa-trash"></i>
+        </button>
+        <input type="text" class="input" />
+        <button class="delete-btn">
+          <i class="fa-solid fa-delete-left"></i>
+        </button>
+      </div>
+      <div class="letters-container"></div>
+      <div class="shuffle-enter-btn-container">
+        <button class="shuffle-btn btn">Shuffle</button>
+        <button class="enter btn">Enter</button>
+      </div>
+      <div class="progress-bar">
+        <div class="progress"></div>
+        <div class="marker marker-25"></div>
+        <div class="marker marker-50"></div>
+        <div class="marker marker-75"></div>
+      </div>
+      <div class="ultimate-next-container">
+        <button class="ultimate-btn btn ">Ultimate</button>
+        <button class="check-level btn">Next Level</button>
+      </div>
+     
     <video
       id="laugh-track"
-      controls
       src="sounds/laughTrack.mp4"
       type="video/mp4"
     ></video>

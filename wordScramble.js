@@ -17,6 +17,10 @@ const levelUp = document.getElementById("level-up");
 const wordFound = document.getElementById("word-found");
 const revealWord = document.getElementById("word-found");
 const ultimateSound = document.getElementById("ultimate-sound");
+const hintBtn = document.querySelector(".hint-button");
+const hintBtnContainer = document.querySelector(".hint-button-container");
+const laughTrack = document.getElementById("laugh-track");
+
 let progressCount = 20;
 let level = 1;
 let score = 0;
@@ -658,6 +662,55 @@ input.addEventListener("input", function () {
       }
     }
   });
+});
+
+// hintBtn.addEventListener("click", function () {
+//   const yesBtn = document.querySelector(".yes-btn");
+//   hintBtnContainer.innerHTML = `<div>
+//         <h2>would you like a hint?</h2>
+//         <button class="yes-btn">Yes</button>
+//         <button class="no-btn">No</button>
+//     </div>`;
+//   const noBtn = document.querySelector(".no-btn");
+//   noBtn.addEventListener("click", function () {
+//     hintBtnContainer.innerHTML = "";
+//     hintBtnContainer.innerHTML = `<button class="hint-button">Hint (One time usage)</button>`;
+//   });
+// });
+
+hintBtnContainer.addEventListener("click", function (event) {
+  const target = event.target;
+
+  if (target.classList.contains("no-btn")) {
+    hintBtnContainer.innerHTML = "";
+    hintBtnContainer.innerHTML = `<button class="hint-button">Hint (One time usage)</button>`;
+  } else if (target.classList.contains("yes-btn")) {
+    hintBtnContainer.innerHTML = "Well, too bad :)";
+    setTimeout(() => {
+      laughTrack.style.display = "block";
+      laughTrack.play();
+    }, 2000);
+    laughTrack.addEventListener("ended", function () {
+      laughTrack.style.display = "none";
+    });
+    setTimeout(() => {
+      hintBtnContainer.innerHTML = "";
+    }, 2000);
+  } else if (target.classList.contains("hint-button")) {
+    hintBtnContainer.innerHTML = `<div>
+    <h2>would you like a hint?</h2>
+    <button class="yes-btn">Yes</button>
+    <button class="no-btn">No</button>
+  </div>`;
+  }
+});
+
+hintBtn.addEventListener("click", function () {
+  hintBtnContainer.innerHTML = `<div>
+    <h2>would you like a hint?</h2>
+    <button class="yes-btn">Yes</button>
+    <button class="no-btn">No</button>
+  </div>`;
 });
 
 trashBtn.addEventListener("click", function () {

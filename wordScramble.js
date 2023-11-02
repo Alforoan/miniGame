@@ -217,11 +217,13 @@ function addThreeLetterWords(arr) {
     const wordDiv = document.createElement("div");
     const word = arr[i];
     wordDiv.classList.add("hidden");
+    wordDiv.classList.add("word");
     for (let j = 0; j < word.length; j++) {
       const char = word[j];
       const charSpan = document.createElement("span");
       charSpan.innerHTML = char;
       charSpan.classList.add("hidden-span");
+      charSpan.classList.add("letter");
       wordDiv.appendChild(charSpan);
     }
     firstRowContainer.appendChild(wordDiv);
@@ -233,11 +235,13 @@ function addFourLetterWords(arr) {
     const wordDiv = document.createElement("div");
     const word = arr[i];
     wordDiv.classList.add("hidden-four");
+    wordDiv.classList.add("four-letter-word");
     for (let j = 0; j < word.length; j++) {
       const char = word[j];
       const charSpan = document.createElement("span");
       charSpan.innerHTML = char;
       charSpan.classList.add("hidden-four-span");
+      charSpan.classList.add("letter");
       wordDiv.appendChild(charSpan);
     }
     fourLetterWordsContainer.appendChild(wordDiv);
@@ -248,6 +252,7 @@ function addLettersUsed(arr) {
   arr = arr.join("");
   for (let i = 0; i < arr.length; i++) {
     const letterButton = document.createElement("button");
+    letterButton.classList.add("btn");
     letterButton.classList.add("letter-btn");
     const char = arr[i];
     letterButton.innerHTML = char;
@@ -333,11 +338,16 @@ function checkAnswer() {
       score += 100;
       scoreText.textContent = `Score: ${score}`;
       if (score > highscore) {
-        highscore = score;
+        hitransitionghscore = score;
         localStorage.setItem("highscore", score);
         highscoreText.textContent = `High Score: ${highscore}`;
       }
+      //   allThreeLetterWords.splice(
+      //     allThreeLetterWords.indexOf(threeLetterWordsArray[i]),
+      //     1
+      //   );
       threeLetterWordsArray[i] = "";
+
       hiddenWord.forEach((element) => {
         if (element.textContent === word) {
           progressPercent = fillMore();
@@ -345,7 +355,7 @@ function checkAnswer() {
           element.classList.remove("hidden");
           let hiddenLetterSpans = element.querySelectorAll(".hidden-span");
           hiddenLetterSpans.forEach((span) => {
-            span.style.transition = "all 2s";
+            span.style.transition = "opacity 2s";
             span.classList.remove("hidden-span");
           });
         }
@@ -357,7 +367,7 @@ function checkAnswer() {
           if (element.classList.contains("hidden")) {
             element.classList.remove("hidden");
             let hiddenLetterSpans = element.querySelectorAll(".hidden-span");
-            hiddenLetterSpans[randomNum].style.transition = "all 2s";
+            hiddenLetterSpans[randomNum].style.transition = "opacity 2s";
             hiddenLetterSpans[randomNum].classList.remove("hidden-span");
             randomNum = randomNumberGenerator(3);
           }
@@ -368,7 +378,7 @@ function checkAnswer() {
               element.classList.remove("hidden-four");
               let hiddenLetterSpans =
                 element.querySelectorAll(".hidden-four-span");
-              hiddenLetterSpans[randomNum].style.transition = "all 2s";
+              hiddenLetterSpans[randomNum].style.transition = "opacity 2s";
               hiddenLetterSpans[randomNum].classList.remove("hidden-four-span");
               randomNum = randomNumberGenerator(3);
             }
@@ -394,7 +404,7 @@ function checkFourWords() {
     fourLetterWordsArrayLetterWordsArray.join("") !== ""
   ) {
     let index = allFourLetterWords.indexOf(input.value.toLowerCase());
-    console.log({ index });
+
     allFourLetterWords.splice(index, 1);
     fillMore();
   }
@@ -417,7 +427,7 @@ function checkFourWords() {
           element.classList.remove("hidden-four");
           let hiddenLetterSpans = element.querySelectorAll(".hidden-four-span");
           hiddenLetterSpans.forEach((span) => {
-            span.style.transition = "all 2s";
+            span.style.transition = "opacity 1s";
             span.classList.remove("hidden-four-span");
           });
         }
@@ -428,7 +438,7 @@ function checkFourWords() {
           if (element.classList.contains("hidden")) {
             element.classList.remove("hidden");
             let hiddenLetterSpans = element.querySelectorAll(".hidden-span");
-            hiddenLetterSpans[randomNum].style.transition = "all 2s";
+            hiddenLetterSpans[randomNum].style.transition = "opacity 1s";
             hiddenLetterSpans[randomNum].classList.remove("hidden-span");
             randomNum = randomNumberGenerator(3);
           }
@@ -440,7 +450,7 @@ function checkFourWords() {
             element.classList.remove("hidden-four");
             let hiddenLetterSpans =
               element.querySelectorAll(".hidden-four-span");
-            hiddenLetterSpans[randomNum].style.transition = "all 2s";
+            hiddenLetterSpans[randomNum].style.transition = "opacity 1s";
             hiddenLetterSpans[randomNum].classList.remove("hidden-four-span");
             randomNum = randomNumberGenerator(2);
           }
@@ -529,7 +539,7 @@ function useUltimate() {
       word.classList.remove("hidden");
       let hiddenLetterSpans = word.childNodes;
       hiddenLetterSpans.forEach((child) => {
-        child.style.transition = "all 2s";
+        child.style.transition = "opacity 1s";
         child.classList.remove("hidden-span");
       });
     });
@@ -537,7 +547,7 @@ function useUltimate() {
       word.classList.remove("hidden-four");
       let hiddenLetterSpans = word.querySelectorAll(".hidden-four-span");
       hiddenLetterSpans.forEach((span) => {
-        span.style.transition = "all 2s";
+        span.style.transition = "opacity 1s";
         span.classList.remove("hidden-four-span");
       });
     });
@@ -565,7 +575,7 @@ function fillMore() {
         hasHidden = true;
         element.classList.remove("hidden");
         let hiddenLetterSpans = element.querySelectorAll(".hidden-span");
-        hiddenLetterSpans[randomNum].style.transition = "all 2s";
+        hiddenLetterSpans[randomNum].style.transition = "opacity 1s";
         hiddenLetterSpans[randomNum].classList.remove("hidden-span");
         randomNum = randomNumberGenerator(3);
       }
@@ -580,7 +590,7 @@ function fillMore() {
         if (element.classList.contains("hidden-four")) {
           element.classList.remove("hidden-four");
           let hiddenLetterSpans = element.querySelectorAll(".hidden-four-span");
-          hiddenLetterSpans[randomNum].style.transition = "all 2s";
+          hiddenLetterSpans[randomNum].style.transition = "opacity 1s";
           hiddenLetterSpans[randomNum].classList.remove("hidden-four-span");
           randomNum = randomNumberGenerator(3);
         }
@@ -663,20 +673,6 @@ input.addEventListener("input", function () {
     }
   });
 });
-
-// hintBtn.addEventListener("click", function () {
-//   const yesBtn = document.querySelector(".yes-btn");
-//   hintBtnContainer.innerHTML = `<div>
-//         <h2>would you like a hint?</h2>
-//         <button class="yes-btn">Yes</button>
-//         <button class="no-btn">No</button>
-//     </div>`;
-//   const noBtn = document.querySelector(".no-btn");
-//   noBtn.addEventListener("click", function () {
-//     hintBtnContainer.innerHTML = "";
-//     hintBtnContainer.innerHTML = `<button class="hint-button">Hint (One time usage)</button>`;
-//   });
-// });
 
 hintBtnContainer.addEventListener("click", function (event) {
   const target = event.target;
@@ -762,12 +758,14 @@ input.addEventListener("keydown", function (e) {
         });
       } else if (
         checkWordInArr(allThreeLetterWords) &&
-        checkLettersUsed(lettersUsedArray, input.value)
+        checkLettersUsed(lettersUsedArray, input.value) &&
+        threeLetterWordsArray.includes(input.value)
       ) {
         this.value = "";
         letterBtns.forEach((btn) => {
           btn.classList.remove("pressed");
         });
+
         fillMore();
       } else {
         this.value = "";
@@ -804,6 +802,9 @@ input.addEventListener("keydown", function (e) {
         fillMore();
       } else {
         input.value = "";
+        letterBtns.forEach((btn) => {
+          btn.classList.remove("pressed");
+        });
       }
     }
   }

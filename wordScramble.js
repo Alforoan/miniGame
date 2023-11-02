@@ -64,7 +64,7 @@ async function fetchthreeLetterWordsData() {
       wordsList = data.split("\n");
       wordsList = wordsList.map((word) => word.replace(/\r/g, ""));
       allThreeLetterWords = [...wordsList];
-      generatedWords = generateThreeWordsArray(wordsList);
+      generatedWords = generateThreeWordsArray(allThreeLetterWords);
       threeLetterWordsArray = [...generatedWords];
       let lettersUsed = showLettersUsed(generatedWords);
 
@@ -77,7 +77,7 @@ async function fetchthreeLetterWordsData() {
         hiddenLetter = document.querySelectorAll(".hidden-span");
       } else {
         while (lettersUsed.length > 7) {
-          generatedWords = generateThreeWordsArray(wordsList);
+          generatedWords = generateThreeWordsArray(allThreeLetterWords);
           lettersUsed = showLettersUsed(generatedWords);
           threeLetterWordsArray = [...generatedWords];
           if (lettersUsed.length <= 7) {
@@ -307,19 +307,13 @@ function showLettersUsed(arr) {
 }
 
 function checkLettersUsed(lettersArr, word) {
-  const combinedWord = lettersArr.join("");
-  const letterSet = new Set(combinedWord);
-  let hasAllLetters = true;
-  for (let i = 0; i < word.length; i++) {
-    const char = word[i];
+  const letterSet = new Set(lettersArr.join("").toLowerCase().split(""));
+  for (const char of word) {
     if (!letterSet.has(char)) {
-      hasAllLetters = false;
+      return false;
     }
   }
-  if (hasAllLetters) {
-    return true;
-  }
-  return false;
+  return true;
 }
 
 function checkWordInArr(arr) {
@@ -343,10 +337,10 @@ function checkAnswer() {
         localStorage.setItem("highscore", score);
         highscoreText.textContent = `High Score: ${highscore}`;
       }
-      //   allThreeLetterWords.splice(
-      //     allThreeLetterWords.indexOf(threeLetterWordsArray[i]),
-      //     1
-      //   );
+      allThreeLetterWords.splice(
+        allThreeLetterWords.indexOf(threeLetterWordsArray[i]),
+        1
+      );
       threeLetterWordsArray[i] = "";
 
       hiddenWord.forEach((element) => {
@@ -399,13 +393,13 @@ function checkFourWords() {
   let isMatching = false;
   if (
     allFourLetterWords.includes(input.value.toLowerCase()) &&
-    input.value !== fourLetterWordsArrayLetterWordsArray[0] &&
-    input.value !== fourLetterWordsArrayLetterWordsArray[1] &&
-    input.value !== fourLetterWordsArrayLetterWordsArray[2] &&
-    fourLetterWordsArrayLetterWordsArray.join("") !== ""
+    input.value !== fourLetterWordsArray[0] &&
+    input.value !== fourLetterWordsArray[1] &&
+    input.value !== fourLetterWordsArray[2] &&
+    fourLetterWordsArray.join("") !== ""
   ) {
     let index = allFourLetterWords.indexOf(input.value.toLowerCase());
-
+    wordFound.play();
     allFourLetterWords.splice(index, 1);
     fillMore();
   }
@@ -623,22 +617,69 @@ shuffleBtn.addEventListener("click", function () {
 });
 
 enterBtn.addEventListener("click", function () {
-  if (checkAnswer() || checkFourWords()) {
-    input.value = "";
-    letterBtns.forEach((btn) => {
-      btn.classList.remove("pressed");
-    });
-  } else if (!checkAnswer() && allThreeLetterWords.includes(input.value)) {
-    letterBtns.forEach((btn) => {
-      btn.classList.remove("pressed");
-    });
+  if (level === 1) {
+    if (checkAnswer()) {
+      input.value = "";
+      if (wordFound.currentTime > 0 && !wordFound.paused && !wordFound.ended) {
+        wordFound.currentTime = 0; // Rewind to the beginning
+      } else {
+        wordFound.play();
+      }
 
-    input.value = "";
-  } else {
-    letterBtns.forEach((btn) => {
-      btn.classList.remove("pressed");
-    });
-    input.value = "";
+      letterBtns.forEach((btn) => {
+        btn.classList.remove("pressed");
+      });
+    } else if (
+      checkWordInArr(allThreeLetterWords) &&
+      checkLettersUsed(lettersUsedArray, input.value.toLowerCase())
+    ) {
+      allThreeLetterWords.splice(
+        allThreeLetterWords.indexOf(input.value.toLowerCase()),
+        1
+      );
+      wordFound.play();
+      input.value = "";
+      letterBtns.forEach((btn) => {
+        btn.classList.remove("pressed");
+      });
+
+      fillMore();
+    } else {
+      input.value = "";
+      letterBtns.forEach((btn) => {
+        btn.classList.remove("pressed");
+      });
+    }
+  } else if (level >= 2) {
+    if (checkAnswer() || checkFourWords()) {
+      letterBtns.forEach((btn) => {
+        btn.classList.remove("pressed");
+      });
+      if (wordFound.currentTime > 0 && !wordFound.paused && !wordFound.ended) {
+        wordFound.currentTime = 0; // Rewind to the beginning
+      } else {
+        wordFound.play();
+      }
+
+      input.value = "";
+    } else if (
+      (checkWordInArr(allThreeLetterWords) &&
+        checkLettersUsed(lettersUsedArray, input.value)) ||
+      (checkWordInArr(allFourLetterWords) &&
+        checkLettersUsed(lettersUsedArray, input.value))
+    ) {
+      input.value = "";
+      letterBtns.forEach((btn) => {
+        btn.classList.remove("pressed");
+      });
+
+      fillMore();
+    } else {
+      input.value = "";
+      letterBtns.forEach((btn) => {
+        btn.classList.remove("pressed");
+      });
+    }
   }
 });
 
@@ -743,6 +784,10 @@ input.addEventListener("keydown", function (e) {
   if (e.key === "Enter") {
     if (level === 1) {
       if (checkAnswer()) {
+        allThreeLetterWords.splice(
+          allThreeLetterWords.indexOf(this.value.toLowerCase()),
+          1
+        );
         this.value = "";
         if (
           wordFound.currentTime > 0 &&
@@ -759,9 +804,14 @@ input.addEventListener("keydown", function (e) {
         });
       } else if (
         checkWordInArr(allThreeLetterWords) &&
-        checkLettersUsed(lettersUsedArray, input.value) &&
-        threeLetterWordsArray.includes(input.value)
+        checkLettersUsed(lettersUsedArray, input.value.toLowerCase())
       ) {
+        console.log("another word found");
+        allThreeLetterWords.splice(
+          allThreeLetterWords.indexOf(this.value.toLowerCase()),
+          1
+        );
+        wordFound.play();
         this.value = "";
         letterBtns.forEach((btn) => {
           btn.classList.remove("pressed");
@@ -800,6 +850,7 @@ input.addEventListener("keydown", function (e) {
         letterBtns.forEach((btn) => {
           btn.classList.remove("pressed");
         });
+
         fillMore();
       } else {
         input.value = "";

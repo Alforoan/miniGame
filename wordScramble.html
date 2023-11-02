@@ -7,6 +7,9 @@
     <title>Word Scramble</title>
   </head>
   <body>
+    <audio id="level-up" src="sounds/level up.mp3"></audio>
+    <audio id="word-found" src="sounds/wordFound.mp3"></audio>
+    <audio id="reveal-word" src="sounds/revealWord.mp3"></audio>
     <div class="stats-container">
       <h2 class="level"></h2>
       <h2 class="score"></h2>
@@ -17,7 +20,9 @@
       <div class="four-letter-words-container"></div>
     </div>
 
+    <button><i class="fa-sharp fa-solid fa-trash"></i></button>
     <input type="text" class="input" />
+    <button><i class="fa-solid fa-delete-left"></i></button>
     <div class="letters-container"></div>
     <button class="shuffle-btn">Shuffle</button>
     <button class="enter">Enter</button>
@@ -27,9 +32,13 @@
       <div class="marker marker-50"></div>
       <div class="marker marker-75"></div>
     </div>
-    <button class="progress-btn">progress button</button>
+    <button class="ultimate-btn">Ultimate</button>
     <button class="check-level">next check-level</button>
 
     <script src="wordScramble.js"></script>
+    <script
+      src="https://kit.fontawesome.com/95b6c5c61f.js"
+      crossorigin="anonymous"
+    ></script>
   </body>
 </html>

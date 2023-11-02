@@ -11,6 +11,11 @@ const levelText = document.querySelector(".level");
 const scoreText = document.querySelector(".score");
 const highscoreText = document.querySelector(".highscore");
 const checkLevel = document.querySelector(".check-level");
+const trashBtn = document.querySelector(".fa-trash");
+const deleteBtn = document.querySelector(".fa-delete-left");
+const levelUp = document.getElementById("level-up");
+const wordFound = document.getElementById("word-found");
+const revealWord = document.getElementById("word-found");
 let progressCount = 20;
 let level = 1;
 let score = 0;
@@ -32,6 +37,9 @@ let wordsList;
 levelText.textContent = `Level: ${level}`;
 scoreText.textContent = `Score: ${score}`;
 ultimate.textContent = `Ultimate: ${Math.floor(progressCount / 5)}`;
+levelUp.volume = 0.25;
+wordFound.volume = 0.25;
+revealWord.volume = 0.25;
 
 highscore = localStorage.getItem("highscore");
 if (highscore) {
@@ -557,6 +565,7 @@ function fillMore() {
     });
     if (!hasHidden) {
       progressCount++;
+
       ultimate.textContent = `Ultimate: ${Math.floor(progressCount / 5)}`;
     }
     if (level >= 2) {
@@ -618,27 +627,9 @@ enterBtn.addEventListener("click", function () {
 ultimate.addEventListener("click", () => useUltimate());
 
 checkLevel.addEventListener("click", function () {
-  //   if (checkEndOfLevel()) {
-  //     level++;
-  //     levelText.textContent = `Level: ${level}`;
-  //     if (level === 2) {
-  //       firstRowContainer.innerHTML = "";
-  //       lettersCotainer.innerHTML = "";
-  //       fetchthreeLetterWordsData();
-  //       fetchFourLetterWordsData();
-  //     } else if (level >= 3) {
-  //       firstRowContainer.innerHTML = "";
-  //       lettersCotainer.innerHTML = "";
-  //       fourLetterWordsContainer.innerHTML = "";
-  //       fourLetterWordsArray.length = 0;
-  //       fetchthreeLetterWordsData();
-  //       fetchFourLetterWordsData();
-  //     }
-  //   } else {
-  //     console.log("not yet");
-  //   }
   if (checkEndOfLevel()) {
     level++;
+    levelUp.play();
     levelText.textContent = `Level: ${level}`;
     firstRowContainer.innerHTML = "";
     lettersCotainer.innerHTML = "";
@@ -666,6 +657,32 @@ input.addEventListener("input", function () {
   });
 });
 
+trashBtn.addEventListener("click", function () {
+  input.value = "";
+  letterBtns.forEach((btn) => {
+    btn.classList.remove("pressed");
+  });
+});
+
+deleteBtn.addEventListener("click", function () {
+  console.log("presesed");
+  input.value = input.value
+    .split("")
+    .slice(0, input.value.length - 1)
+    .join("");
+  letterBtns.forEach((btn) => {
+    const btnLetter = btn.textContent;
+
+    if (lettersUsedArray.includes(btnLetter)) {
+      if (input.value.includes(btnLetter)) {
+        btn.classList.add("pressed");
+      } else {
+        btn.classList.remove("pressed");
+      }
+    }
+  });
+});
+
 input.addEventListener("keydown", function (e) {
   if (e.key === " ") {
     e.preventDefault();
@@ -674,6 +691,16 @@ input.addEventListener("keydown", function (e) {
     if (level === 1) {
       if (checkAnswer()) {
         this.value = "";
+        if (
+          wordFound.currentTime > 0 &&
+          !wordFound.paused &&
+          !wordFound.ended
+        ) {
+          wordFound.currentTime = 0; // Rewind to the beginning
+        } else {
+          wordFound.play();
+        }
+
         letterBtns.forEach((btn) => {
           btn.classList.remove("pressed");
         });
@@ -697,6 +724,16 @@ input.addEventListener("keydown", function (e) {
         letterBtns.forEach((btn) => {
           btn.classList.remove("pressed");
         });
+        if (
+          wordFound.currentTime > 0 &&
+          !wordFound.paused &&
+          !wordFound.ended
+        ) {
+          wordFound.currentTime = 0; // Rewind to the beginning
+        } else {
+          wordFound.play();
+        }
+
         this.value = "";
       } else if (
         (checkWordInArr(allThreeLetterWords) &&

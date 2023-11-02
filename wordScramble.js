@@ -687,7 +687,10 @@ ultimate.addEventListener("click", () => useUltimate());
 
 checkLevel.addEventListener("click", function () {
   if (checkEndOfLevel()) {
+    score += level * 100;
+    scoreText.textContent = `Score: ${score}`;
     level++;
+
     levelUp.play();
     levelText.textContent = `Level: ${level}`;
     firstRowContainer.innerHTML = "";

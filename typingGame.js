@@ -16,6 +16,8 @@ const textContainer = document.querySelector(".text-article");
 const wpmBtns = document.querySelectorAll(".wpmBtns");
 const timeBtns = document.querySelectorAll(".timeBtns");
 const wpmContainer = document.querySelector(".wpm-container");
+const navbarBtn = document.querySelector(".navbar-btn");
+const navbar = document.querySelector(".navbar");
 
 let randWordsArray = [];
 let timeInterval;
@@ -26,6 +28,10 @@ let currentLetterQuery;
 let maxTime = 60;
 let startTime;
 let endTime;
+
+navbarBtn.addEventListener("click", function () {
+  navbar.classList.toggle("navbar-show");
+});
 
 resetBtn.addEventListener("click", () => {
   let loadWordCount;
@@ -172,7 +178,7 @@ const game = {
 };
 
 //localstorage for wpm
-let recordWpm = parseInt(localStorage.getItem("wpm"));
+let recordWpm = parseInt(localStorage.getItem("wpm")) || 0;
 if (localStorage.getItem("wpm") !== null) {
   recordWpmNumber.textContent = recordWpm;
 }

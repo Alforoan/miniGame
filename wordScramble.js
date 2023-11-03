@@ -21,7 +21,9 @@ const hintBtn = document.querySelector(".hint-button");
 const hintBtnContainer = document.querySelector(".hint-button-container");
 const hintBtnText = document.querySelector(".hint-button-text");
 const laughTrack = document.getElementById("laugh-track");
-
+const navbarBtn = document.querySelector(".navbar-btn");
+const navbar = document.querySelector(".navbar");
+const hintOptionText = document.querySelector(".hint-btn-text");
 let progressCount = 20;
 let level = 1;
 let score = 0;
@@ -333,7 +335,7 @@ function checkAnswer() {
       score += 100;
       scoreText.textContent = `Score: ${score}`;
       if (score > highscore) {
-        hitransitionghscore = score;
+        highscore = score;
         localStorage.setItem("highscore", score);
         highscoreText.textContent = `High Score: ${highscore}`;
       }
@@ -621,7 +623,7 @@ enterBtn.addEventListener("click", function () {
     if (checkAnswer()) {
       input.value = "";
       if (wordFound.currentTime > 0 && !wordFound.paused && !wordFound.ended) {
-        wordFound.currentTime = 0; // Rewind to the beginning
+        wordFound.currentTime = 0;
       } else {
         wordFound.play();
       }
@@ -664,15 +666,15 @@ enterBtn.addEventListener("click", function () {
       input.value = "";
     } else if (
       (checkWordInArr(allThreeLetterWords) &&
-        checkLettersUsed(lettersUsedArray, input.value)) ||
+        checkLettersUsed(lettersUsedArray, input.value.toLowerCase())) ||
       (checkWordInArr(allFourLetterWords) &&
-        checkLettersUsed(lettersUsedArray, input.value))
+        checkLettersUsed(lettersUsedArray, input.value.toLowerCase()))
     ) {
       input.value = "";
       letterBtns.forEach((btn) => {
         btn.classList.remove("pressed");
       });
-
+      wordFound.play();
       fillMore();
     } else {
       input.value = "";
@@ -689,6 +691,11 @@ checkLevel.addEventListener("click", function () {
   if (checkEndOfLevel()) {
     score += level * 100;
     scoreText.textContent = `Score: ${score}`;
+    if (score > highscore) {
+      highscore = score;
+      localStorage.setItem("highscore", score);
+      highscoreText.textContent = `High Score: ${highscore}`;
+    }
     level++;
 
     levelUp.play();
@@ -723,8 +730,8 @@ hintBtnContainer.addEventListener("click", function (event) {
   const target = event.target;
 
   if (target.classList.contains("no-btn")) {
-    hintBtnContainer.innerHTML = "";
-    hintBtnContainer.innerHTML = `<button class="hint-button btn">Hint (One time usage)</button>`;
+    hintOptionText.innerHTML = "";
+    hintBtn.innerHTML = `Hint (One time usage)`;
   } else if (target.classList.contains("yes-btn")) {
     hintBtnContainer.innerHTML = `<h3 class="text">Well, too bad :)</h3>`;
     setTimeout(() => {
@@ -738,20 +745,20 @@ hintBtnContainer.addEventListener("click", function (event) {
       hintBtnContainer.innerHTML = "";
     }, 2000);
   } else if (target.classList.contains("hint-button")) {
-    hintBtnContainer.innerHTML = `<div class="hint-btn-text">
+    hintOptionText.innerHTML = `
     <h2>Would you like a hint?</h2>
     <button class="yes-btn">Yes</button>
     <button class="no-btn">No</button>
-  </div>`;
+  `;
   }
 });
 
 hintBtn.addEventListener("click", function () {
-  hintBtnContainer.innerHTML = `<div>
-    <h2>would you like a hint?</h2>
+  hintOptionText.innerHTML = `
+    <h2>Would you like a hint?</h2>
     <button class="yes-btn">Yes</button>
     <button class="no-btn">No</button>
-  </div>`;
+  `;
 });
 
 trashBtn.addEventListener("click", function () {
@@ -778,6 +785,10 @@ deleteBtn.addEventListener("click", function () {
       }
     }
   });
+});
+
+navbarBtn.addEventListener("click", function () {
+  navbar.classList.toggle("navbar-show");
 });
 
 input.addEventListener("keydown", function (e) {
@@ -845,15 +856,23 @@ input.addEventListener("keydown", function (e) {
         this.value = "";
       } else if (
         (checkWordInArr(allThreeLetterWords) &&
-          checkLettersUsed(lettersUsedArray, input.value)) ||
+          checkLettersUsed(lettersUsedArray, input.value.toLowerCase())) ||
         (checkWordInArr(allFourLetterWords) &&
-          checkLettersUsed(lettersUsedArray, input.value))
+          checkLettersUsed(lettersUsedArray, input.value.toLowerCase()))
       ) {
         this.value = "";
         letterBtns.forEach((btn) => {
           btn.classList.remove("pressed");
         });
-
+        allThreeLetterWords.splice(
+          allThreeLetterWords.indexOf(this.value.toLowerCase()),
+          1
+        );
+        allFourLetterWords.splice(
+          allFourLetterWords.indexOf(this.value.toLowerCase()),
+          1
+        );
+        wordFound.play();
         fillMore();
       } else {
         input.value = "";

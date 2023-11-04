@@ -6,6 +6,11 @@ const navbarBtn = document.querySelector(".navbar-btn");
 const navbar = document.querySelector(".navbar");
 const lightBoxSound = document.getElementById("box-light");
 const error = document.getElementById("error");
+const normalBtn = document.querySelector(".normal-btn");
+const hardBtn = document.querySelector(".hard-btn");
+const boxContainer2 = document.querySelector(".box-container2");
+const boxContainer = document.querySelector(".box-container");
+
 let sequence = [];
 let level = 1;
 let sequenceRunning = false;
@@ -29,6 +34,16 @@ startBtn.addEventListener("click", function () {
   this.disabled = true;
   this.style.cursor = "auto";
   startGame();
+});
+
+hardBtn.addEventListener("click", function () {
+  boxContainer2.classList.remove("box-hidden");
+  boxContainer.classList.add("box-hidden");
+});
+
+normalBtn.addEventListener("click", function () {
+  boxContainer.classList.remove("box-hidden");
+  boxContainer2.classList.add("box-hidden");
 });
 
 boxes.forEach((box) => {

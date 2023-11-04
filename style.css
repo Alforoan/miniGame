@@ -23,6 +23,7 @@ article {
 }
 .scores-container {
   display: flex;
+  margin-top: 2rem;
   margin-bottom: 2rem;
 }
 
@@ -315,7 +316,7 @@ path:nth-child(6) {
 
 .game-container {
   position: absolute;
-  top: 30%;
+  top: 35%;
   left: 50%;
   transform: translate(-50%, -50%);
 }
@@ -356,4 +357,41 @@ path:nth-child(6) {
 }
 .box-hidden {
   visibility: hidden;
+}
+
+.difficulty-selector {
+  display: flex;
+  justify-content: center;
+  margin-bottom: 3rem;
+  align-items: center;
+}
+.difficulty-text {
+  margin-right: 1rem;
+  font-size: 1rem;
+}
+
+.normal-btn,
+.hard-btn {
+  border: none;
+  background: none;
+  font-family: "Super Legend Boy", Arial, sans-serif;
+  font-size: 1rem;
+  margin-right: 1rem;
+  cursor: pointer;
+  color: black;
+  background-color: whitesmoke;
+  padding: 5px 5px;
+  border-radius: 0.25rem;
+}
+
+.normal-btn:active,
+.hard-btn:active {
+  transform: translateY(2px);
+}
+
+.normal-btn:hover,
+.hard-btn:hover {
+  color: gray;
+  background-color: #f1f1f1;
+  transition: color 0.5s ease;
 }

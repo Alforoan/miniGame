@@ -55,9 +55,13 @@ resetBtn.addEventListener("click", () => {
   timerStarted = false;
 
   game.counter = 0;
+  game.correct = 0;
   game.mistakes = 0;
   game.i = 0;
   game.j = 0;
+  correctNumber.textContent = "";
+  incorrectNumber.textContent = "";
+  accuracyNumber.textContent = "";
 });
 
 btn.forEach((eachBtn) => {

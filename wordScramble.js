@@ -529,10 +529,7 @@ function useUltimate() {
   if (progressCount >= 5 && hasHiddenCount >= 1) {
     hiddenWord.forEach((word) => {
       ultimateSound.play();
-      //   if (!word.classList.contains("hidden")) {
-      //     console.log("all shown");
-      //     return;
-      //   }
+
       word.classList.remove("hidden");
       let hiddenLetterSpans = word.childNodes;
       hiddenLetterSpans.forEach((child) => {
@@ -619,6 +616,9 @@ shuffleBtn.addEventListener("click", function () {
 });
 
 enterBtn.addEventListener("click", function () {
+  if (input.value === "") {
+    return;
+  }
   if (level === 1) {
     if (checkAnswer()) {
       input.value = "";
@@ -653,6 +653,7 @@ enterBtn.addEventListener("click", function () {
       });
     }
   } else if (level >= 2) {
+    console.log("testing");
     if (checkAnswer() || checkFourWords()) {
       letterBtns.forEach((btn) => {
         btn.classList.remove("pressed");
@@ -796,6 +797,9 @@ input.addEventListener("keydown", function (e) {
     e.preventDefault();
   }
   if (e.key === "Enter") {
+    if (input.value === "") {
+      return;
+    }
     if (level === 1) {
       if (checkAnswer()) {
         allThreeLetterWords.splice(

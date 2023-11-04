@@ -2,11 +2,17 @@ const boxes = document.querySelectorAll(".box-container");
 const startBtn = document.querySelector(".start-btn");
 const scoreText = document.querySelector(".score");
 const highScoreText = document.querySelector(".high-score");
+const navbarBtn = document.querySelector(".navbar-btn");
+const navbar = document.querySelector(".navbar");
+const lightBoxSound = document.getElementById("box-light");
+const error = document.getElementById("error");
 let sequence = [];
 let level = 1;
 let sequenceRunning = false;
 let currentHighScore = 0;
 let maxHighScore = 0;
+error.volume = 0.3;
+lightBoxSound.volume = 0.5;
 
 highScoreText.textContent = `High Score: ${level - 1}`;
 
@@ -14,6 +20,10 @@ if (localStorage.getItem("highScore") !== null) {
   maxHighScore = parseInt(localStorage.getItem("highScore"));
   highScoreText.textContent = `High Score: ${maxHighScore}`;
 }
+
+navbarBtn.addEventListener("click", function () {
+  navbar.classList.toggle("navbar-show");
+});
 
 startBtn.addEventListener("click", function () {
   this.disabled = true;
@@ -26,14 +36,15 @@ boxes.forEach((box) => {
     if (!sequenceRunning && startBtn.disabled === true) {
       box.style.cursor = "pointer";
       let boxNumber = parseInt(e.target.getAttribute("data-id"));
-      colorUserInputBox(boxNumber);
+
+      //colorUserInputBox(boxNumber);
       let popped = sequence.shift();
 
       if (popped !== boxNumber) {
-        gameOver();
-        scoreText.textContent = `Score: ${level - 1}`;
-
+        selectWrongBox(e);
         return;
+      } else {
+        selectCorrectBox(e);
       }
 
       if (sequence.length === 0) {
@@ -52,6 +63,30 @@ boxes.forEach((box) => {
     }
   });
 });
+
+function selectWrongBox(e) {
+  e.target.classList.add("shake");
+  setTimeout(() => {
+    e.target.classList.remove("shake");
+  }, 500);
+  e.target.style.backgroundColor = "red";
+  setTimeout(() => {
+    e.target.style.backgroundColor = "#f1f1f1";
+  }, 120);
+  error.currentTime = 0.7 / 1000;
+  error.play();
+
+  gameOver();
+  scoreText.textContent = `Score: ${level - 1}`;
+}
+
+function selectCorrectBox(e) {
+  e.target.style.backgroundColor = "skyblue";
+  setTimeout(() => {
+    e.target.style.backgroundColor = "#f1f1f1";
+  }, 120);
+}
+
 function colorUserInputBox(boxNumber) {
   const box = document.querySelector(`[data-id="${boxNumber}"]`);
   box.style.backgroundColor = "skyblue";
@@ -59,6 +94,7 @@ function colorUserInputBox(boxNumber) {
     box.style.backgroundColor = "#f1f1f1";
   }, 120);
 }
+
 function playNextLevel() {
   level++;
 
@@ -103,7 +139,17 @@ function playSequence() {
     if (i < sequence.length) {
       const box = document.getElementById(`box-${sequence[i]}`);
       box.style.backgroundColor = "blue";
+      if (
+        lightBoxSound.currentTime > 0 &&
+        !lightBoxSound.paused &&
+        !lightBoxSound.ended
+      ) {
+        lightBoxSound.currentTime = 0;
+      } else {
+        lightBoxSound.play();
+      }
       setTimeout(() => {
+        //lightBoxSound.play();
         box.style.backgroundColor = "#f1f1f1";
         i++;
         colorNextBox();

@@ -27,11 +27,29 @@ article {
   margin-bottom: 2rem;
 }
 
-.score {
+.scores-container-hard {
+  display: flex;
+  margin-top: 2rem;
+  margin-bottom: 2rem;
+}
+
+.hard-container {
+  position: absolute;
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  top: 23%;
+  left: 4%;
+}
+
+.score,
+.score-hard {
   margin-right: 50px;
   z-index: 2;
 }
-.high-score {
+.high-score,
+.high-score-hard {
   margin-left: 50px;
 }
 
@@ -40,14 +58,16 @@ article {
   justify-content: center;
 }
 
-.box {
+.box,
+.box2 {
   width: 100px;
   height: 100px;
   background-color: #f1f1f1;
   border: 1px solid black;
 }
 
-.start-btn {
+.start-btn,
+.start-btn-hard {
   margin-top: 20px;
   background: lightgray;
   padding: 0.5rem 1rem;
@@ -59,12 +79,18 @@ article {
   transition: all 0.3s;
   font-family: "Super Legend Boy", Arial, sans-serif;
 }
+.start-btn-hard {
+  width: 130px;
+  text-align: center;
+}
 
-.start-btn:hover {
+.start-btn:hover,
+.start-btn-hard:hover {
   background-color: cyan;
   color: white;
 }
-.start-btn:disabled {
+.start-btn:disabled,
+.start-btn-hard:disabled {
   background-color: gray;
   color: darkgray;
 }
@@ -351,9 +377,8 @@ path:nth-child(6) {
 }
 
 .box-container2 {
-  display: grid;
-  grid-template-columns: repeat(3, 100px);
-  position: absolute;
+  display: flex;
+  justify-content: center;
 }
 .box-hidden {
   visibility: hidden;

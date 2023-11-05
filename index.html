@@ -12,36 +12,67 @@
     <div class="area">
       <ul class="circles">
         <div class="game-container">
-          <article>
-            <div class="scores-container">
-              <div>
-                <h2 class="score">Score: 0</h2>
-              </div>
-              <div>
-                <h2 class="high-score">High Score:</h2>
-              </div>
+          <div class="difficulty-selector">
+            <div>
+              <p class="difficulty-text">Select Difficulty:</p>
             </div>
-          </article>
-          <article class="box-container">
-            <div class="box" id="box-0" data-id="0"></div>
-            <div class="box" id="box-1" data-id="1"></div>
-            <div class="box" id="box-2" data-id="2"></div>
-            <div class="box" id="box-3" data-id="3"></div>
-            <div class="box" id="box-4" data-id="4"></div>
-          </article>
-          <article class="box-container2 box-hidden">
-            <div class="box" id="box-00" data-id="00"></div>
-            <div class="box" id="box-01" data-id="01"></div>
-            <div class="box" id="box-02" data-id="02"></div>
-            <div class="box" id="box-03" data-id="03"></div>
-            <div class="box" id="box-04" data-id="04"></div>
-            <div class="box" id="box-05" data-id="05"></div>
-            <div class="box" id="box-06" data-id="06"></div>
-            <div class="box" id="box-07" data-id="07"></div>
-            <div class="box" id="box-08" data-id="08"></div>
-          </article>
-
-          <button class="start-btn">Start</button>
+            <div>
+              <button class="normal-btn">Normal</button>
+            </div>
+            <div>
+              <button class="hard-btn">Hard</button>
+            </div>
+          </div>
+          <div class="normal-container">
+            <article>
+              <div class="scores-container">
+                <div>
+                  <h2 class="score">Score: 0</h2>
+                </div>
+                <div>
+                  <h2 class="high-score">High Score:</h2>
+                </div>
+              </div>
+            </article>
+            <article class="box-container">
+              <div class="box" id="box-0" data-id="0"></div>
+              <div class="box" id="box-1" data-id="1"></div>
+              <div class="box" id="box-2" data-id="2"></div>
+              <div class="box" id="box-3" data-id="3"></div>
+              <div class="box" id="box-4" data-id="4"></div>
+            </article>
+            <button class="start-btn">Start</button>
+          </div>
+          <div class="hard-container box-hidden">
+            <article>
+              <div class="scores-container-hard">
+                <div>
+                  <h2 class="score-hard">Score: 0</h2>
+                </div>
+                <div>
+                  <h2 class="high-score-hard">High Score:</h2>
+                </div>
+              </div>
+            </article>
+            <article class="box-container2">
+              <div>
+                <div class="box2" id="box-00" data-id="00"></div>
+                <div class="box2" id="box-01" data-id="01"></div>
+                <div class="box2" id="box-02" data-id="02"></div>
+              </div>
+              <div>
+                <div class="box2" id="box-03" data-id="03"></div>
+                <div class="box2" id="box-04" data-id="04"></div>
+                <div class="box2" id="box-05" data-id="05"></div>
+              </div>
+              <div>
+                <div class="box2" id="box-06" data-id="06"></div>
+                <div class="box2" id="box-07" data-id="07"></div>
+                <div class="box2" id="box-08" data-id="08"></div>
+              </div>
+            </article>
+            <button class="start-btn-hard">Start</button>
+          </div>
         </div>
         <li></li>
         <li></li>

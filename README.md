@@ -34,6 +34,7 @@
 
 `project_description`: 
 - Uses JavaScript to play 3 different minigames
+- Uses event delegation, event listeners, and data fetching
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

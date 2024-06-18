@@ -1,14 +1,20 @@
+{% load static %}
 <!DOCTYPE html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Memory game</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Recall It</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+    
   </head>
   <body>
-    <audio id="box-light" src="sounds/boxlight.mp3" preload="auto"></audio>
-    <audio id="error" src="sounds/error.mp3"></audio>
+    <audio id='error' controls>
+      <source src="{% static 'sounds/error.mp3' %}" type="audio/mpeg">
+    </audio>
+    <audio id='box-light' controls>
+      <source src="{% static 'sounds/boxlight.mp3' %}" type="audio/mpeg">
+    </audio>
     <div class="area">
       <ul class="circles">
         <div class="game-container">
@@ -159,6 +165,6 @@
       </article>
       <button class="start-btn">Start</button>
     </div> -->
-    <script src="app.js"></script>
+    <script src="{% static 'js/app.js' %}"></script>
   </body>
 </html>

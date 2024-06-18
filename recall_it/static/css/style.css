@@ -347,13 +347,17 @@ path:nth-child(6) {
   transform: translate(-50%, -50%);
 }
 
-@font-face {
+#error, #box-light {
+    display: none;
+}
+
+/* @font-face {
   font-family: "Super Legend Boy";
   src: url(arcade2.ttf) format("truetype");
 
   font-weight: lighter;
   font-style: normal;
-}
+} */
 .shake {
   animation: shake 0.3s ease-in-out;
 }

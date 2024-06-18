@@ -47,6 +47,7 @@ navbarBtn.addEventListener("click", function () {
 });
 
 startBtn.addEventListener("click", function () {
+  console.log("start btn clicked");
   this.disabled = true;
   this.style.cursor = "auto";
   startGame();
@@ -59,6 +60,7 @@ startBtnHard.addEventListener("click", function () {
 });
 
 hardBtn.addEventListener("click", function () {
+  console.log("hard btn was clicked");
   hardContainer.classList.remove("box-hidden");
   normalContainer.classList.add("box-hidden");
   sequence = [];

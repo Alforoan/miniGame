@@ -16,10 +16,18 @@ const hardContainer = document.querySelector(".hard-container");
 const boxesHard = document.querySelectorAll(".box2");
 const scoreHard = document.querySelector(".score-hard");
 const highScoreHard = document.querySelector(".high-score-hard");
+const box0 = document.getElementById('box-0');
+const box1 = document.getElementById('box-1');
+const box2 = document.getElementById('box-2');
+const box3 = document.getElementById('box-3');
+const box4 = document.getElementById('box-4');
 
+
+let clickedBoxes = [];
 let sequence = [];
 let sequenceHard = [];
 let level = 1;
+let sequenceLength = level;
 let sequenceRunning = false;
 let currentHighScore = 0;
 let maxHighScore = 0;
@@ -49,13 +57,13 @@ navbarBtn.addEventListener("click", function () {
 startBtn.addEventListener("click", function () {
   console.log("start btn clicked");
   this.disabled = true;
-  this.style.cursor = "auto";
+  
   startGame();
 });
 
 startBtnHard.addEventListener("click", function () {
   this.disabled = true;
-  this.style.cursor = "auto";
+  
   startGameHard();
 });
 
@@ -63,6 +71,7 @@ hardBtn.addEventListener("click", function () {
   console.log("hard btn was clicked");
   hardContainer.classList.remove("box-hidden");
   normalContainer.classList.add("box-hidden");
+  startBtnHard.style.display = 'block';
   sequence = [];
   sequenceHard = [];
   level = 1;
@@ -73,6 +82,7 @@ hardBtn.addEventListener("click", function () {
 
 normalBtn.addEventListener("click", function () {
   normalContainer.classList.remove("box-hidden");
+  startBtnHard.style.display = 'none';
   hardContainer.classList.add("box-hidden");
   sequence = [];
   sequenceHard = [];
@@ -115,38 +125,119 @@ boxesHard.forEach((box) => {
   });
 });
 
-boxes.forEach((box) => {
-  box.addEventListener("click", function (e) {
-    if (!sequenceRunning && startBtn.disabled === true) {
-      box.style.cursor = "pointer";
-      let boxNumber = parseInt(e.target.getAttribute("data-id"));
 
-      //colorUserInputBox(boxNumber);
-      let popped = sequence.shift();
+//individual boxes
+box0.addEventListener('click', function handleClick(e) {
+  handleBoxClick(box0, e);
+});
 
-      if (popped !== boxNumber) {
-        selectWrongBox(e);
-        return;
-      } else {
-        selectCorrectBox(e);
-      }
+box1.addEventListener('click', function handleClick(e) {
+  handleBoxClick(box1, e);
+});
 
+box2.addEventListener('click', function handleClick(e) {
+  handleBoxClick(box2, e);
+});
+
+box3.addEventListener('click', function handleClick(e) {
+  handleBoxClick(box3, e);
+});
+box4.addEventListener('click', function handleClick(e) {
+  handleBoxClick(box4, e);
+});
+
+function handleBoxClick(box, e) {
+  console.log("clicked boxes thing", clickedBoxes);
+  if (!sequenceRunning && startBtn.disabled === true) {
+    if (clickedBoxes.length === sequenceLength) {
+      console.log("box length exceeded");
+      return;
+    }
+
+    box.style.cursor = 'pointer';
+    let boxNumber = parseInt(e.target.getAttribute('data-id'));
+    console.log({boxNumber});
+    clickedBoxes.push(boxNumber);
+
+    let popped = sequence.shift();
+
+    if (boxNumber !== popped) {
+      selectWrongBox(e);
+      gameOver();
+      console.log('maybe this');
+      clickedBoxes = [];
+    } else {
+      selectCorrectBox(e);
+      console.log('something here');
       if (sequence.length === 0) {
+        console.log("sequence length is 0");
         scoreText.textContent = `Score: ${level}`;
         currentHighScore = level;
+
         if (currentHighScore > maxHighScore) {
           maxHighScore = currentHighScore;
           highScoreText.textContent = `High Score: ${maxHighScore}`;
-
-          localStorage.setItem("highScore", maxHighScore.toString());
-          console.log("level passed");
+          localStorage.setItem('highScore', maxHighScore.toString());
         }
 
-        playNextLevel();
+        clickedBoxes = [];
+   
+          playNextLevel();
+      
+        
+      }else{
+        console.log('wtf is this');
       }
     }
-  });
-});
+  }
+}
+
+
+// boxes.forEach((box) => {
+  
+//   box.addEventListener("click", function (e) {
+//     if (!sequenceRunning && startBtn.disabled === true) {
+       
+//         if(clickedBoxes.length === sequence.length){
+//           return;
+//         }
+      
+//       box.style.cursor = "pointer";
+//       let boxNumber = parseInt(e.target.getAttribute("data-id"));
+      
+//       //colorUserInputBox(boxNumber);
+      
+//       clickedBoxes.push(boxNumber);
+//       let popped = sequence.shift();
+//       console.log("CLICKED NUMBERS",popped);
+      
+//       if (popped !== boxNumber) {
+//         console.log('wrong box number');
+//         console.log({clickedBoxes});
+//         selectWrongBox(e);
+//         gameOver();
+//         clickedBoxes = [];
+//         return;
+//       } else {
+//         selectCorrectBox(e);
+//       }
+
+//       if (sequence.length === 0) {
+//         scoreText.textContent = `Score: ${level}`;
+//         currentHighScore = level;
+//         if (currentHighScore > maxHighScore) {
+//           maxHighScore = currentHighScore;
+//           highScoreText.textContent = `High Score: ${maxHighScore}`;
+
+//           localStorage.setItem("highScore", maxHighScore.toString());
+//           console.log("level passed");
+//         }
+
+//         playNextLevel();
+//       }
+//     }
+//   });
+// });
 
 function selectWrongBox(e) {
   e.target.classList.add("shake");
@@ -205,11 +296,9 @@ function colorUserInputBox(boxNumber) {
 
 function playNextLevel() {
   level++;
-
+  sequenceLength = level;
   generateSequence();
-  setTimeout(() => {
-    playSequence();
-  }, 1000);
+  playSequence();
 }
 
 function playNextLevelHard() {

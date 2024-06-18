@@ -162,6 +162,7 @@ function selectWrongBox(e) {
 
   gameOver();
   scoreText.textContent = `Score: ${level - 1}`;
+  startBtn.style = 'pointer';
 }
 
 function selectWrongBoxHard(e) {

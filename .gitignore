@@ -9,3 +9,7 @@ venv/
 ENV/
 env.bak/
 venv.bak/
+lib/
+pip-log.txt
+ipython_config.py
+.Python

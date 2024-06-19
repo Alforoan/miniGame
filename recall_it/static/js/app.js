@@ -16,6 +16,8 @@ const hardContainer = document.querySelector(".hard-container");
 const boxesHard = document.querySelectorAll(".box2");
 const scoreHard = document.querySelector(".score-hard");
 const highScoreHard = document.querySelector(".high-score-hard");
+const difficultySelector = document.querySelector(".difficulty-selector");
+const gameContainer = document.querySelector(".game-container");
 const box0 = document.getElementById('box-0');
 const box1 = document.getElementById('box-1');
 const box2 = document.getElementById('box-2');
@@ -28,12 +30,13 @@ let sequence = [];
 let sequenceHard = [];
 let level = 1;
 let sequenceLength = level;
+let sequenceLengthHard = level;
 let sequenceRunning = false;
 let currentHighScore = 0;
 let maxHighScore = 0;
 let maxHighScoreHard = 0;
 error.volume = 0.3;
-lightBoxSound.volume = 0.5;
+lightBoxSound.volume = 0.3;
 
 highScoreText.textContent = `High Score: ${level - 1}`;
 
@@ -69,9 +72,12 @@ startBtnHard.addEventListener("click", function () {
 
 hardBtn.addEventListener("click", function () {
   console.log("hard btn was clicked");
+  startBtn.style.display = 'none';
+  //gameContainer.style.height = '100vh';
   hardContainer.classList.remove("box-hidden");
   normalContainer.classList.add("box-hidden");
-  startBtnHard.style.display = 'block';
+  startBtnHard.style.display = 'inline-block';
+  
   sequence = [];
   sequenceHard = [];
   level = 1;
@@ -83,7 +89,11 @@ hardBtn.addEventListener("click", function () {
 normalBtn.addEventListener("click", function () {
   normalContainer.classList.remove("box-hidden");
   startBtnHard.style.display = 'none';
+  startBtn.style.display = 'inline-block';
   hardContainer.classList.add("box-hidden");
+  //gameContainer.style.height = '80vh';
+  //difficultySelector.style.marginBottom = '3rem';
+  //startBtn.style.display = 'inline-block';
   sequence = [];
   sequenceHard = [];
   level = 1;
@@ -303,11 +313,10 @@ function playNextLevel() {
 
 function playNextLevelHard() {
   level++;
-
+  sequenceLengthHard = level;
   generateSequenceHard();
-  setTimeout(() => {
-    playSequenceHard();
-  }, 1000);
+  playSequenceHard();
+  
 }
 
 function startGame() {

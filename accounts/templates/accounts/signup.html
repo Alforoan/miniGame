@@ -1,0 +1,28 @@
+{% extends 'base.html' %}
+{% block title %}
+ Signup
+{% endblock title %}
+
+{% block content %}
+  <main>
+    <div class="form-container">
+    <h1 class='signup-text'>Signup</h1>
+    <form method="post">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="id_username">Username:</label>
+        {{ form.username }}
+      </div>
+      <div class="form-group">
+        <label for="id_password">Password:</label>
+        {{ form.password }}
+      </div>
+      <div class="form-group">
+        <label for="id_password_confirmation">Password Confirmation:</label>
+        {{ form.password_confirmation }}
+      </div>
+      <button type="submit" class="btn btn-primary">Signup</button>
+    </form>
+  </div>
+  </main>
+{% endblock content %}

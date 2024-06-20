@@ -1,0 +1,102 @@
+.login-text, .signup-text {
+  margin-top: 0;
+}
+
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: calc(100% - 24px); /* Adjust width as needed */
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 60vh;
+  font-family: "Super Legend Boy", Arial, sans-serif;
+}
+
+input, button, select, textarea {
+  font-family: inherit;
+}
+    
+    
+
+.top-right-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  background-color: #333;
+  width: 100%;
+  z-index: 1000; /* Ensure header stays on top */
+}
+
+.top-right-header nav {
+  display: flex;
+  justify-content: flex-end; /* Align items to the right */
+  padding: 10px 20px; /* Padding for navigation links */
+}
+
+.top-right-header nav ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+}
+
+.top-right-header nav ul li {
+  display: inline-block;
+  margin-left: 10px;
+}
+
+.top-right-header nav ul li a {
+  color: #fff;
+  text-decoration: none;
+  font-size: 14px;
+}
+
+.top-right-header nav ul li a:hover {
+  text-decoration: underline;
+}
+
+@media screen and (max-width: 600px) {
+  .form-container {
+    width: 100%;
+    margin: 0;
+    border: none;
+    box-shadow: none;
+  }
+}

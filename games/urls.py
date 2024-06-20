@@ -25,5 +25,6 @@ def redirect_to_game(request):
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('recall_it/', include('recall_it.urls')),
-    path('', redirect_to_game)
+    path('', redirect_to_game),
+    path('accounts/', include('accounts.urls')),
 ]

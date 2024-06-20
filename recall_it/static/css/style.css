@@ -36,12 +36,12 @@ article {
 
 .score,
 .score-hard {
-  margin-right: 30px;
+  margin-right: 15px;
   z-index: 2;
 }
 .high-score,
 .high-score-hard {
-  margin-left: 30px;
+  margin-left: 15px;
 }
 
 .box-container {
@@ -468,6 +468,11 @@ path:nth-child(6) {
   margin: 10px;
   max-width: 600px; 
   border-radius: .25rem;
+}
+
+.normal-container{
+  padding-left: 15px;
+  padding-right: 15px;
 }
 
 .box-container,

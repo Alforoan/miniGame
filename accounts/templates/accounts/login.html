@@ -5,11 +5,18 @@
 
 {% block content %}
   <main>
-    <div class="form-container">
+    <div class="form-container login-container">
       <h1 class='login-text'>Login</h1>
       <form method="post">
         {% csrf_token %}
-        {{ form.as_p }}
+        <div class="form-group">
+          <label for="id_username">Username:</label>
+          {{ form.username }}
+        </div>
+        <div class="form-group">
+          <label for="id_password">Password:</label>
+          {{ form.password }}
+        </div>
         <button type="submit" class="btn btn-primary">Login</button>
       </form>
     </div>

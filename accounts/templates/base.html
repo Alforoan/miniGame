@@ -8,21 +8,23 @@
   <link rel="stylesheet" href="{% static 'css/accounts.css' %}">
 </head>
 <body>
-  <header class="top-right-header">
-    <nav>
+    <nav class="navbar">
       <ul>
-        <li class="recall"><a href="{% url 'recall_it' %}">Recall It</a></li>
-        <li class="type-mania"><a href="typingGame.html">Type Mania</a></li>
-        <li><a href="wordScramble.html">Word Scramble</a></li>
-        {% if user.is_authenticated %}
-        <li><a href="{% url 'logout' %}">Logout</a></li>
-        {% else %}
-        <li><a href="{% url 'login' %}">Login</a></li>
-        <li><a href="{% url 'signup' %}">Signup</a></li>
-        {% endif %}
-    </ul>
+        <div class="center-items">
+          <li class="recall"><a class='item' href="{% url 'recall_it' %}">Recall It</a></li>
+          <li class="type-mania"><a class='item'  href="typingGame.html">Type Mania</a></li>
+          <li><a class='item' href="wordScramble.html">Word Scramble</a></li>
+        </div>
+        <div class="right-items">
+          {% if user.is_authenticated %}
+          <li><a class='item' href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+          <li><a class='item' href="{% url 'login' %}">Login</a></li>
+          <li><a class='item' href="{% url 'signup' %}">Signup</a></li>
+          {% endif %}
+        </div>
+      </ul>
     </nav>
-  </header>
   {% block content %}
   {% endblock content %}
 </body>

@@ -7,6 +7,8 @@ from django.contrib.auth.models import User
 # Create your views here.
 def login_view(request):
   form = LoginForm()
+  if request.user.is_authenticated:
+    return redirect("recall_it")
   if request.method == "POST":
     username = request.POST.get('username')
     password = request.POST.get('password')
@@ -23,11 +25,13 @@ def login_view(request):
   })
 
 def logout_view(request):
-  logout(request.user)
+  logout(request)
   return redirect("recall_it")
 
 def signup_view(request):
   form = SignupForm()
+  if request.user.is_authenticated:
+    return redirect("recall_it")
   if request.method == "POST":
     username = request.POST.get('username')
     password = request.POST.get('password')

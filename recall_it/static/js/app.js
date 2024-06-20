@@ -157,7 +157,6 @@ box4.addEventListener('click', function handleClick(e) {
 });
 
 function handleBoxClick(box, e) {
-  console.log("clicked boxes thing", clickedBoxes);
   if (!sequenceRunning && startBtn.disabled === true) {
     if (clickedBoxes.length === sequenceLength) {
       console.log("box length exceeded");
@@ -189,14 +188,8 @@ function handleBoxClick(box, e) {
           highScoreText.textContent = `High Score: ${maxHighScore}`;
           localStorage.setItem('highScore', maxHighScore.toString());
         }
-
         clickedBoxes = [];
-   
-          playNextLevel();
-      
-        
-      }else{
-        console.log('wtf is this');
+        playNextLevel();
       }
     }
   }
@@ -306,17 +299,22 @@ function colorUserInputBox(boxNumber) {
 
 function playNextLevel() {
   level++;
+  sequenceRunning = true;
   sequenceLength = level;
   generateSequence();
-  playSequence();
+  setTimeout(() => {
+    playSequence();
+  }, 500);
 }
 
 function playNextLevelHard() {
   level++;
+  sequenceRunning = true;
   sequenceLengthHard = level;
   generateSequenceHard();
-  playSequenceHard();
-  
+  setTimeout(() => {
+    playSequenceHard();
+  }, 500);
 }
 
 function startGame() {

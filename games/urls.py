@@ -17,8 +17,13 @@ Including another URLconf
 
 from django.contrib import admin
 from django.urls import path, include
+from django.shortcuts import redirect
+
+def redirect_to_game(request):
+  return redirect('recall_it')
 
 urlpatterns = [
     path("admin/", admin.site.urls),
     path('recall_it/', include('recall_it.urls')),
+    path('', redirect_to_game)
 ]

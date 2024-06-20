@@ -7,7 +7,7 @@
   <main>
     <div class="form-container">
     <h1 class='signup-text'>Signup</h1>
-    <form method="post">
+    <form method="post" class='signupForm'>
       {% csrf_token %}
       <div class="form-group">
         <label for="id_username">Username:</label>
@@ -21,8 +21,26 @@
         <label for="id_password_confirmation">Password Confirmation:</label>
         {{ form.password_confirmation }}
       </div>
+      {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+          {{ error_message }}
+        </div>
+      {% endif %}
       <button type="submit" class="btn btn-primary">Signup</button>
     </form>
   </div>
   </main>
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () { 
+        const form = document.body.querySelector('.signupForm');
+        const errorMessage = document.body.querySelector('.alert');
+
+        form.addEventListener('input', function () {
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
+            }
+        });
+    });
+</script>
 {% endblock content %}

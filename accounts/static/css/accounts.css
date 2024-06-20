@@ -54,6 +54,12 @@ body {
 input, button, select, textarea {
   font-family: inherit;
 }
+
+.alert{
+  width: 280px;
+  color: red;
+  margin-bottom: .5rem;
+}
     
 .navbar {
   position: fixed;
@@ -139,7 +145,7 @@ input, button, select, textarea {
     margin: 0 auto;
     border: none;
     box-shadow: none;
-    height: 330px;
+    max-height: 330px;
   }
 
   .login-container{
@@ -148,7 +154,7 @@ input, button, select, textarea {
     margin: 0 auto;
     border: none;
     box-shadow: none;
-    height: 230px;
+    max-height: 280px;
   }
 }
 

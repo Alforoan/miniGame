@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
+    "word_scramble",
     "type_mania",
     "rest_framework",
     "scores",
@@ -130,6 +131,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'recall_it/static'),
     os.path.join(BASE_DIR, 'scores/static'),
     os.path.join(BASE_DIR, 'type_mania/static'),
+    os.path.join(BASE_DIR, 'word_scramble/static'),
 ]
 
 # Default primary key field type

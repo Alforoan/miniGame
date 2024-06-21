@@ -29,4 +29,5 @@ urlpatterns = [
     path('accounts/', include('accounts.urls')),
     path('scores/', include('scores.urls')),
     path('type_mania/', include('type_mania.urls')),
+    path('word_scramble/', include('word_scramble.urls')),
 ]

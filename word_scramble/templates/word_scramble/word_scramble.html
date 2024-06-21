@@ -1,0 +1,158 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <link rel="stylesheet" href="{% static 'css/wordScramble.css' %}" />
+
+    <link rel="stylesheet" href="background.css" />
+    <link rel="stylesheet" href="arcade.ttf" />
+    <title>Word Scramble</title>
+  </head>
+  <body>
+    <div id="overlay"><h1></h1></div>
+    <div id="hey"><div id="layer-up"></div></div>
+    <div id="layer-0">
+      <div id="layer-1">
+        <div id="layer-2">
+          <div id="lines">
+            <div id="layer-corner"></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="mtnZZZ"></div>
+    <audio id="level-up" controls>
+      <source src="{% static 'sounds/levelUp.mp3' %}" type="audio/mpeg">
+    </audio>
+    <audio id="word-found" controls>
+      <source src="{% static 'sounds/wordFound.mp3' %}" type="audio/mpeg">
+    </audio>
+    <audio id="reveal-word" controls>
+      <source src="{% static 'sounds/revealWord.mp3' %}" type="audio/mpeg">
+    </audio>
+    <audio id="ultimate-sound" controls>
+      <source src="{% static 'sounds/ultimateSound.mp3' %}" type="audio/mpeg">
+    </audio>
+  
+    <div class="hint-button-container">
+      <button class="hint-button btn">Hint (One time usage)</button>
+    </div>
+    <div class="hint-button-text"></div>
+    <div class="stats-container">
+      <h1 class="level"></h1>
+      <h1 class="score"></h1>
+      <h1 class="highscore"></h1>
+    </div>
+    <div class="bottom-half-container">
+      <div class="word-scramble-container">
+        <div class="first-row-container"></div>
+        <div class="four-letter-words-container"></div>
+      </div>
+      <div class="input-btns-container">
+        <button class="trash-btn">
+          <i class="fa-sharp fa-solid fa-trash"></i>
+        </button>
+        <input type="text" class="input" />
+        <button class="delete-btn">
+          <i class="fa-solid fa-delete-left"></i>
+        </button>
+      </div>
+      <div class="letters-container"></div>
+      <div class="shuffle-enter-btn-container">
+        <button class="shuffle-btn btn">Shuffle</button>
+        <button class="enter btn">Enter</button>
+      </div>
+      <div class="progress-bar">
+        <div class="progress"></div>
+        <div class="marker marker-25"></div>
+        <div class="marker marker-50"></div>
+        <div class="marker marker-75"></div>
+      </div>
+      <div class="ultimate-next-container">
+        <button class="ultimate-btn btn ">Ultimate</button>
+        <button class="check-level btn">Next Level</button>
+      </div>
+     <div class="navbar-btn" onclick="this.classList.toggle('active')">
+      <svg
+        xmlns="http://www.w3.org/2000/svg"
+        width="100"
+        height="60"
+        viewBox="0 0 200 200"
+      >
+        <g stroke-width="6.5" stroke-linecap="round">
+          <path
+            d="M72 82.286h28.75"
+            fill="#009100"
+            fill-rule="evenodd"
+            stroke="#fff"
+          />
+          <path
+            d="M100.75 103.714l72.482-.143c.043 39.398-32.284 71.434-72.16 71.434-39.878 0-72.204-32.036-72.204-71.554"
+            fill="none"
+            stroke="#fff"
+          />
+          <path
+            d="M72 125.143h28.75"
+            fill="#009100"
+            fill-rule="evenodd"
+            stroke="#fff"
+          />
+          <path
+            d="M100.75 103.714l-71.908-.143c.026-39.638 32.352-71.674 72.23-71.674 39.876 0 72.203 32.036 72.203 71.554"
+            fill="none"
+            stroke="#fff"
+          />
+          <path
+            d="M100.75 82.286h28.75"
+            fill="#009100"
+            fill-rule="evenodd"
+            stroke="#fff"
+          />
+          <path
+            d="M100.75 125.143h28.75"
+            fill="#009100"
+            fill-rule="evenodd"
+            stroke="#fff"
+          />
+        </g>
+      </svg>
+    </div>
+    <nav class="navbar">
+      <ul>
+        <div class="center-items">
+          <li class="recall"><a href="{% url 'recall_it' %}">Recall It</a></li>
+          <li class="type-mania"><a href="{% url 'type_mania' %}">Type Mania</a></li>
+          <li><a href="{% url 'word_scramble' %}">Word Scramble</a></li>
+        </div>
+        <div class="right-items">
+          {% if user.is_authenticated %}
+          <li><a href="{% url 'score_list' %}">Scores</a></li>
+          <li><a href="{% url 'logout' %}">Logout</a></li>
+          {% else %}
+          <li><a href="{% url 'login' %}">Login</a></li>
+          <li><a href="{% url 'signup' %}">Signup</a></li>
+          {% endif %}
+        </div>
+      </ul>
+    </nav>
+    <video
+      id="laugh-track"
+      src="{% static 'sounds/laughTrack.mp4' %}"
+      type="video/mp4"
+      controls
+    >
+    </video>
+    <script>
+      const threeLetterWordsUrl = "{% static 'threeLetterWords.txt' %}";
+      const fourLetterWordsUrl = "{% static 'fourLetterWords.txt' %}";
+    </script>
+    <script src="{% static 'js/wordScramble.js' %}"></script>
+    <script
+      src="https://kit.fontawesome.com/95b6c5c61f.js"
+      crossorigin="anonymous"
+    ></script>
+  </body>
+</html>

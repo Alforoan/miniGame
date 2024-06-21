@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
+    "type_mania",
     "rest_framework",
     "scores",
     "crispy_forms",
@@ -127,7 +128,8 @@ USE_TZ = True
 STATIC_URL = "static/"
 STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'recall_it/static'),
-    os.path.join(BASE_DIR, 'scores/static')
+    os.path.join(BASE_DIR, 'scores/static'),
+    os.path.join(BASE_DIR, 'type_mania/static'),
 ]
 
 # Default primary key field type

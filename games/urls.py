@@ -28,4 +28,5 @@ urlpatterns = [
     path('', redirect_to_game),
     path('accounts/', include('accounts.urls')),
     path('scores/', include('scores.urls')),
+    path('type_mania/', include('type_mania.urls')),
 ]

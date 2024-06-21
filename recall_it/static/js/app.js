@@ -32,25 +32,173 @@ let level = 1;
 let sequenceLength = level;
 let sequenceLengthHard = level;
 let sequenceRunning = false;
+let highScoreToSave = 0;
 let currentHighScore = 0;
 let maxHighScore = 0;
 let maxHighScoreHard = 0;
-error.volume = 0.3;
+let username = '';
+let highScore = 0;
+let normalScore = 0;
+let hardScore = 0;
+let isUserExists = false;
+error.volume = 0.2;
 lightBoxSound.volume = 0.3;
 
 highScoreText.textContent = `High Score: ${level - 1}`;
 
-if (localStorage.getItem("highScore") !== null) {
-  maxHighScore = parseInt(localStorage.getItem("highScore"));
-  highScoreText.textContent = `High Score: ${maxHighScore}`;
+async function getScoreNormal(){
+  try {
+    const response = await fetch('http://127.0.0.1:8000/recall_it/api/score/get/normal');
+    if (!response.ok) {
+      throw new Error('Network response was not ok'+ response.statusText);
+    }
+    const data = await response.json();
+    normalScore = data?.score;
+    username = data?.user;
+
+    if (username !== '' && username !== undefined && username !== null) {
+      isUserExists = true;
+    }
+    if(normalScore >= 0){
+      console.log("something goes here");
+      highScoreText.textContent = `High Score: ${normalScore}`;
+    }
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
 }
 
-if (localStorage.getItem("highScoreHard") !== null) {
-  maxHighScoreHard = parseInt(localStorage.getItem("highScoreHard"));
-  highScoreHard.textContent = `High Score: ${maxHighScoreHard}`;
-} else {
-  console.log("is null");
-  highScoreHard.textContent = "High Score: 0";
+async function getScoreHard() {
+  try {
+    const response = await fetch(
+      'http://127.0.0.1:8000/recall_it/api/score/get/hard'
+    );
+    if (!response.ok) {
+      throw new Error('Network response was not ok' + response.statusText);
+    }
+    const data = await response.json();
+    hardScore = data?.score;
+    username = data?.user;
+    if (username !== '' && username !== undefined && username !== null) {
+      isUserExists = true;
+    }
+    if (hardScore >= 0) {
+      highScoreHard.textContent = `High Score: ${hardScore}`;
+    }
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+
+getScoreNormal();
+getScoreHard();
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === name + '=') {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+async function updateScoreNormal(score) {
+  try {
+    const csrftoken = getCookie('csrftoken');
+    const response = await fetch(
+      'http://127.0.0.1:8000/recall_it/api/score/set/normal/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ score: score }),
+        credentials: 'include',
+      }
+    );
+    console.log('updating high score', response);
+    if (!response.ok) {
+      throw new Error('Network response was not ok: ' + response.statusText);
+    }
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+
+async function updateScoreHard(score) {
+  try {
+    const csrftoken = getCookie('csrftoken');
+    const response = await fetch(
+      'http://127.0.0.1:8000/recall_it/api/score/set/hard/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ score: score }),
+        credentials: 'include',
+      }
+    );
+    console.log('updating high score', response);
+    if (!response.ok) {
+      throw new Error('Network response was not ok: ' + response.statusText);
+    }
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+
+async function updateHighScore(score) {
+  try {
+    const csrftoken = getCookie('csrftoken');
+    const response = await fetch(
+      'http://127.0.0.1:8000/recall_it/api/score/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken, 
+        },
+        body: JSON.stringify({ score: score }),
+        credentials: 'include'
+      }
+    );
+    console.log('updating high score',response);
+    if (!response.ok) {
+      throw new Error('Network response was not ok: ' + response.statusText);
+    }
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+
+if(!isUserExists){
+  if (localStorage.getItem("highScore") !== null) {
+    maxHighScore = parseInt(localStorage.getItem("highScore"));
+    highScoreText.textContent = `High Score: ${maxHighScore}`;
+  }
+  
+  if (localStorage.getItem("highScoreHard") !== null) {
+    maxHighScoreHard = parseInt(localStorage.getItem("highScoreHard"));
+    highScoreHard.textContent = `High Score: ${maxHighScoreHard}`;
+  } else {
+    console.log("is null");
+    highScoreHard.textContent = "High Score: 0";
+  }
 }
 
 navbarBtn.addEventListener("click", function () {
@@ -58,7 +206,6 @@ navbarBtn.addEventListener("click", function () {
 });
 
 startBtn.addEventListener("click", function () {
-  console.log("start btn clicked");
   this.disabled = true;
   
   startGame();
@@ -71,7 +218,6 @@ startBtnHard.addEventListener("click", function () {
 });
 
 hardBtn.addEventListener("click", function () {
-  console.log("hard btn was clicked");
   startBtn.style.display = 'none';
   //gameContainer.style.height = '100vh';
   hardContainer.classList.remove("box-hidden");
@@ -104,13 +250,10 @@ normalBtn.addEventListener("click", function () {
 
 boxesHard.forEach((box) => {
   box.addEventListener("click", function (e) {
-    console.log(sequenceRunning);
     if (!sequenceRunning && startBtnHard.disabled === true) {
       box.style.cursor = "pointer";
       let boxNumber = parseInt(e.target.getAttribute("data-id"));
-      console.log({ boxNumber });
       let popped = sequenceHard.shift();
-      console.log({ popped });
       if (popped !== boxNumber) {
         selectWrongBoxHard(e);
         return;
@@ -121,12 +264,18 @@ boxesHard.forEach((box) => {
       if (sequenceHard.length === 0) {
         scoreHard.textContent = `Score: ${level}`;
         currentHighScore = level;
-        if (currentHighScore > maxHighScoreHard) {
+        if(isUserExists && currentHighScore > hardScore){
+          updateScoreHard(currentHighScore);
+          highScoreHard.textContent = `High Score: ${currentHighScore}`;
+          let scoreToSave = Math.max(currentHighScore, hardScore);
+          scoreToSave = Math.max(currentHighScore, normalScore);
+          console.log('HARD SCORE', scoreToSave);
+          updateHighScore(scoreToSave);
+        }else if (currentHighScore > maxHighScoreHard) {
           maxHighScoreHard = currentHighScore;
           highScoreHard.textContent = `High Score: ${maxHighScoreHard}`;
-
           localStorage.setItem("highScoreHard", maxHighScoreHard.toString());
-          console.log("level passed");
+          
         }
 
         playNextLevelHard();
@@ -165,7 +314,6 @@ function handleBoxClick(box, e) {
 
     box.style.cursor = 'pointer';
     let boxNumber = parseInt(e.target.getAttribute('data-id'));
-    console.log({boxNumber});
     clickedBoxes.push(boxNumber);
 
     let popped = sequence.shift();
@@ -173,22 +321,36 @@ function handleBoxClick(box, e) {
     if (boxNumber !== popped) {
       selectWrongBox(e);
       gameOver();
-      console.log('maybe this');
       clickedBoxes = [];
     } else {
       selectCorrectBox(e);
-      console.log('something here');
       if (sequence.length === 0) {
-        console.log("sequence length is 0");
         scoreText.textContent = `Score: ${level}`;
         currentHighScore = level;
-
-        if (currentHighScore > maxHighScore) {
-          maxHighScore = currentHighScore;
-          highScoreText.textContent = `High Score: ${maxHighScore}`;
-          localStorage.setItem('highScore', maxHighScore.toString());
+        if(currentHighScore > normalScore){
+          console.log({ currentHighScore });
+          console.log({ normalScore });
         }
-        clickedBoxes = [];
+        if (isUserExists && currentHighScore > normalScore) {
+          console.log({currentHighScore});
+          console.log({normalScore});
+          if (currentHighScore > normalScore) {
+
+            updateScoreNormal(currentHighScore);
+            highScoreText.textContent = `High Score: ${level}`;
+            let scoreToSave = Math.max(currentHighScore, normalScore);
+            scoreToSave = Math.max(currentHighScore, hardScore);
+            console.log('NORMAL SCORE', scoreToSave);
+            updateHighScore(scoreToSave);
+          }
+        } else {
+          if (currentHighScore > maxHighScore) {
+            maxHighScore = currentHighScore;
+            highScoreText.textContent = `High Score: ${maxHighScore}`;
+            localStorage.setItem('highScore', maxHighScore.toString());
+          }
+          clickedBoxes = [];
+        }
         playNextLevel();
       }
     }
@@ -305,6 +467,7 @@ function playNextLevel() {
   setTimeout(() => {
     playSequence();
   }, 500);
+  clickedBoxes = [];
 }
 
 function playNextLevelHard() {
@@ -315,6 +478,7 @@ function playNextLevelHard() {
   setTimeout(() => {
     playSequenceHard();
   }, 500);
+  clickedBoxes = [];
 }
 
 function startGame() {

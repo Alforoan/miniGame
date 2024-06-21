@@ -14,3 +14,4 @@ pip-log.txt
 ipython_config.py
 .Python
 db.sqlite3
+__pycache__

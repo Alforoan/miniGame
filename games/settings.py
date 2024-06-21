@@ -33,6 +33,7 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
+    "rest_framework",
     "scores",
     "crispy_forms",
     "accounts",

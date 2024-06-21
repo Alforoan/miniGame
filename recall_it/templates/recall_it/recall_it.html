@@ -38,7 +38,11 @@
                     <h2 class="score">Score: 0</h2>
                   </div>
                   <div>
+                    {% if user.is_authenticated %}
+                    <h2 class="high-score">High Score: 0</h2>
+                    {% else %}
                     <h2 class="high-score">High Score:</h2>
+                    {% endif %}
                   </div>
                 </div>
               </article>
@@ -182,6 +186,7 @@
       </article>
       <button class="start-btn">Start</button>
     </div> -->
+    <h2>Hi, {{ user.username }}</h2>
     <script src="{% static 'js/app.js' %}"></script>
   </body>
 </html>

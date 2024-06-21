@@ -1,7 +1,9 @@
 from django.shortcuts import render
 from django.contrib.auth.models import User
 from .models import Score, Game
+from django.contrib.auth.decorators import login_required
 
+@login_required
 def score_list(request):
     games = Game.objects.all()
     users = User.objects.all()

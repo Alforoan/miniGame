@@ -27,4 +27,5 @@ urlpatterns = [
     path('recall_it/', include('recall_it.urls')),
     path('', redirect_to_game),
     path('accounts/', include('accounts.urls')),
+    path('scores/', include('scores.urls')),
 ]

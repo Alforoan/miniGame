@@ -28,6 +28,73 @@ let currentLetterQuery;
 let maxTime = 60;
 let startTime;
 let endTime;
+let score = 0;
+let username = null;
+let isUserExists = false;
+
+async function getScore() {
+  try {
+    const response = await fetch(
+      'http://127.0.0.1:8000/type_mania/api/score/get/'
+    );
+    if (!response.ok) {
+      throw new Error('Network response was not ok' + response.statusText);
+    }
+    const data = await response.json();
+    score = data?.score;
+    username = data?.user;
+    console.log({score});
+    if (username !== null) {
+      isUserExists = true;
+    }
+    if (score >= 0) {
+      recordWpmNumber.textContent = `${score}`;
+    }
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === name + '=') {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+async function updateHighScore(score) {
+  try {
+    const csrftoken = getCookie('csrftoken');
+    const response = await fetch('http://127.0.0.1:8000/type_mania/api/score/set/', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-CSRFToken': csrftoken,
+      },
+      body: JSON.stringify({ score: score }),
+      credentials: 'include',
+    });
+    
+    if (!response.ok) {
+      throw new Error('Network response was not ok: ' + response.statusText);
+    }
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+
+getScore();
+
 
 navbarBtn.addEventListener("click", function () {
   navbar.classList.toggle("navbar-show");
@@ -210,9 +277,17 @@ input.addEventListener("keydown", function (e) {
       for (let i = 0; i < timeIntervalArray.length; i++) {
         clearInterval(timeIntervalArray[i]);
       }
-      if (parseInt(currentWpm.textContent) > recordWpm) {
-        localStorage.setItem("wpm", parseInt(currentWpm.textContent));
-        recordWpmNumber.textContent = currentWpm.textContent;
+      if(isUserExists){
+          if (parseInt(currentWpm.textContent) > parseInt(score)) {
+            console.log("i am better");
+            updateHighScore(parseInt(currentWpm.textContent));
+            recordWpmNumber.textContent = currentWpm.textContent;
+          }
+      }else {
+        if (parseInt(currentWpm.textContent) > recordWpm) {
+          localStorage.setItem('wpm', parseInt(currentWpm.textContent));
+          recordWpmNumber.textContent = currentWpm.textContent;
+        }
       }
       correctNumber.textContent = game.correct;
       incorrectNumber.textContent = game.mistakes;

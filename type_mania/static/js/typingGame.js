@@ -42,6 +42,8 @@ resetBtn.addEventListener("click", () => {
   });
   loadWords(loadWordCount);
   refreshBtn.classList.add("rotate");
+  game.gameOver = false;
+  game.startTime = null;
   currentWpm.textContent = 0;
   setTimeout(() => {
     refreshBtn.classList.remove("rotate");
@@ -179,6 +181,10 @@ const game = {
   mistakes: 0,
   i: 0,
   j: 0,
+  startTime: null,
+  intervalId: null,
+  wpmIntervalId: null,
+  gameOver: false,
 };
 
 //localstorage for wpm
@@ -200,7 +206,7 @@ input.addEventListener("keydown", function (e) {
       input.value.length === randWordsArray[game.i].length - 1
     ) {
       input.disabled = true;
-
+      game.gameOver = true;
       for (let i = 0; i < timeIntervalArray.length; i++) {
         clearInterval(timeIntervalArray[i]);
       }
@@ -233,7 +239,7 @@ input.addEventListener("keydown", function (e) {
       game.i++;
 
       game.j = 0;
-      console.log("game.i", game.i);
+
       nextWordLetterSpans[game.j].classList.add("current-letter-highlight");
     } else if (
       input.value.length > 0 &&
@@ -251,9 +257,7 @@ input.addEventListener("keydown", function (e) {
       );
 
       game.i++;
-
       game.j = 0;
-      console.log("game.i", game.i);
       nextWordLetterSpans[game.j].classList.add("current-letter-highlight");
     }
   }
@@ -275,14 +279,11 @@ function startGame() {
   let timeLeft = timeContainer.textContent;
   let remainingTimeInSeconds = parseInt(timeLeft.slice(2, 4));
 
-  let wpm = Math.round(
-    game.counter / ((maxTime - remainingTimeInSeconds) / 60)
-  );
-  let wpmContent = document.querySelector(".wpm-number");
-  if (wpm !== Infinity || wpm !== NaN) {
-    wpmContent.textContent = wpm;
-  } else {
-    wpmContent.textContent = 0;
+
+  if (!game.startTime) {
+    game.startTime = Date.now();
+    game.intervalId = startTimer(maxTime);
+    game.wpmIntervalId = setInterval(updateWpm, 100); 
   }
 
   //if user doesn't press spacebar for last word
@@ -349,9 +350,37 @@ function startGame() {
   }
 }
 
+const updateWpm = () => {
+
+   if (game.gameOver && input.disabled === true) {
+     clearInterval(game.wpmIntervalId);
+     game.gameOver = false;
+     return;
+   }
+
+  const elapsedTimeInSeconds = (Date.now() - game.startTime) / 1000;
+  const remainingTimeInSeconds = maxTime - Math.floor(elapsedTimeInSeconds);
+
+  if (remainingTimeInSeconds <= 0) {
+    clearInterval(game.wpmIntervalId);
+    return;
+  }
+
+  const wpm = Math.round(
+    game.counter / ((maxTime - remainingTimeInSeconds) / 60)
+  );
+  const wpmContent = document.querySelector('.wpm-number');
+
+  if (!isNaN(wpm) && wpm !== Infinity) {
+    wpmContent.textContent = wpm;
+  } else {
+    wpmContent.textContent = 0;
+  }
+};
+
 function startTimer(time) {
   const startTime = Date.now();
-  const updateInterval = 1000;
+  const updateInterval = 100;
 
   const updateElapsedTime = () => {
     const delta = Date.now() - startTime;
@@ -364,6 +393,8 @@ function startTimer(time) {
     timeContainer.textContent = `${formattedMinutes}:${formattedSeconds}`;
     if (timeContainer.textContent === "0:00") {
       input.disabled = true;
+      clearInterval(timeInterval);
+      clearInterval(game.wpmIntervalId);
     }
   };
 

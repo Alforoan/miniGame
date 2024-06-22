@@ -25,6 +25,7 @@ const navbarBtn = document.querySelector(".navbar-btn");
 const navbar = document.querySelector(".navbar");
 const hintOptionText = document.querySelector(".hint-button-text");
 const testBtn = document.querySelector(".test-btn");
+const errorMsg = document.querySelector(".error");
 
 let progressCount = 20;
 let level = 1;
@@ -510,6 +511,15 @@ function shuffleArray(arr) {
 }
 
 function useUltimate() {
+  
+  if(level === 1){
+      errorMsg.classList.remove('hidden-error');
+    setTimeout(() => {
+      errorMsg.classList.add('hidden-error');
+    }, 4000);
+    return;
+  }
+
   let hasHiddenCount = 0;
 
   hiddenWord.forEach((word) => {

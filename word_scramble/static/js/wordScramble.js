@@ -45,6 +45,9 @@ let fiveLetterWordsArray = [];
 let threeLetterWordsArray = [];
 let fourLetterWordsArray = [];
 let wordsList;
+let userScore = 0;
+let username = '';
+let isUserExists = false;
 levelText.textContent = `Level: ${level}`;
 scoreText.textContent = `Score: ${score}`;
 ultimate.textContent = `Ultimate: ${Math.floor(progressCount / 5)}`;
@@ -54,13 +57,82 @@ revealWord.volume = 0.25;
 ultimateSound.volume = 0.25;
 
 
+async function getScore() {
+  try {
+    const response = await fetch(
+      'http://127.0.0.1:8000/word_scramble/api/score/get/'
+    );
+    if (!response.ok) {
+      throw new Error('Network response was not ok' + response.statusText);
+    }
+    const data = await response.json();
+    console.log({data});
+    userScore = data?.score;
+    username = data?.user;
+    console.log({ userScore });
+    if (username !== null) {
+      isUserExists = true;
+    }
+    if (userScore >= 0) {
+      highscoreText.textContent = `High Score: ${userScore}`;
+      highscore = localStorage.getItem('highscore');
+      if (!isUserExists) {
+        if (highscore) {
+          highscoreText.textContent = `High Score: ${highscore}`;
+        } else {
+          highscoreText.textContent = `High Score: 0`;
+        }
+      } 
 
-highscore = localStorage.getItem("highscore");
-if (highscore) {
-  highscoreText.textContent = `High Score: ${highscore}`;
-} else {
-  highscoreText.textContent = `High Score: 0`;
+    }
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
 }
+
+function getCookie(name) {
+  let cookieValue = null;
+  if (document.cookie && document.cookie !== '') {
+    const cookies = document.cookie.split(';');
+    for (let i = 0; i < cookies.length; i++) {
+      const cookie = cookies[i].trim();
+      if (cookie.substring(0, name.length + 1) === name + '=') {
+        cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+        break;
+      }
+    }
+  }
+  return cookieValue;
+}
+
+async function updateHighScore(score) {
+  try {
+    const csrftoken = getCookie('csrftoken');
+    const response = await fetch(
+      'http://127.0.0.1:8000/word_scramble/api/score/set/',
+      {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken,
+        },
+        body: JSON.stringify({ score: score }),
+        credentials: 'include',
+      }
+    );
+    console.log('response from setting high score', response);
+    if (!response.ok) {
+      throw new Error('Network response was not ok: ' + response.statusText);
+    }
+    const data = await response.json();
+    console.log(data);
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+
+getScore();
+
 
 async function fetchthreeLetterWordsData() {
   fetch(threeLetterWordsUrl)
@@ -339,10 +411,17 @@ function checkAnswer() {
     if (input.value === word) {
       score += 100;
       scoreText.textContent = `Score: ${score}`;
-      if (score > highscore) {
-        highscore = score;
-        localStorage.setItem("highscore", score);
-        highscoreText.textContent = `High Score: ${highscore}`;
+      if (score > userScore) {
+        if (isUserExists) {
+          updateHighScore(score);
+          highscoreText.textContent = `High Score: ${score}`;
+        } else {
+          if (score > highscore) {
+            highscore = score;
+            localStorage.setItem('highscore', score);
+            highscoreText.textContent = `High Score: ${highscore}`;
+          }
+        }
       }
       allThreeLetterWords.splice(
         allThreeLetterWords.indexOf(threeLetterWordsArray[i]),
@@ -416,10 +495,17 @@ function checkFourWords() {
     if (input.value === word) {
       score += 200;
       scoreText.textContent = `Score: ${score}`;
-      if (score > highscore) {
-        highscore = score;
-        localStorage.setItem("highscore", score);
-        highscoreText.textContent = `High Score: ${highscore}`;
+      if (score > userScore) {
+        if (isUserExists) {
+          updateHighScore(score);
+          highscoreText.textContent = `High Score: ${score}`;
+        } else {
+          if (score > highscore) {
+            highscore = score;
+            localStorage.setItem('highscore', score);
+            highscoreText.textContent = `High Score: ${highscore}`;
+          }
+        }
       }
       fourLetterWordsArray[i] = "";
       hiddenFourLetterWord.forEach((element) => {
@@ -699,17 +785,23 @@ enterBtn.addEventListener("click", function () {
     }
   }
 });
-
 ultimate.addEventListener("click", () => useUltimate());
 
 checkLevel.addEventListener("click", function () {
   if (checkEndOfLevel()) {
     score += level * 100;
     scoreText.textContent = `Score: ${score}`;
-    if (score > highscore) {
-      highscore = score;
-      localStorage.setItem("highscore", score);
-      highscoreText.textContent = `High Score: ${highscore}`;
+    if (score > userScore) {
+      if (isUserExists) {
+        updateHighScore(score);
+        highscoreText.textContent = `High Score: ${score}`;
+      } else {
+        if (score > highscore) {
+          highscore = score;
+          localStorage.setItem('highscore', score);
+          highscoreText.textContent = `High Score: ${highscore}`;
+        }
+      }
     }
     level++;
 

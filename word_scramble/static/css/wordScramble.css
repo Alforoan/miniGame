@@ -623,51 +623,37 @@ path:nth-child(6) {
     display: none;
 }
 
-@media (min-width: 1920px) {
-  .hint-button {
-    font-size: 1rem;
-    margin-top: 0rem;
-  }
-  .hint-button-text {
-    position: absolute !important;
-  }
 
-  .stats-list {
-    margin-top: 5rem;
-    margin-bottom: 2rem;
-  }
-  .text {
-    left: 21%;
-    margin-top: 2%;
-  }
-  .stats-container {
-    margin-bottom: 2rem;
-  }
-  .bottom-half-container {
-    margin-top: 3rem;
-  }
-  .input {
-    width: 400px;
-  }
-  .input-btns-container {
-    justify-content: center;
-  }
-}
 
-@media (min-width: 1700px) and (max-width: 1919px) {
+@media (min-width: 1700px) and (max-width: 1920px) {
   body {
-    height: 90vh;
+    height: 100vh;
   }
+
+  h1{
+    font-size: 1.8rem;
+  }
+
   .stats-container {
     margin-bottom: 2rem;
   }
   .hint-button {
     font-size: 1rem;
+    margin-top: -.5rem;
+    
   }
   .hint-button-text {
-    left: 17%;
+
     margin-top: 1rem;
     margin-bottom: 2rem;
+    position: absolute;
+  }
+
+  .hint-button-text h2 {
+
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-size: 1rem;
   }
 
   .text {
@@ -691,26 +677,30 @@ path:nth-child(6) {
     margin-right: 3rem;
   }
   body {
-    height: 90vh;
+    height: 100vh;
   }
   .stats-container {
     margin-bottom: 2rem;
   }
   .bottom-half-container {
-    margin-top: 4rem;
+    margin-top: 1.5rem;
   }
 
   .hint-button {
-    font-size: 0.6rem;
-    margin-top: -1rem;
+    font-size: .8rem;
+    margin-top: -2rem;
   }
-  .hint-btn-text h2 {
-    left: 16%;
 
-    font-size: 1rem;
+  .hint-button-text{
+    margin-top: 1rem;
+    margin-bottom: 0rem;
   }
-  .hint-btn-text button {
-    font-size: 0.8rem;
+
+  .hint-button-text h2 {
+    font-size: .6rem;
+  }
+  .hint-button-text button {
+    font-size: 0.5rem;
   }
 
   .text {
@@ -756,6 +746,9 @@ path:nth-child(6) {
   }
   .input-btns-container {
     justify-content: center;
+  }
+  .error {
+    font-size: 0.8rem;
   }
 }
 
@@ -823,6 +816,9 @@ path:nth-child(6) {
   }
   .input-btns-container {
     justify-content: center;
+  }
+  .error {
+    font-size: 0.5rem;
   }
 }
 
@@ -904,7 +900,7 @@ path:nth-child(6) {
 
 @media (max-width: 500px) {
   * {
-    font-size: 0.5rem;
+    font-size: .5rem;
   }
   body {
     height: 90vh;
@@ -912,7 +908,7 @@ path:nth-child(6) {
   .navbar ul {
     max-width: 100vw;
     padding: 0;
-    font-size: 0.5rem;
+    font-size: .7rem;
     display: flex;
     justify-content: space-evenly;
   }
@@ -1016,6 +1012,28 @@ path:nth-child(6) {
   }
   .input-btns-container {
     justify-content: center;
+  }
+
+  .navbar .center-items {
+    margin-left: 40px;
+  }
+
+  .navbar .right-items {
+    margin-left: .3rem;
+  }
+
+  .navbar {
+    width: 100vw;
+    left: 0;
+  }
+
+  .item {
+    font-size: .8rem !important; 
+  }
+
+  .center-items li {
+    margin-right: .2rem;
+    
   }
 }
 
@@ -1128,7 +1146,10 @@ path:nth-child(6) {
     margin-right: .3rem;
     
   }
-
+ .error {
+  position: absolute;
+    font-size: 0.5rem;
+  }
 
 }
 
@@ -1147,7 +1168,7 @@ path:nth-child(6) {
   }
 
   .item {
-    font-size: .6rem !important; 
+    font-size: .7rem !important; 
   }
 
   .center-items li {
@@ -1164,6 +1185,8 @@ path:nth-child(6) {
     cursor: pointer;
     bottom: 0;
 }
-
+ .error {
+    font-size: 0.5rem;
+  }
 
 }

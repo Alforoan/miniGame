@@ -15,7 +15,6 @@ def set_score(request):
   user = request.user
   game = get_object_or_404(Game, name="Type Mania")
   score_value = request.data.get('score')
-  print('HAVE TO GET NEW SCORE', score_value)
   try:
       score = Score.objects.get(user=user, game=game)
       score.score = score_value

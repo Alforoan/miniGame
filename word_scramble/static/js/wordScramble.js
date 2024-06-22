@@ -823,6 +823,7 @@ checkLevel.addEventListener("click", function () {
 
 input.addEventListener("input", function () {
   this.value = this.value.toUpperCase();
+  console.log("changing");
   if (!isTimerRunning) {
     isTimerRunning = true;
     startTimer(180);
@@ -832,6 +833,10 @@ input.addEventListener("input", function () {
     if (lettersUsedArray.includes(btnLetter)) {
       if (this.value.includes(btnLetter)) {
         btn.classList.add("pressed");
+        if (!isTimerRunning) {
+          isTimerRunning = true;
+          startTimer(180);
+        }
       } else {
         btn.classList.remove("pressed");
       }
@@ -872,13 +877,6 @@ hintBtnContainer.addEventListener("click", function (event) {
   }
 });
 
-hintBtn.addEventListener("click", function () {
-  hintOptionText.innerHTML = `
-    <h2>Would you like a hint?</h2>
-    <button class="yes-btn">Yes</button>
-    <button class="no-btn">No</button>
-  `;
-});
 
 trashBtn.addEventListener("click", function () {
   input.value = "";

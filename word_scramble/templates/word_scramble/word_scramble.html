@@ -32,7 +32,10 @@
   
     
     <div class="stats-container">
-      <h1 class="level"></h1>
+      <div class='level-container'>
+        <h1 class="level"></h1>
+        <div class="time-container">3:00</div>
+      </div>
       <h1 class="score"></h1>
       <h1 class="highscore"></h1>
       <div class="hint-button-container">
@@ -42,6 +45,7 @@
           <button class="yes-btn">Yes</button>
           <button class="no-btn">No</button>
         </div> 
+        
       </div>
     </div>
     
@@ -139,7 +143,7 @@
         </div>
       </ul>
     </nav>
-     <div class="time-container">3:00</div>
+     
     <video
       id="laugh-track"
       src="{% static 'sounds/laughTrack.mp4' %}"

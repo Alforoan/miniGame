@@ -13,7 +13,7 @@
         <div class="center-items">
           <li class="recall"><a class='item' href="{% url 'recall_it' %}">Recall It</a></li>
           <li class="type-mania"><a class='item'  href="{% url 'type_mania' %}">Type Mania</a></li>
-          <li><a class='item' href="wordScramble.html">Word Scramble</a></li>
+          <li><a class='item' href="{% url 'word_scramble' %}">Word Scramble</a></li>
         </div>
         <div class="right-items">
           {% if user.is_authenticated %}

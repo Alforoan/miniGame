@@ -733,8 +733,13 @@ input.addEventListener("input", function () {
 
 hintBtnContainer.addEventListener("click", function (event) {
   const target = event.target;
-  console.log('clicked target', target);
-  console.log("hi there dd");
+  
+  if(hintBtnText.classList.contains('hidden-active')){
+    hintBtnText.classList.remove('hidden-active');
+  }else{
+    hintBtnText.classList.add('hidden-active');
+  }
+
   if (target.classList.contains("no-btn")) {
     hintOptionText.innerHTML = "";
     hintBtn.innerHTML = `Hint (One time usage)`;

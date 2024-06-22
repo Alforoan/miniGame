@@ -26,7 +26,10 @@ const navbar = document.querySelector(".navbar");
 const hintOptionText = document.querySelector(".hint-button-text");
 const testBtn = document.querySelector(".test-btn");
 const errorMsg = document.querySelector(".error");
+const timeContainer = document.querySelector(".time-container");
 
+let isTimerRunning = false;
+let timeIntervalArray = [];
 let progressCount = 20;
 let level = 1;
 let score = 0;
@@ -820,7 +823,10 @@ checkLevel.addEventListener("click", function () {
 
 input.addEventListener("input", function () {
   this.value = this.value.toUpperCase();
-
+  if (!isTimerRunning) {
+    isTimerRunning = true;
+    startTimer(180);
+  }
   letterBtns.forEach((btn) => {
     const btnLetter = btn.textContent;
     if (lettersUsedArray.includes(btnLetter)) {
@@ -999,3 +1005,28 @@ input.addEventListener("keydown", function (e) {
     }
   }
 });
+
+function startTimer(time) {
+  const startTime = Date.now();
+  const updateInterval = 100;
+
+  const updateElapsedTime = () => {
+    const delta = Date.now() - startTime;
+    const remainingSeconds = time - Math.floor(delta / 1000);
+    const nonNegativeSeconds = Math.max(0, remainingSeconds);
+    const minutes = Math.floor(nonNegativeSeconds / 60);
+    const seconds = nonNegativeSeconds % 60;
+    const formattedMinutes = String(Math.min(999, minutes)).padStart(1, '0');
+    const formattedSeconds = String(seconds).padStart(2, '0');
+    timeContainer.textContent = `${formattedMinutes}:${formattedSeconds}`;
+    if (timeContainer.textContent === '0:00') {
+      input.disabled = true;
+      clearInterval(timeInterval);
+      isTimerRunning = false;
+    }
+  };
+
+  timeInterval = setInterval(updateElapsedTime, updateInterval);
+  timeIntervalArray.push(timeInterval);
+  return timeInterval;
+}

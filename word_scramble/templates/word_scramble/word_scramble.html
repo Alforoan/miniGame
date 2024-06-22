@@ -6,8 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <link rel="stylesheet" href="{% static 'css/wordScramble.css' %}" />
 
-    <link rel="stylesheet" href="background.css" />
-    <link rel="stylesheet" href="arcade.ttf" />
+    
     <title>Word Scramble</title>
   </head>
   <body>
@@ -37,15 +36,18 @@
       <source src="{% static 'sounds/ultimateSound.mp3' %}" type="audio/mpeg">
     </audio>
   
-    <div class="hint-button-container">
-      <button class="hint-button btn">Hint (One time usage)</button>
-    </div>
-    <div class="hint-button-text"></div>
+    
     <div class="stats-container">
       <h1 class="level"></h1>
       <h1 class="score"></h1>
       <h1 class="highscore"></h1>
+      <div class="hint-button-container">
+        <button class="hint-button btn">Hint (One time usage)</button>
+        <div class="hint-button-text"></div> 
+      </div>
     </div>
+    
+    
     <div class="bottom-half-container">
       <div class="word-scramble-container">
         <div class="first-row-container"></div>
@@ -142,7 +144,6 @@
       id="laugh-track"
       src="{% static 'sounds/laughTrack.mp4' %}"
       type="video/mp4"
-      controls
     >
     </video>
     <script>

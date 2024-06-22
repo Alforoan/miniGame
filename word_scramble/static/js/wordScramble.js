@@ -15,7 +15,7 @@ const trashBtn = document.querySelector(".trash-btn");
 const deleteBtn = document.querySelector(".delete-btn");
 const levelUp = document.getElementById("level-up");
 const wordFound = document.getElementById("word-found");
-const revealWord = document.getElementById("word-found");
+const revealWord = document.getElementById("reveal-word");
 const ultimateSound = document.getElementById("ultimate-sound");
 const hintBtn = document.querySelector(".hint-button");
 const hintBtnContainer = document.querySelector(".hint-button-container");
@@ -23,7 +23,9 @@ const hintBtnText = document.querySelector(".hint-button-text");
 const laughTrack = document.getElementById("laugh-track");
 const navbarBtn = document.querySelector(".navbar-btn");
 const navbar = document.querySelector(".navbar");
-const hintOptionText = document.querySelector(".hint-btn-text");
+const hintOptionText = document.querySelector(".hint-button-text");
+const testBtn = document.querySelector(".test-btn");
+
 let progressCount = 20;
 let level = 1;
 let score = 0;
@@ -49,6 +51,8 @@ levelUp.volume = 0.25;
 wordFound.volume = 0.25;
 revealWord.volume = 0.25;
 ultimateSound.volume = 0.25;
+
+
 
 highscore = localStorage.getItem("highscore");
 if (highscore) {
@@ -729,7 +733,8 @@ input.addEventListener("input", function () {
 
 hintBtnContainer.addEventListener("click", function (event) {
   const target = event.target;
-
+  console.log('clicked target', target);
+  console.log("hi there dd");
   if (target.classList.contains("no-btn")) {
     hintOptionText.innerHTML = "";
     hintBtn.innerHTML = `Hint (One time usage)`;

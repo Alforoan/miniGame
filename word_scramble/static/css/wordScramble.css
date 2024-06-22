@@ -295,9 +295,9 @@ body {
   margin-top: 2rem;
 }
 
-.hint-btn-text {
-  top: 18%;
-  left: 28%;
+.hint-button-text {
+  position: absolute !important;
+  margin-bottom: 2rem;
 }
 
 .yes-btn,
@@ -352,6 +352,11 @@ body {
 .ultimate-btn:hover {
   background-color: #fff;
   color: #00c9ff;
+}
+
+.hint-button-container{
+  margin-top: 1rem;
+  margin-bottom: 1rem;
 }
 
 @keyframes move-right-side {
@@ -511,14 +516,17 @@ path:nth-child(6) {
   transform: translateX(9px) translateY(1px) rotate(45deg);
 }
 
+#level-up, #word-found, #reveal-word, #ultimate-sound {
+    display: none;
+}
+
 @media (min-width: 1920px) {
   .hint-button {
     font-size: 1rem;
     margin-top: 0rem;
   }
-  .hint-btn-text {
-    left: 21%;
-    margin-top: 2rem;
+  .hint-button-text {
+    position: absolute !important;
   }
 
   .stats-list {
@@ -530,7 +538,7 @@ path:nth-child(6) {
     margin-top: 2%;
   }
   .stats-container {
-    margin-bottom: 4rem;
+    margin-bottom: 2rem;
   }
   .bottom-half-container {
     margin-top: 3rem;
@@ -553,7 +561,7 @@ path:nth-child(6) {
   .hint-button {
     font-size: 1rem;
   }
-  .hint-btn-text {
+  .hint-button-text {
     left: 17%;
     margin-top: 1rem;
     margin-bottom: 2rem;

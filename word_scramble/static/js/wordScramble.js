@@ -396,7 +396,7 @@ function checkLettersUsed(lettersArr, word) {
 }
 
 function checkWordInArr(arr) {
-  if (arr.includes(input.value.toLowerCase())) {
+  if (arr.includes(input.value)) {
     return true;
   }
   return false;
@@ -478,7 +478,7 @@ function checkAnswer() {
 function checkFourWords() {
   let isMatching = false;
   if (
-    allFourLetterWords.includes(input.value.toLowerCase()) &&
+    allFourLetterWords.includes(input.value.toUpperCase()) &&
     input.value !== fourLetterWordsArray[0] &&
     input.value !== fourLetterWordsArray[1] &&
     input.value !== fourLetterWordsArray[2] &&

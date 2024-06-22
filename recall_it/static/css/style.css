@@ -16,6 +16,8 @@ body {
   font-family: "Super Legend Boy", Arial, sans-serif;
 }
 
+
+
 article {
   display: flex;
   justify-content: center;
@@ -788,4 +790,9 @@ path:nth-child(6) {
   visibility: visible;
 }
 
+}
+
+.welcome-msg{
+  margin-top: .5rem !important;
+  margin-bottom: .5rem !important;
 }

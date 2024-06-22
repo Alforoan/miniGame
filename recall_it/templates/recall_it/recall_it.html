@@ -186,7 +186,11 @@
       </article>
       <button class="start-btn">Start</button>
     </div> -->
-    <h2>Hi, {{ user.username }}</h2>
+    {% if user.is_authenticated %}
+    <h2 class='welcome-msg'>Hi, {{ user.username }}</h2>
+    {% else %}
+    <h2 class='welcome-msg'>Hi, please sign up to save your scores</h2>
+    {% endif %}
     <script src="{% static 'js/app.js' %}"></script>
   </body>
 </html>

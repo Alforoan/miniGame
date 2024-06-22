@@ -297,7 +297,6 @@ body {
   padding: 0;
   display: flex;
   justify-content: center;
-
   width: 100vw;
   text-align: center;
 }
@@ -518,7 +517,7 @@ path:nth-child(6) {
   }
 }
 
-@media (max-width: 550px) {
+/* @media (max-width: 550px) {
   .text-article,
   .form-btn-container {
     max-width: 80vw;
@@ -640,16 +639,16 @@ path:nth-child(6) {
   .ten-words {
     margin-top: 3rem;
   }
-}
+} */
 
-@media (min-width: 1050px) and (max-width: 1200px) {
+@media (min-width: 1250px) and (max-width: 1350px) {
 
   .navbar .center-items {
-    margin-left: 200px;
+    margin-left: 160px;
   }
 
   .navbar .right-items {
-    margin-left: 1.2rem;
+    margin-left: 1rem;
   }
 
   .navbar {
@@ -662,7 +661,7 @@ path:nth-child(6) {
   }
 
   .center-items li {
-    margin-right: 3rem;
+    margin-right: 1rem;
     
   }
  
@@ -671,37 +670,13 @@ path:nth-child(6) {
 }
 
 
-@media (min-width: 700px) and (max-width: 1049px) {
+@media (min-width: 900px) and (max-width: 1249px) {
   .navbar .center-items {
-    margin-left: 180px;
+    margin-left: 80px;
   }
 
   .navbar .right-items {
-    margin-left: 1.2rem;
-  }
-
-  .navbar {
-    width: 100vw;
-    left: 0;
-  }
-
-  .item {
-    font-size: .9rem !important; 
-  }
-
-  .center-items li {
-    margin-right: 2rem;
-    
-  }
-}
-
-@media (min-width: 653px) and (max-width: 850px) {
-  .navbar .center-items {
-    margin-left: 100px;
-  }
-
-  .navbar .right-items {
-    margin-left: 1.2rem;
+    margin-left: .5rem;
   }
 
   .navbar {
@@ -714,7 +689,31 @@ path:nth-child(6) {
   }
 
   .center-items li {
-    margin-right: 1rem;
+    margin-right: .5rem;
+    
+  }
+}
+
+@media (min-width: 653px) and (max-width: 899px) {
+  .navbar .center-items {
+    margin-left: 60px;
+  }
+
+  .navbar .right-items {
+    margin-left: .3rem;
+  }
+
+  .navbar {
+    width: 100vw;
+    left: 0;
+  }
+
+  .item {
+    font-size: .7rem !important; 
+  }
+
+  .center-items li {
+    margin-right: .3rem;
     
   }
 
@@ -727,27 +726,33 @@ path:nth-child(6) {
   }
 
   .navbar .right-items {
-    margin-left: 1.2rem;
+    margin-left: .3rem;
   }
 
   .navbar {
     width: 100vw;
-    left: 1rem;
+    left: 0;
   }
 
   .item {
-    font-size: .7rem !important; 
+    font-size: .6rem !important; 
   }
 
   .center-items li {
-    margin-right: 1rem;
+    margin-right: .2rem;
     
   }
 
-  .navbar ul {
-    width: 100vw;
-  }
-
+  .navbar-btn {
+    position: fixed;
+    left: 50%;
+    transform: translate(-50%, 80vh);
+    border: none;
+    border-radius: 0.5rem;
+    cursor: pointer;
+    bottom: 0;
+}
 
 
 }
+

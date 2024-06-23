@@ -15,3 +15,100 @@ ipython_config.py
 .Python
 db.sqlite3
 __pycache__
+
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# CPython files
+*.cpython-*
+
+# Distribution / packaging
+.Python
+env/
+venv/
+ENV/
+env.bak/
+venv.bak/
+__pypackages__/
+
+# Django
+*.log
+db.sqlite3
+
+# Flask
+instance/
+.webassets-cache
+
+# Pyenv
+.python-version
+
+# Environments
+.env
+.djangoenv
+
+# Jupyter Notebook
+.ipynb_checkpoints
+
+# IPython
+ipython_config.py
+
+# pyenv
+.python-version
+
+# pip
+pip-log.txt
+
+# pyenv-virtualenv
+python_env/
+
+# Celery stuff
+celerybeat-schedule
+celerybeat.pid
+
+# Coverage reports
+htmlcov/
+.tox/
+.nox/
+.coverage
+coverage.xml
+*.cover
+.hypothesis/
+
+# Unit test / coverage reports
+.pytest_cache/
+nosetests.xml
+coverage.xml
+*.cover
+.hypothesis/
+
+# Pytest
+.pytest_cache/
+
+# mypy
+.mypy_cache/
+
+# Other IDEs and editors
+.idea/
+.vscode/
+*.sublime-project
+*.sublime-workspace
+*.swp
+*~
+.project
+.settings/
+.metadata/
+*.iml
+*.iws
+*.bak
+
+# Backup files
+*.bak
+
+# MacOS
+.DS_Store
+
+# Windows
+Thumbs.db
+ehthumbs.db

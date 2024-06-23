@@ -1,9 +1,9 @@
 <h1 align="center">Hi 👋, I'm Jay</h1>
-<h3 align="center">A React Frontend Developer from United States</h3>
+<h3 align="center">A Fullstack Developer from United States</h3>
 
-- 🌱 I’m currently learning **React**
+- 🌱 I’m currently learning **Everything**
 
-- 👨‍💻 All of my projects are available at [http://alforoan-finalport.netlify.app](http://alforoan-finalport.netlify.app)
+- 👨‍💻 All of my projects are available at [https://github.com/Alforoan](https://github.com/Alforoan)
 
 - 📫 How to reach me **jdragon2050@gmail.com**
 
@@ -14,14 +14,31 @@
 </p>
 
 <h3 align="left">Languages and Tools:</h3>
-<p align="left"> <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> </a> <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> </a> <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> </a> 
+<p align="left"> 
+    <a href="https://www.djangoproject.com/" target="_blank" rel="noreferrer"> 
+        <img src="https://github.com/Alforoan/miniGame/assets/118868270/0c646f8a-44f3-4fac-8fd3-d8b717442c99" alt="django" width="40" height="40"/> 
+    </a>
+    <a href="https://www.sqlite.org/index.html" target="_blank" rel="noreferrer"> 
+        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sqlite/sqlite-original.svg" alt="sqlite" width="40" height="40"/> 
+    </a> 
+    <a href="https://www.w3schools.com/css/" target="_blank" rel="noreferrer"> 
+        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/css3/css3-original-wordmark.svg" alt="css3" width="40" height="40"/> 
+    </a> 
+    <a href="https://www.w3.org/html/" target="_blank" rel="noreferrer"> 
+        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/html5/html5-original-wordmark.svg" alt="html5" width="40" height="40"/> 
+    </a> 
+    <a href="https://developer.mozilla.org/en-US/docs/Web/JavaScript" target="_blank" rel="noreferrer"> 
+        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/javascript/javascript-original.svg" alt="javascript" width="40" height="40"/> 
+    </a>
+</p>
+
 
 
 ## About The Project
 
-[Project Link](https://minigames-js.netlify.app/)
+[Project Link](https://alforoan.pythonanywhere.com/)
 
-![miniGamesImage](https://github.com/Alforoan/miniGame/blob/main/minigamesImage.png)
+![miniGamesImage](https://github.com/Alforoan/miniGame/blob/main/scoresImage.png)
  
 
 `github_username`: Alforoan
@@ -43,7 +60,9 @@
 ### Built With
 
 
-* [![JavaScript][JavaScript-url]
+* [![JavaScript][https://developer.mozilla.org/en-US/docs/Web/JavaScript]
+* ![Django][[https://www.djangoproject.com/]
+* ![SQL][https://en.wikipedia.org/wiki/SQL]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

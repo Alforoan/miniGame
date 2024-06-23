@@ -145,7 +145,7 @@ Distributed under the MIT License. See `LICENSE.txt` for more information.
 
 Your Name - [@Alforoan2050](https://twitter.com/Alforoan2050) 
 
-Project Link: [Project Link](https://alforoan-pokemoncardsfinal.netlify.app/)
+Project Link: [Project Link](https://alforoan.pythonanywhere.com/scores/)
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

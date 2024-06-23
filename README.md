@@ -52,6 +52,7 @@
 `project_description`: 
 - Uses JavaScript to play 3 different minigames
 - Uses event delegation, event listeners, and data fetching
+- Uses custom filters and django rest framework, SQLite for database
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>
 

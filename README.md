@@ -19,7 +19,7 @@
 
 ## About The Project
 
-[Project Link](https://minigames-js.netlify.app/)
+[Project Link](https://alforoan.pythonanywhere.com/)
 
 ![miniGamesImage](https://github.com/Alforoan/miniGame/blob/main/minigamesImage.png)
  

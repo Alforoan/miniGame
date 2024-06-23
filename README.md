@@ -1,9 +1,9 @@
 <h1 align="center">Hi 👋, I'm Jay</h1>
-<h3 align="center">A React Frontend Developer from United States</h3>
+<h3 align="center">A Fullstack Developer from United States</h3>
 
-- 🌱 I’m currently learning **React**
+- 🌱 I’m currently learning **Everything**
 
-- 👨‍💻 All of my projects are available at [http://alforoan-finalport.netlify.app](http://alforoan-finalport.netlify.app)
+- 👨‍💻 All of my projects are available at [https://github.com/Alforoan](https://github.com/Alforoan)
 
 - 📫 How to reach me **jdragon2050@gmail.com**
 
@@ -44,6 +44,8 @@
 
 
 * [![JavaScript][JavaScript-url]
+* ![Django][Django-url]
+* ![SQL][SQL-url]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

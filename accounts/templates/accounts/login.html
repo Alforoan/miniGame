@@ -1,0 +1,43 @@
+{% extends 'base.html' %}
+{% block title %}
+ Login
+{% endblock title %}
+
+{% block content %}
+  <main>
+    <div class="form-container login-container">
+      <h1 class='login-text'>Login</h1>
+      <form method="post" class='loginForm'>
+        {% csrf_token %}
+        <div class="form-group">
+          <label for="id_username">Username:</label>
+          {{ form.username }}
+        </div>
+        <div class="form-group">
+          <label for="id_password">Password:</label>
+          {{ form.password }}
+        </div>
+        {% if error_message %}
+        <div class="alert alert-danger" role="alert">
+          {{ error_message }}
+        </div>
+        {% endif %}
+        <button type="submit" class="btn btn-primary">Login</button>
+      </form>
+    </div>
+  </main>
+
+  <script>
+
+    document.addEventListener('DOMContentLoaded', function () { 
+        const form = document.body.querySelector('.loginForm');
+        const errorMessage = document.body.querySelector('.alert');
+
+        form.addEventListener('input', function () {
+            if (errorMessage) {
+                errorMessage.style.display = 'none';
+            }
+        });
+      });
+  </script>
+{% endblock content %}

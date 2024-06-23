@@ -38,7 +38,7 @@
 
 [Project Link](https://alforoan.pythonanywhere.com/)
 
-![miniGamesImage](https://github.com/Alforoan/miniGame/blob/main/scoresImages.png)
+![miniGamesImage](https://github.com/Alforoan/miniGame/blob/main/scoresImage.png)
  
 
 `github_username`: Alforoan

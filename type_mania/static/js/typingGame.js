@@ -18,6 +18,7 @@ const timeBtns = document.querySelectorAll(".timeBtns");
 const wpmContainer = document.querySelector(".wpm-container");
 const navbarBtn = document.querySelector(".navbar-btn");
 const navbar = document.querySelector(".navbar");
+const urlToChange = 'http://127.0.0.1:8000';
 
 let randWordsArray = [];
 let timeInterval;
@@ -35,7 +36,7 @@ let isUserExists = false;
 async function getScore() {
   try {
     const response = await fetch(
-      'http://127.0.0.1:8000/type_mania/api/score/get/'
+      `${urlToChange}/type_mania/api/score/get/`
     );
     if (!response.ok) {
       throw new Error('Network response was not ok' + response.statusText);
@@ -73,7 +74,7 @@ function getCookie(name) {
 async function updateHighScore(score) {
   try {
     const csrftoken = getCookie('csrftoken');
-    const response = await fetch('http://127.0.0.1:8000/type_mania/api/score/set/', {
+    const response = await fetch(`${urlToChange}/type_mania/api/score/set/`, {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',

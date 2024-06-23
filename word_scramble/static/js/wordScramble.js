@@ -27,6 +27,7 @@ const hintOptionText = document.querySelector(".hint-button-text");
 const testBtn = document.querySelector(".test-btn");
 const errorMsg = document.querySelector(".error");
 const timeContainer = document.querySelector(".time-container");
+const urlToChange = 'http://127.0.0.1:8000';
 
 let isTimerRunning = false;
 let timeIntervalArray = [];
@@ -63,7 +64,7 @@ ultimateSound.volume = 0.25;
 async function getScore() {
   try {
     const response = await fetch(
-      'http://127.0.0.1:8000/word_scramble/api/score/get/'
+      `${urlToChange}/word_scramble/api/score/get/`
     );
     if (!response.ok) {
       throw new Error('Network response was not ok' + response.statusText);
@@ -112,7 +113,7 @@ async function updateHighScore(score) {
   try {
     const csrftoken = getCookie('csrftoken');
     const response = await fetch(
-      'http://127.0.0.1:8000/word_scramble/api/score/set/',
+      `${urlToChange}/word_scramble/api/score/set/`,
       {
         method: 'POST',
         headers: {

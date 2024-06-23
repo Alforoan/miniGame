@@ -23,7 +23,7 @@ const box1 = document.getElementById('box-1');
 const box2 = document.getElementById('box-2');
 const box3 = document.getElementById('box-3');
 const box4 = document.getElementById('box-4');
-
+const urlToChange = 'http://127.0.0.1:8000';
 
 let clickedBoxes = [];
 let sequence = [];
@@ -48,7 +48,7 @@ highScoreText.textContent = `High Score: ${level - 1}`;
 
 async function getScoreNormal(){
   try {
-    const response = await fetch('http://127.0.0.1:8000/recall_it/api/score/get/normal');
+    const response = await fetch(`${urlToChange}/recall_it/api/score/get/normal`);
     if (!response.ok) {
       throw new Error('Network response was not ok'+ response.statusText);
     }
@@ -71,7 +71,7 @@ async function getScoreNormal(){
 async function getScoreHard() {
   try {
     const response = await fetch(
-      'http://127.0.0.1:8000/recall_it/api/score/get/hard'
+      `${urlToChange}/recall_it/api/score/get/hard`
     );
     if (!response.ok) {
       throw new Error('Network response was not ok' + response.statusText);
@@ -112,7 +112,7 @@ async function updateScoreNormal(score) {
   try {
     const csrftoken = getCookie('csrftoken');
     const response = await fetch(
-      'http://127.0.0.1:8000/recall_it/api/score/set/normal/',
+      `${urlToChange}/recall_it/api/score/set/normal/`,
       {
         method: 'POST',
         headers: {
@@ -138,7 +138,7 @@ async function updateScoreHard(score) {
   try {
     const csrftoken = getCookie('csrftoken');
     const response = await fetch(
-      'http://127.0.0.1:8000/recall_it/api/score/set/hard/',
+      `${urlToChange}/recall_it/api/score/set/hard/`,
       {
         method: 'POST',
         headers: {
@@ -164,7 +164,7 @@ async function updateHighScore(score) {
   try {
     const csrftoken = getCookie('csrftoken');
     const response = await fetch(
-      'http://127.0.0.1:8000/recall_it/api/score/',
+      `${urlToChange}/recall_it/api/score/`,
       {
         method: 'POST',
         headers: {

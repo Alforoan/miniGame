@@ -30,7 +30,15 @@ def set_score(request):
         print('SCORE DATA', score_data)
         return Response(score_data)
     except Score.DoesNotExist:
-        return Response({'error': 'Score not found'}, status=status.HTTP_404_NOT_FOUND)
+        score = Score.objects.create(user=user, game=game)
+        score.score = score_value
+        score.save()
+        score_data = {
+            'user': user.username,
+            'game': game.name,
+            'score': score.score
+        }
+        return Response(score_data)
     
 @api_view(['POST'])
 @login_required

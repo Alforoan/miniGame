@@ -43,9 +43,9 @@
 ### Built With
 
 
-* [![JavaScript][JavaScript-url]
-* ![Django][Django-url]
-* ![SQL][SQL-url]
+* [![JavaScript][https://developer.mozilla.org/en-US/docs/Web/JavaScript]
+* ![Django][[https://www.djangoproject.com/]
+* ![SQL][https://en.wikipedia.org/wiki/SQL]
 
 
 <p align="right">(<a href="#readme-top">back to top</a>)</p>

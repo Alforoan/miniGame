@@ -16,8 +16,8 @@
 <h3 align="left">Languages and Tools:</h3>
 <p align="left"> 
     <a href="https://www.djangoproject.com/" target="_blank" rel="noreferrer"> 
-        <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/django/django-original.svg" alt="django" width="40" height="40"/> 
-    </a> 
+        <img src="https://github.com/Alforoan/miniGame/assets/118868270/0c646f8a-44f3-4fac-8fd3-d8b717442c99" alt="django" width="40" height="40"/> 
+    </a>
     <a href="https://www.sqlite.org/index.html" target="_blank" rel="noreferrer"> 
         <img src="https://raw.githubusercontent.com/devicons/devicon/master/icons/sqlite/sqlite-original.svg" alt="sqlite" width="40" height="40"/> 
     </a> 

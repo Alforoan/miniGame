@@ -1,4 +1,4 @@
-from django.shortcuts import render
+from django.shortcuts import render, get_object_or_404
 from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from .forms import LoginForm, SignupForm, ChangePasswordForm
@@ -127,3 +127,38 @@ def change_password_view(request):
     context['form'] = form
     context['error'] = error
     return render(request, 'accounts/change_password.html', context)
+
+def user_account_view(request, username):
+    other_user = get_object_or_404(User, username=username)
+    recall_it_scores = Score.objects.get(user=other_user, game__name='Recall It')
+    recall_it_scores = recall_it_scores.score
+    type_mania_scores = Score.objects.get(user=other_user, game__name='Type Mania').score
+    word_scramble_scores = Score.objects.get(user=other_user, game__name='Word Scramble').score
+    
+    total = word_scramble_scores + recall_it_scores + type_mania_scores
+  
+    if total < 1000:
+      rank = 'Noob'
+    elif total >= 1000 and total < 2000:
+      rank = 'Apprentice'
+    elif total >= 2000 and total < 3000:
+      rank = 'Challenger'
+    elif total >= 3000 and total < 4000:
+      rank = 'Journeyman'
+    elif total >= 4000 and total < 5000:
+      rank = 'Warrior'
+    elif total >= 5000 and total < 6000:
+      rank = 'Elite'
+    elif total >= 6000 and total < 7000:
+      rank = 'Master'
+    else:
+      rank = 'Legend'
+
+    context = {
+        'other_user': other_user,
+        'recall_it_score': recall_it_scores,
+        'type_mania_score': type_mania_scores,
+        'rank': rank,
+        'word_scramble_score': word_scramble_scores,
+    }
+    return render(request, 'accounts/users.html', context)

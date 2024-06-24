@@ -180,6 +180,11 @@ article {
   display: flex;
 }
 
+.user-name{
+  text-decoration: none !important;
+  color: #4285F4;
+}
+
 
 
 svg {

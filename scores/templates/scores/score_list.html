@@ -49,31 +49,32 @@
                 <td>
                     {% with recall_it|index:i as recall %}
                         {% if recall %}
-                            {{ recall.score }} ({{ recall.user }})
+                            {{ recall.score }}<a class='user-name' href="{% url 'users' username=recall.user %}"> ({{ recall.user }}) </a> 
                         {% endif %}
                     {% endwith %}
                 </td>
                 <td>
                     {% with type_mania|index:i as type %}
                         {% if type %}
-                            {{ type.score }} ({{ type.user }})
+                            {{ type.score }}<a class='user-name' href="{% url 'users' username=type.user %}"> ({{ type.user }}) </a> 
                         {% endif %}
                     {% endwith %}
                 </td>
                 <td>
                     {% with word_scramble|index:i as word %}
                         {% if word %}
-                            {{ word.score }} ({{ word.user }})
+                            {{ word.score }}<a class='user-name' href="{% url 'users' username=word.user %}"> ({{ word.user }}) </a> 
                         {% endif %}
                     {% endwith %}
                 </td>
                 <td>
                     {% with total|index:i as total_score %}
                         {% if total_score %}
-                            {{ total_score.score }} ({{ total_score.user }})
+                            {{ total_score.score }}<a class='user-name' href="{% url 'users' username=total_score.user %}"> ({{ total_score.user }}) </a> 
                         {% endif %}
                     {% endwith %}
                 </td>
+
             </tr>
         {% endfor %}
     </tbody>

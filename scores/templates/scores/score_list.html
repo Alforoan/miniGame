@@ -70,7 +70,7 @@
                 <td>
                     {% with total|index:i as total_score %}
                         {% if total_score %}
-                            {{ total_score.score }} ({{ total_score.user }} pts)
+                            {{ total_score.score }} ({{ total_score.user }})
                         {% endif %}
                     {% endwith %}
                 </td>

@@ -1,0 +1,26 @@
+{% extends 'base.html' %}
+{% block title %}
+ Account Settings
+{% endblock title %}
+
+{% block content %}
+  <main class='account-main-container'>
+    <div class="form-container login-container account-container">
+      <h1 class='login-text'>Account Settings</h1>
+     
+      <div style='display: flex; '>
+        <h2 class='h2-text'>Username:</h2>
+        <h2 class='h2-text'> &nbsp {{ user.username }}
+      </div>
+      <h3>Scores</h3> 
+      <h4>Recall It: {{ recall_it }}</h4>
+      <h4>Type Mania: {{ type_mania }}</h4>
+      <h4>Word Scramble: {{ word_scramble }}</h4>
+      <h4>Total: {{ total }}</h4>
+      <h4>Rank: {{ rank }} </h4>
+
+      <button class='change-password-btn'><a href="{% url 'change_password' %}">Change password</a></button>
+      
+    </h3>
+  </main>
+{% endblock content %}

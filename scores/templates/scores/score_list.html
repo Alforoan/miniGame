@@ -132,7 +132,7 @@
         </div>
         <div class="right-items">
           {% if user.is_authenticated %}
-          <li><a class='item' href="{% url 'logout' %}">Logout</a></li>
+          <li><a class='item' href="{% url 'account' %}">Account</a></li>
           {% else %}
           <li><a class='item' href="{% url 'login' %}">Login</a></li>
           <li><a class='item' href="{% url 'signup' %}">Signup</a></li>

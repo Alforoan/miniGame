@@ -156,8 +156,51 @@ input, button, select, textarea {
     box-shadow: none;
     max-height: 280px;
   }
+
+  .account-container{
+    margin-top: 0rem !important;
+    width: 90%;
+    border: none;
+    box-shadow: none;
+    max-height: 500px;
+  }
+  .account-container h1{
+    font-size: 1.1rem;
+  }
+  .account-container h2{
+    font-size: 0.8rem !important;
+  }
+  .account-container h3{
+    font-size: 0.7rem !important;
+  }
+  .account-container h4{
+    font-size: 0.6rem !important;
+  }
+
 }
 
+div .h2-text{
+  font-size: 1.5rem;
+}
+
+.change-password-btn{
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.change-password-btn a{
+  text-decoration: none;
+  color: white;
+}
+
+.account-main-container {
+  height: 10vh;
+}
 
 
 @media (min-width: 1050px) and (max-width: 1200px) {

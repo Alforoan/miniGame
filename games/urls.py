@@ -30,4 +30,6 @@ urlpatterns = [
     path('scores/', include('scores.urls')),
     path('type_mania/', include('type_mania.urls')),
     path('word_scramble/', include('word_scramble.urls')),
+    path('messages/', include('user_messages.urls')),
+    path('tz_detect/', include('tz_detect.urls')),
 ]

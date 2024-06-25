@@ -1,0 +1,72 @@
+{% extends 'base_users.html' %}
+{% load tz %}
+{% block content %}
+  <div class="inbox-container">
+    <div>
+      <h2>Inbox</h2>
+
+      <h3>Unread</h3>
+      <ul class="message-list unread">
+          {% for message in page_obj.object_list %}
+            {% if not message.is_read %}
+              <li>
+                <a href="{% url 'view_message' message.pk %}">
+                  <strong>{{ message.subject }}</strong> from {{ message.sender.username }} at {{ message.timestamp|localtime }}
+                </a>
+                <span class="badge">Unread</span>
+              </li>
+            {% endif %}
+          {% endfor %}
+      </ul>
+
+      <h3>Read</h3>
+      <ul class="message-list read">
+          {% for message in page_obj.object_list %}
+            {% if message.is_read %}
+              <li>
+                <a href="{% url 'view_message' message.pk %}">
+                  <strong>{{ message.subject }}</strong> from {{ message.sender.username }} at {{ message.timestamp }}
+                </a>
+              </li>
+            {% endif %}
+          {% endfor %}
+      </ul>
+    </div>
+    
+    <div class="pagination">
+        <span class="step-links">
+            {% if page_obj.has_previous %}
+                <a href="?page=1" class="pagination-button">&laquo;</a>
+                <a href="?page={{ page_obj.previous_page_number }}" class="pagination-button">&lsaquo;</a>
+            {% else %}
+                <span class="pagination-button disabled">&laquo;</span>
+                <span class="pagination-button disabled">&lsaquo;</span>
+            {% endif %}
+
+            {% for num in page_obj.paginator.page_range %}
+                {% if num > page_obj.number|add:-3 and num < page_obj.number|add:3 %}
+                    {% if page_obj.number == num %}
+                        <span class="current pagination-button active">{{ num }}</span>
+                    {% else %}
+                        <a href="?page={{ num }}" class="pagination-button">{{ num }}</a>
+                    {% endif %}
+                {% elif num == 1 or num == page_obj.paginator.num_pages %}
+                    <a href="?page={{ num }}" class="pagination-button">{{ num }}</a>
+                {% elif num < page_obj.number|add:-3 and num == 2 %}
+                    <span class="pagination-button ellipsis">...</span>
+                {% elif num > page_obj.number|add:3 and num == page_obj.paginator.num_pages|add:-1 %}
+                    <span class="pagination-button ellipsis">...</span>
+                {% endif %}
+            {% endfor %}
+
+            {% if page_obj.has_next %}
+                <a href="?page={{ page_obj.next_page_number }}" class="pagination-button">&rsaquo;</a>
+                <a href="?page={{ page_obj.paginator.num_pages }}" class="pagination-button">&raquo;</a>
+            {% else %}
+                <span class="pagination-button disabled">&rsaquo;</span>
+                <span class="pagination-button disabled">&raquo;</span>
+            {% endif %}
+        </span>
+    </div>
+  </div>
+{% endblock %}

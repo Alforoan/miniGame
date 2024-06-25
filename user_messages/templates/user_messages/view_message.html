@@ -1,0 +1,16 @@
+{% extends 'base_users.html' %}
+
+{% block content %}
+  <h2>{{ message.subject }}</h2>
+  <p>From: {{ message.sender.username }}</p>
+  <p>{{ message.body }}</p>
+  <p>Sent at: {{ message.timestamp }}</p>
+  <script>
+    window.onload = function() {
+      if (!window.location.hash) {
+        window.location = window.location + '#';
+        window.location.reload();
+      }
+    }
+  </script>
+{% endblock %}

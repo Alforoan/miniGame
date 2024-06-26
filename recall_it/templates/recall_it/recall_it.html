@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Recall It</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   </head>
   <body>
     <audio id='error' controls>
@@ -157,7 +157,10 @@
         <div class="right-items">
           {% if user.is_authenticated %}
           <li><a href="{% url 'score_list' %}">Scores</a></li>
-          <li><a href="{% url 'account' %}">Account</a></li>
+            
+             
+            <li><a href="{% url 'account' %}">Account
+              <span id="unread-message-counter" class="unread-counter">{{ unread_message_counter }}</span></a></li>
           {% else %}
           <li><a href="{% url 'login' %}">Login</a></li>
           <li><a href="{% url 'signup' %}">Signup</a></li>
@@ -192,5 +195,6 @@
     <h2 class='welcome-msg'>Hi, please sign up to save your scores</h2>
     {% endif %}
     <script src="{% static 'js/app.js' %}"></script>
+    
   </body>
 </html>

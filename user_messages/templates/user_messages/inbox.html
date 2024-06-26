@@ -2,30 +2,37 @@
 {% load tz %}
 {% block content %}
   <div class="inbox-container">
-    <div>
+    <div class='inbox-account-container '>
       <h2>Inbox</h2>
-
-      <h3>Unread</h3>
+      <a class='account-button' href="{% url 'account' %}">Account</a>
+    </div>
+    <div class='messages-container'>
       <ul class="message-list unread">
           {% for message in page_obj.object_list %}
             {% if not message.is_read %}
-              <li>
+              <li class="message-item unread">
                 <a href="{% url 'view_message' message.pk %}">
-                  <strong>{{ message.subject }}</strong> from {{ message.sender.username }} at {{ message.timestamp|localtime }}
+                  <strong class="message-title">{{ message.subject }}</strong>
+                  <div class="message-info">
+                    <span class="message-sender">from {{ message.sender.username }}</span>
+                    <span class="message-timestamp">{{ message.timestamp|localtime }}</span>
+                  </div>
                 </a>
                 <span class="badge">Unread</span>
               </li>
             {% endif %}
           {% endfor %}
       </ul>
-
-      <h3>Read</h3>
       <ul class="message-list read">
           {% for message in page_obj.object_list %}
             {% if message.is_read %}
-              <li>
+              <li class="message-item read">
                 <a href="{% url 'view_message' message.pk %}">
-                  <strong>{{ message.subject }}</strong> from {{ message.sender.username }} at {{ message.timestamp }}
+                  <strong class="message-title">{{ message.subject }}</strong>
+                  <div class="message-info">
+                    <span class="message-sender">from {{ message.sender.username }}</span>
+                    <span class="message-timestamp">{{ message.timestamp|localtime }}</span>
+                  </div>
                 </a>
               </li>
             {% endif %}

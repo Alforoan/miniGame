@@ -1,16 +1,23 @@
 {% extends 'base_users.html' %}
 
 {% block content %}
-  <h2>{{ message.subject }}</h2>
-  <p>From: {{ message.sender.username }}</p>
-  <p>{{ message.body }}</p>
-  <p>Sent at: {{ message.timestamp }}</p>
+  <div class="message-detail-container">
+    <h2 class="message-subject">{{ message.subject }}</h2>
+    <p class="message-sender">From: <a href="{% url 'users' message.sender.username %}">{{ message.sender.username }}</a></p>
+    <p class="message-body">{{ message.body }}</p>
+    <p class="message-timestamp">Sent at: <span>{{ message.timestamp }}</span></p>
+    <a href="{% url 'inbox' %}" class="back-to-inbox">Back to Inbox</a>
+  </div>
   <script>
     window.onload = function() {
       if (!window.location.hash) {
         window.location = window.location + '#';
         window.location.reload();
+        window.addEventListener('popstate', getUnreadMessageCounter);
       }
     }
+    
+    
+  
   </script>
 {% endblock %}

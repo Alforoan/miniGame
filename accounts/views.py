@@ -5,6 +5,8 @@ from .forms import LoginForm, SignupForm, ChangePasswordForm
 from django.contrib.auth.models import User
 from scores.models import Score
 from django.contrib.auth.decorators import login_required
+from user_messages.models import Message
+from django.http import JsonResponse
 
 # Create your views here.
 def login_view(request):

@@ -191,11 +191,17 @@ div .h2-text{
   border-radius: 3px;
   font-size: 16px;
   cursor: pointer;
+  text-decoration: none;
 }
 
-.change-password-btn a{
-  text-decoration: none;
-  color: white;
+.password-btns-container {
+  display: flex;
+  justify-content: space-between;
+}
+
+.inbox-btn{
+  background: #BFF5F4;
+  color: black;
 }
 
 .account-main-container {
@@ -209,6 +215,12 @@ div .h2-text{
   padding: .5rem .75rem;
   border-radius: 3px;
   cursor: pointer;
+}
+
+.unread-counter {
+  color: red;
+  font-size: 1rem;
+  position: relative;
 }
 
 

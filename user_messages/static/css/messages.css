@@ -1,0 +1,593 @@
+body {
+    font-family: Arial, sans-serif;
+    background-color: #2c2f33; 
+    color: #fff; 
+ 
+  }
+  
+  .inbox-container {
+    background-color: #f5f5f5; 
+    color: #333; 
+    padding: 20px;
+    margin: 30px auto;
+    border-radius: 8px;
+    width: 600px; 
+    height: 500px; 
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+    
+  }
+
+  .inbox-container h2, .inbox-container h3 {
+    color: #333; /* Darker text color */
+  }
+
+  .messages-container {
+    height: 350px;
+    width: 600px;
+    overflow-y: auto;
+  }
+
+  .message-list {
+    list-style: none;
+    padding: 0;
+    margin: 0; /* Remove margin to keep lists compact */
+    flex: 1; 
+  }
+  
+  .message-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+  }
+  
+  .message-list li:hover {
+    background-color: #f0f0f0; 
+  }
+
+  .message-list li a {
+    text-decoration: none;
+    color: #007bff;
+  }
+  
+  .message-list li a:hover {
+    text-decoration: underline;
+  }
+  
+  .message-list li .badge {
+    background-color: #f0ad4e;
+    color: #fff;
+    padding: 5px;
+    border-radius: 3px;
+    float: right;
+  }
+  
+  .pagination {
+    text-align: center;
+    margin: 20px 0;
+  }
+  
+  .pagination .step-links {
+    display: inline-block;
+  }
+  
+  .pagination .step-links a,
+  .pagination .step-links .current {
+    margin: 0 5px;
+    padding: 8px 12px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: #007bff;
+  }
+  
+  .pagination .step-links a:hover {
+    background-color: #f0f0f0;
+  }
+  
+  .pagination .step-links .current {
+    background-color: #007bff;
+    color: #fff;
+  }
+
+.login-text, .signup-text {
+  margin-top: 0;
+}
+
+.message-list li {
+    padding: 10px;
+    border-bottom: 1px solid #ddd;
+    background-color: #fff;
+    margin-bottom: 10px;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.message-list li:hover {
+    background-color: #f0f0f0;
+}
+
+.message-list li a {
+    text-decoration: none;
+    color: #007bff;
+}
+
+.message-list li a:hover {
+    text-decoration: underline;
+}
+
+.message-list li .badge {
+    background-color: #F391A0;
+    position: relative;
+    color: #361134;
+    padding: 3px 6px;
+    border-radius: 3px;
+    float: right;
+    bottom: 14px;
+    left: 10px;
+}
+
+.pagination {
+    text-align: center;
+    margin: 20px 0;
+}
+
+.pagination .step-links {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.pagination .pagination-button {
+    margin: 0 5px;
+    padding: 8px 12px;
+    text-decoration: none;
+    border: 1px solid #ddd;
+    color: #007bff;
+    background-color: #fff;
+    border-radius: 3px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+.pagination .pagination-button:hover {
+    background-color: #f0f0f0;
+    color: #0056b3;
+}
+
+.pagination .current.pagination-button {
+    background-color: #007bff;
+    color: #fff;
+    border-color: #007bff;
+}
+
+.pagination .active {
+    font-weight: bold;
+    pointer-events: none;
+}
+
+.pagination .disabled {
+    color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+}
+
+.pagination .disabled:hover {
+    color: #ccc;
+    border-color: #ccc;
+    cursor: not-allowed;
+    background: #FFFFFF;
+}
+
+.pagination .pagination-button.ellipsis {
+    border: none;
+    background: none;
+    pointer-events: none;
+}
+
+.form-container {
+  max-width: 400px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.form-group {
+  margin-bottom: 15px;
+}
+
+.form-group label {
+  display: block;
+  font-weight: bold;
+}
+
+.form-group input {
+  width: calc(100% - 24px); /* Adjust width as needed */
+  padding: 8px;
+  font-size: 14px;
+  border: 1px solid #ccc;
+  border-radius: 3px;
+}
+
+
+
+form button {
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+
+
+body {
+  display: flex;
+  justify-content: center;
+  flex-direction: column;
+  align-items: center;
+  height: 100vh;
+  font-family: "Super Legend Boy", Arial, sans-serif;
+  background: #333;
+}
+
+input, button, select, textarea {
+  font-family: inherit;
+}
+
+.alert{
+  width: 280px;
+  color: red;
+  margin-bottom: .5rem;
+}
+    
+.navbar {
+  position: fixed;
+  top: 0;
+  background-color: #333;
+  color: #fff;
+  width: 100vw;
+  opacity: 1;
+  padding-top: .5rem;
+  padding-bottom: .5rem;
+}
+
+
+
+.navbar ul {
+  list-style-type: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  justify-content: center;
+  width: 100vw;
+  text-align: center;
+}
+
+.navbar li {
+  text-align: center;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.recall,
+.type-mania {
+  margin-right: 6rem;
+}
+
+.navbar a {
+  text-decoration: none;
+  color: white;
+  padding: 10px;
+  padding-bottom: 15px;
+  font-weight: bold;
+  font-size: 18px;
+  
+}
+
+.navbar a {
+  position: relative;
+  text-decoration: none;
+}
+
+.navbar a::after {
+  content: '';
+  position: absolute;
+  left: 5%;
+  bottom: 5px; 
+  width: 90%;
+  height: 2px; 
+  background-color: #fff; 
+  transform: scaleX(0);
+}
+
+.navbar a:hover::after {
+  transform: scaleX(1);
+}
+
+.navbar .center-items {
+  flex-grow: 1;
+  display: flex;
+  justify-content: center;
+  margin-left: 222px;
+}
+
+.navbar .right-items {
+  margin-left: auto;
+  display: flex;
+}
+
+
+
+@media screen and (max-width: 600px) {
+  .form-container {
+    margin-top: 10rem !important;
+    width: 85%;
+    margin: 0 auto;
+    border: none;
+    box-shadow: none;
+    max-height: 330px;
+  }
+
+  .login-container{
+    margin-top: 10rem !important;
+    width: 75%;
+    margin: 0 auto;
+    border: none;
+    box-shadow: none;
+    max-height: 280px;
+  }
+
+  .account-container{
+    margin-top: 0rem !important;
+    width: 90%;
+    border: none;
+    box-shadow: none;
+    max-height: 500px;
+  }
+  .account-container h1{
+    font-size: 1.1rem;
+  }
+  .account-container h2{
+    font-size: 0.8rem !important;
+  }
+  .account-container h3{
+    font-size: 0.7rem !important;
+  }
+  .account-container h4{
+    font-size: 0.6rem !important;
+  }
+
+}
+
+div .h2-text{
+  font-size: 1.5rem;
+}
+
+.change-password-btn{
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #fff;
+  border: none;
+  border-radius: 3px;
+  font-size: 16px;
+  cursor: pointer;
+}
+
+.change-password-btn a{
+  text-decoration: none;
+  color: white;
+}
+
+.account-main-container {
+  height: 10vh;
+}
+
+.btn-primary{
+  border: none;
+  background: #007bff;
+  color: white;
+  padding: .5rem .75rem;
+  border-radius: 3px;
+  cursor: pointer;
+}
+
+.inbox-account-container{
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+.inbox-container div .account-button{
+  text-decoration: none;
+  padding: .5rem .75rem;
+  border-radius: 3px;
+  font-size: 1.5rem;
+}
+
+.message-detail-container {
+  max-width: 600px;
+  margin: 20px auto;
+  padding: 20px;
+  border: 1px solid #d3d3d3;
+  border-radius: 10px;
+  background-color: #ffffff;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.message-subject {
+  font-size: 24px;
+  font-weight: bold;
+  margin-bottom: 15px;
+  color: #99D19C;
+}
+
+.message-sender {
+  font-size: 16px;
+  margin-bottom: 15px;
+  color: black;
+}
+
+a {
+  font-weight: bold;
+  text-decoration: none;
+}
+
+.message-body {
+  font-size: 16px;
+  margin-bottom: 20px;
+  color: black;
+  line-height: 1.5;
+}
+
+.message-timestamp {
+  font-size: 14px;
+  margin-bottom: 20px;
+  color: black;
+}
+
+.message-timestamp span {
+  font-weight: bold;
+  color: #E05263;
+}
+
+.back-to-inbox {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #007bff;
+  color: #ffffff;
+  text-decoration: none;
+  border-radius: 5px;
+  transition: background-color 0.3s ease;
+  font-weight: bold;
+}
+
+.back-to-inbox:hover {
+  background-color: #0056b3;
+}
+
+.message-item a:hover {
+  text-decoration: none !important;
+}
+
+.account-button:visited{
+  color: blue !important;
+}
+
+.message-sender a:visited{
+  color: blue !important;
+}
+
+@media (min-width: 1050px) and (max-width: 1200px) {
+
+  .navbar .center-items {
+    margin-left: 200px;
+  }
+
+  .navbar .right-items {
+    margin-left: 1.2rem;
+  }
+
+  .navbar {
+    width: 260px;
+    left: 0;
+  }
+
+  .item {
+    font-size: 1rem !important; 
+  }
+
+  .center-items li {
+    margin-right: 3rem;
+    
+  }
+ 
+
+  
+}
+
+
+@media (min-width: 700px) and (max-width: 1049px) {
+  .navbar .center-items {
+    margin-left: 180px;
+  }
+
+  .navbar .right-items {
+    margin-left: 1.2rem;
+  }
+
+  .navbar {
+    width: 260px;
+    left: 0;
+  }
+
+  .item {
+    font-size: .9rem !important; 
+  }
+
+  .center-items li {
+    margin-right: 2rem;
+    
+  }
+}
+
+@media (min-width: 653px) and (max-width: 850px) {
+  .navbar .center-items {
+    margin-left: 100px;
+  }
+
+  .navbar .right-items {
+    margin-left: 1.2rem;
+  }
+
+  .navbar {
+    width: 260px;
+    left: 0;
+  }
+
+  .item {
+    font-size: .8rem !important; 
+  }
+
+  .center-items li {
+    margin-right: 1rem;
+    
+  }
+
+
+}
+
+@media (max-width: 652px) {
+  .navbar .center-items {
+    margin-left: 40px;
+  }
+
+  .navbar .right-items {
+    margin-left: 1.2rem;
+  }
+
+  .navbar {
+    width: 240px;
+    left: 1rem;
+  }
+
+  .item {
+    font-size: .7rem !important; 
+  }
+
+  .center-items li {
+    margin-right: 1rem;
+    
+  }
+
+  .navbar ul {
+    width: 80vw;
+  }
+
+
+
+}

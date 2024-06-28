@@ -7,6 +7,8 @@ from scores.models import Game, Score
 from rest_framework.response import Response
 from rest_framework import status
 from .models import Normal, Hard
+from user_messages.models import Message
+from django.http import JsonResponse
 
 # Create your views here.
 def show_game(request):
@@ -116,4 +118,9 @@ def get_score_hard(request):
             'user': user.username,
             'score': 0
         }
-    return Response(score_data, status=status.HTTP_200_OK)  
+    return Response(score_data, status=status.HTTP_200_OK)
+
+@login_required
+def fetch_unread_message_count(request):
+    unread_message_count = Message.objects.filter(recipient=request.user, is_read=False).count()
+    return JsonResponse({'unread_message_count': unread_message_count})

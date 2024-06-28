@@ -1,0 +1,83 @@
+{% extends 'base_users.html' %}
+
+{% block content %}
+  <div class="send-message-container">
+    <h2>Send Message to {{ recipient.username }}</h2>
+    <form method="post" class="send-message-form">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <button type="submit" class="btn btn-primary">Send</button>
+    </form>
+  </div>
+
+  <style>
+    .send-message-container {
+      max-width: 600px;
+      margin: 20px auto;
+      padding: 20px;
+      border: 1px solid #d3d3d3;
+      border-radius: 10px;
+      background-color: #ffffff;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    }
+
+    .send-message-container h2 {
+      font-size: 24px;
+      font-weight: bold;
+      margin-bottom: 20px;
+      color: #004080;
+    }
+
+    .send-message-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .send-message-form p {
+      margin-bottom: 15px;
+      color: #333333;
+    }
+
+    .send-message-form label {
+      font-weight: bold;
+      color: #004080;
+    }
+
+    .send-message-form input,
+    .send-message-form textarea,
+    .send-message-form select {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border: 1px solid #d3d3d3;
+      border-radius: 5px;
+      font-size: 16px;
+      box-sizing: border-box;
+    }
+
+    .send-message-form input:focus,
+    .send-message-form textarea:focus,
+    .send-message-form select:focus {
+      border-color: #007bff;
+      outline: none;
+      box-shadow: 0 0 5px rgba(0, 123, 255, 0.5);
+    }
+
+    .btn.btn-primary {
+      align-self: flex-start;
+      padding: 10px 20px;
+      background-color: #007bff;
+      color: #ffffff;
+      text-decoration: none;
+      border: none;
+      border-radius: 5px;
+      transition: background-color 0.3s ease;
+      cursor: pointer;
+      font-size: 16px;
+    }
+
+    .btn.btn-primary:hover {
+      background-color: #0056b3;
+    }
+  </style>
+{% endblock %}

@@ -33,6 +33,8 @@ ALLOWED_HOSTS = []
 
 
 INSTALLED_APPS = [
+    "tz_detect",
+    "user_messages",
     "word_scramble",
     "type_mania",
     "rest_framework",
@@ -51,6 +53,7 @@ INSTALLED_APPS = [
 CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 MIDDLEWARE = [
+    
     "django.middleware.security.SecurityMiddleware",
     "django.contrib.sessions.middleware.SessionMiddleware",
     "django.middleware.common.CommonMiddleware",
@@ -58,6 +61,7 @@ MIDDLEWARE = [
     "django.contrib.auth.middleware.AuthenticationMiddleware",
     "django.contrib.messages.middleware.MessageMiddleware",
     "django.middleware.clickjacking.XFrameOptionsMiddleware",
+    "tz_detect.middleware.TimezoneMiddleware",
 ]
 
 ROOT_URLCONF = "games.urls"
@@ -134,6 +138,7 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'word_scramble/static'),
 ]
 
+SESSION_ENGINE = 'django.contrib.sessions.backends.db'
 # Default primary key field type
 # https://docs.djangoproject.com/en/5.0/ref/settings/#default-auto-field
 

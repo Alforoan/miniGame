@@ -18,6 +18,7 @@ const scoreHard = document.querySelector(".score-hard");
 const highScoreHard = document.querySelector(".high-score-hard");
 const difficultySelector = document.querySelector(".difficulty-selector");
 const gameContainer = document.querySelector(".game-container");
+const unreadMessageCount = document.getElementById("unread-message-counter");
 const box0 = document.getElementById('box-0');
 const box1 = document.getElementById('box-1');
 const box2 = document.getElementById('box-2');
@@ -45,6 +46,32 @@ error.volume = 0.2;
 lightBoxSound.volume = 0.3;
 
 highScoreText.textContent = `High Score: ${level - 1}`;
+
+async function getUnreadMessageCounter(){
+  try {
+    const response = await fetch(
+      `${urlToChange}/recall_it/fetch_unread_message_count/`
+    );
+    if (!response.ok) {
+      throw new Error('Network response was not ok' + response.statusText);
+    }
+    const data = await response.json();
+    let unread_message_count = data.unread_message_count
+    if(unread_message_count > 0) {
+      unreadMessageCount.textContent = unread_message_count
+    }else{
+      unreadMessageCount.style.display = 'none';
+    }
+    console.log('UNREAD MESSAGES COUNT ',data);
+  } catch (error) {
+    console.error('There has been a problem with your fetch operation:', error);
+  }
+}
+
+getUnreadMessageCounter();
+setInterval(() => {
+  getUnreadMessageCounter();
+}, 30000);
 
 async function getScoreNormal(){
   try {

@@ -18,7 +18,11 @@ Other User Profile
     <h4>Type Mania: {{ type_mania_score }}</h4>
     <h4>Word Scramble: {{ word_scramble_score }}</h4>
     <h4>Rank: {{ rank }}</h4>
-    <button class='btn btn-primary'><a>Message<a/></button>
+    <a style='text-decoration: none; color: white;' class="btn btn-primary" href="{% url 'send_message' other_user.username %}">
+        Message
+    </a>
+    
+
     
   </div>
 </main>
